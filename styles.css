@@ -1,0 +1,41 @@
+:root,
+html[data-theme='light'],
+html[data-theme='dark'] {
+  --primary: #8b5cf6;
+  --ring: #8b5cf6;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-ring: #8b5cf6;
+}
+
+.docs-image-placeholder {
+  display: grid;
+  min-height: 15rem;
+  place-content: center;
+  gap: 0.4rem;
+  margin: 1.5rem 0;
+  padding: 2rem;
+  border: 1px dashed color-mix(in srgb, var(--color-primary) 60%, transparent);
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 8%, transparent), transparent),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      color-mix(in srgb, var(--color-primary) 4%, transparent) 10px,
+      color-mix(in srgb, var(--color-primary) 4%, transparent) 20px
+    );
+  color: var(--color-muted-foreground);
+  text-align: center;
+}
+
+.docs-image-placeholder strong {
+  color: var(--color-foreground);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.docs-image-placeholder span {
+  max-width: 34rem;
+}

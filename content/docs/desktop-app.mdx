@@ -1,0 +1,57 @@
+---
+title: Desktop app
+description: Use Astrofox offline with native video export and desktop integration.
+---
+
+The Astrofox desktop app packages the same React interface as the web app in
+Electron. Projects move between web and desktop without conversion.
+
+Download current installers from the
+[Astrofox GitHub releases](https://github.com/astrofox-io/astrofox/releases).
+
+## Why use desktop
+
+- Work without a network connection after installation
+- Render offline MP4 video through the bundled ffmpeg binary
+- Choose x264, x265, NVEnc, or WebM encoders
+- Choose an absolute export location and reveal the result in its folder
+- Capture desktop audio where the operating system allows it
+- Receive application updates from published GitHub releases
+
+## Platform packages
+
+Astrofox builds are available for Windows x64, macOS Intel and Apple Silicon,
+and Linux x64. A release can include Windows installers, macOS DMG or ZIP
+files, and a Linux AppImage.
+
+<div className="docs-image-placeholder" role="img" aria-label="Placeholder for the Astrofox desktop app">
+  <strong>Image placeholder</strong>
+  <span>Astrofox desktop window beside an MP4 export progress state and completed file in the system file manager.</span>
+</div>
+
+## File access and permissions
+
+Astrofox uses browser-style file pickers for projects, audio, images, and
+video. Native dialogs are reserved for workflows that require a real path,
+such as ffmpeg output.
+
+macOS may request microphone and screen-recording access for live input and
+desktop audio capture. Grant only the permissions needed by your workflow.
+
+## ffmpeg fallback
+
+Desktop packages normally include ffmpeg. If it is missing or unavailable,
+Astrofox falls back to browser `MediaRecorder` export. The available format
+then depends on the embedded browser rather than the desktop encoder list.
+
+## Update the app
+
+Open the About dialog to check for updates. When an update is available, the
+app can download it and restart to install after the release has been
+published on GitHub.
+
+<Info>
+  The desktop renderer is intentionally isolated from the operating system.
+  It uses a narrow preload bridge for window controls, ffmpeg, temporary files,
+  and post-export integration.
+</Info>

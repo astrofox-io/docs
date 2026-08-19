@@ -1,0 +1,67 @@
+---
+title: Upgrading from 1.x
+description: Open legacy Astrofox projects and understand the 2.0 migration.
+---
+
+Astrofox 2.0 is a ground-up rewrite with a new renderer, interface, desktop
+shell, export pipeline, and plugin system. It can open legacy gzip-compressed
+`.afx` project files and migrates supported elements automatically.
+
+<Warning>
+  Keep an untouched backup of every 1.x project before opening and resaving it
+  in Astrofox 2.0.
+</Warning>
+
+## Open a legacy project
+
+Choose **File → Open project** and select the `.afx` file. Astrofox inflates
+the legacy data, converts supported elements, and reports anything it removes.
+Save the migrated project as the new `.json` format after checking the result.
+
+## Element mappings
+
+| Astrofox 1.x | Astrofox 2.0 migration |
+| --- | --- |
+| Glow | Bloom; `amount` becomes `radius`, `intensity` becomes `strength` |
+| Bloom | Bloom values are rescaled; `amount` becomes `strength`, `threshold` becomes luminance threshold |
+| Color Halftone | `scale` becomes `radius`; `angle` is converted to per-channel rotation |
+| Glitch | `amount` becomes `strength` |
+| Geometry lighting | Light intensity, light distance, and camera zoom become key-light and camera-distance settings with lighting enabled |
+| Distortion mode `Noise` | Distortion mode `Simplex Noise` |
+| Pre-release Perlin Noise effect | Distortion effect using `Perlin Noise` mode |
+
+Elements that cannot be converted are dropped and listed after the project
+opens.
+
+## Project format
+
+New projects save as `.json`. Astrofox can still read legacy `.afx` gzip files,
+but `.json` is the default format for ongoing work.
+
+Local media can require relinking after migration. Review every image, video,
+and audio source before exporting.
+
+## Settings and plugins
+
+- Astrofox 1.x application settings in `app.config` are not migrated. Choose
+  your language, project settings, and preferences again.
+- Astrofox 1.x plugins are not compatible with the 2.0 plugin system. Install a
+  2.0 version or rebuild the plugin using the [authoring guide](/docs/plugin-authoring).
+
+## Review checklist
+
+After migration, check:
+
+1. Canvas format, resolution, and background color
+2. Scene, display, and effect order
+3. Geometry camera and lighting
+4. Reactor bindings and value ranges
+5. Audio, image, and video sources
+6. Bloom, distortion, glitch, and halftone appearance
+7. A short image or video test export
+
+<Info>
+  Astrofox 2.0 desktop installations receive updates through published GitHub
+  Releases. Legacy 1.x installations use the earlier update channel for the
+  initial move to 2.x.
+</Info>

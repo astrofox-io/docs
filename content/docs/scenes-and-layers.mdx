@@ -1,0 +1,78 @@
+---
+title: Scenes and layers
+description: Build Astrofox compositions from scenes, displays, and effects.
+---
+
+The Layers panel is the structure of your composition. A project contains
+scenes; each scene contains display layers and an effect chain.
+
+## Scenes
+
+A scene groups visual content and effects into one composited unit. Add scenes
+when you want independent groups, transitions between looks, or a clearer
+layer hierarchy. You can rename, hide, reorder, or delete a scene just like
+other layers.
+
+## Displays
+
+Displays create pixels. Astrofox groups its built-in displays by how they are
+controlled:
+
+| Group | Displays |
+| --- | --- |
+| 2D | Image, Video, Text, Shape, Bar Spectrum, Radial Spectrum, Wave Spectrum, Waveform Ring, Sound Wave |
+| 3D | Geometry, Mesh Grid, Tunnel |
+
+Spectrum and waveform displays analyze audio directly. Image, video, text,
+shape, and 3D displays can still react to audio when you bind compatible
+controls to a reactor.
+
+<div className="docs-image-placeholder" role="img" aria-label="Placeholder for the Astrofox add display drawer">
+  <strong>Image placeholder</strong>
+  <span>Add Display drawer with the 2D and 3D categories expanded.</span>
+</div>
+
+## Effects
+
+Effects process the scene rather than drawing a standalone object. Built-in
+effects are organized into these groups:
+
+- **Color:** Color
+- **Blur & Focus:** Bloom, Blur, Tilt Shift
+- **Distortion:** Distortion, Glitch, Kaleidoscope, Lens Warp, Mirror, RGB
+  Shift, Shockwave, VHS
+- **Pattern:** ASCII, Color Halftone, Dot Screen, LED, Pixelate, Scanline
+- **Stylize:** Edge Detection, Feedback Echo, Film Grain, Vignette
+
+The combined **Color** effect includes brightness, contrast, color averaging,
+color depth, hue, saturation, sepia, and tone-mapping controls.
+
+## Select and edit a layer
+
+Select a row in the Layers panel to show that element's settings in Controls.
+You can also:
+
+- Click its visibility control to enable or disable it
+- Rename it to describe its role in the composition
+- Drag it to reorder compatible layers or move it into another scene
+- Use the up and down controls for precise reordering
+- Delete it when it is no longer needed
+
+Displays can move between scene display sections, effects can move between
+scene effect sections, and scenes can be reordered with other scenes.
+
+## Transform a display on the stage
+
+Select a supported 2D display and enable the layer transform tool. Drag the
+layer to move it, use its handles to resize, and use the rotation handle to
+turn it. These changes update the same values shown in Controls.
+
+For a supported 3D display, use camera mode to orbit around the scene and the
+mouse wheel to change camera distance. Geometry, Mesh Grid, Tunnel, and
+camera-enabled plugins expose this workflow.
+
+<Tip>
+  Effects are evaluated as a chain. If two effects interact, reorder them and
+  compare the result—for example, Bloom before Pixelate looks different from
+  Pixelate before Bloom.
+</Tip>

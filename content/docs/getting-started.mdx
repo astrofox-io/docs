@@ -1,0 +1,71 @@
+---
+title: Getting started
+description: Create and export your first audio-reactive visual in Astrofox.
+---
+
+This walkthrough creates a simple spectrum visual from an audio file. You can
+use [Astrofox on the web](https://astrofox.io) or the
+[desktop app](/docs/desktop-app).
+
+<Steps>
+  <Step title="Start a project">
+    Open Astrofox. Choose **File → New project** if an existing project is
+    already open, then choose **Edit → Project settings**. Set a project title,
+    output format, size, and background color.
+  </Step>
+  <Step title="Load audio">
+    Choose **File → Load audio** and select a song from your device. Use the
+    controls at the bottom of the workspace to play, pause, stop, repeat, or
+    move through the track.
+  </Step>
+  <Step title="Add a display">
+    In the Layers panel, add a display to the current scene. Start with **Bar
+    Spectrum**, **Radial Spectrum**, or **Wave Spectrum**. Select the new layer
+    to edit its colors, size, frequency range, smoothing, position, and other
+    settings in the Controls panel.
+  </Step>
+  <Step title="Make another control react">
+    Add a reactor in the Reactors panel. Select the part of the spectrum it
+    should follow, then attach that reactor to a compatible control, such as
+    scale, rotation, opacity, or effect strength.
+  </Step>
+  <Step title="Add polish">
+    Add an image or text display, then try effects such as **Bloom**, **Color**,
+    **Film Grain**, or **Vignette**. Reorder layers and effects until the
+    composition feels balanced.
+  </Step>
+  <Step title="Save and export">
+    Choose **File → Save project** to keep an editable `.json` project. Choose
+    **File → Save image** for a still frame or **File → Save video** for an
+    animated export.
+  </Step>
+</Steps>
+
+<div className="docs-image-placeholder" role="img" aria-label="Placeholder for a completed first Astrofox project">
+  <strong>Image placeholder</strong>
+  <span>A completed beginner project showing a spectrum, cover image, reactor binding, and Bloom effect.</span>
+</div>
+
+## A useful first layer stack
+
+| Layer | Purpose |
+| --- | --- |
+| Text | Artist name or track title |
+| Bar Spectrum | Primary audio-reactive motion |
+| Image | Cover art or logo |
+| Shape | Background panel or framing element |
+| Bloom effect | Soft highlight around bright areas |
+| Color effect | Final brightness, contrast, hue, and saturation adjustment |
+
+<Info>
+  Astrofox saves project structure and settings, but local media may need to
+  be relinked when the project is opened on another computer. Keep the audio,
+  image, and video files alongside your project when moving it.
+</Info>
+
+## Next steps
+
+- Read [Interface](/docs/interface) for a tour of the workspace.
+- Learn how [scenes, displays, and effects](/docs/scenes-and-layers) fit together.
+- Fine-tune motion with [reactors](/docs/reactors).
+- Choose the right format in [Exporting](/docs/exporting).

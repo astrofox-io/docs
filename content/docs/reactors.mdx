@@ -1,0 +1,82 @@
+---
+title: Reactors
+description: Map audio, beats, or generated motion to Astrofox controls.
+---
+
+A reactor converts a source signal into a normalized output that can drive one
+or more compatible controls. This is how you make scale pulse with bass,
+rotation follow treble, or an effect appear on each beat.
+
+## Create a reactor
+
+<Steps>
+  <Step title="Add a reactor">
+    In the Reactors panel, choose **Add reactor**. Select the new reactor to
+    open its detailed controls and live meters above the player.
+  </Step>
+  <Step title="Choose an output mode">
+    Pick an audio, beat, or static mode based on the motion you want.
+  </Step>
+  <Step title="Tune the source">
+    For spectrum modes, drag the selection over the frequency and level region
+    you want to follow. Adjust Max dB, smoothing, hold, and decay while audio
+    plays.
+  </Step>
+  <Step title="Bind a control">
+    Select a display or effect. On a compatible numeric control, choose the
+    reactor and set the value range the signal should traverse.
+  </Step>
+</Steps>
+
+<div className="docs-image-placeholder" role="img" aria-label="Placeholder for an Astrofox reactor editor">
+  <strong>Image placeholder</strong>
+  <span>Reactor editor showing a bass-frequency selection, output meter, and a Scale control bound to the reactor.</span>
+</div>
+
+## Output modes
+
+| Family | Modes | Use for |
+| --- | --- | --- |
+| Spectrum | Add, Subtract, Forward, Reverse, Cycle | Continuous motion driven by the selected audio band |
+| Beat | Beat Trigger, Beat Envelope | Discrete hits or a pulse that decays after each detected beat |
+| Static | Static Forward, Static Reverse, Static Cycle | Time-based motion that does not require audio |
+
+**Add** and **Subtract** offset the control around its base value. **Forward**
+and **Reverse** map the signal through the chosen range in opposite directions.
+**Cycle** alternates direction. Static modes generate the same types of motion
+at a configurable speed.
+
+## Tune the response
+
+- **Spectrum selection** isolates low, middle, or high frequencies and an
+  amplitude range. Bass sits toward the low-frequency end; vocals and melody
+  tend to occupy the middle; cymbals and air sit higher.
+- **Max dB** changes the level treated as full output. Move it toward zero for
+  loud sources and lower it for quiet sources.
+- **Smoothing** steadies jittery motion at the cost of slower response.
+- **Hold Time** keeps peaks active before they fall.
+- **Decay** controls how quickly the value returns after a peak or beat.
+- **Sensitivity** changes how readily beat modes trigger.
+- **Speed** controls the rate of static modes.
+
+## Practical patterns
+
+<CardGroup cols={2}>
+  <Card title="Bass pulse" icon="audio-waveform">
+    Select the low end of the spectrum and bind Forward output to scale or Bloom strength.
+  </Card>
+  <Card title="Snare flash" icon="zap">
+    Use Beat Trigger or Beat Envelope on opacity, brightness, or a stylized effect.
+  </Card>
+  <Card title="Slow rotation" icon="rotate-cw">
+    Use Static Forward or Static Cycle on rotation for motion that continues during silence.
+  </Card>
+  <Card title="High-frequency shimmer" icon="sparkles">
+    Select the upper spectrum and use a small range on RGB Shift, Film Grain, or displacement.
+  </Card>
+</CardGroup>
+
+<Tip>
+  One reactor can drive several controls. Use separate reactors when elements
+  need different frequency bands, smoothing, beat sensitivity, or timing.
+</Tip>

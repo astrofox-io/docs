@@ -1,0 +1,171 @@
+---
+title: Plugin reference
+description: Reference for Astrofox plugin manifests, controls, audio data, uniforms, and frames.
+---
+
+Every plugin begins with an `astrofox.plugin.json` manifest.
+
+## Manifest fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `api` | number | Plugin specification version. Use `1`. |
+| `name` | string | Required namespaced ID such as `@author/plugin-name`. |
+| `version` | string | Plugin release version. |
+| `label` | string | Name shown in menus and the Layers panel. |
+| `description` | string | Short explanation shown during installation. |
+| `author` | string | Plugin author or organization. |
+| `type` | string | `display` or `effect`. |
+| `runtime` | string | `shader` or `worker`. |
+| `shader` | string | Fragment shader path for a shader runtime. |
+| `entry` | string | ES module path for a worker runtime. |
+| `icon` | string | Optional icon path shown in menus. |
+| `permissions` | string[] | Requested capabilities, currently including `network`. |
+| `libraries` | string[] | Host libraries requested by a worker; currently `three`. |
+| `camera` | boolean | Adds host camera controls to a worker display. |
+| `audio` | object | FFT and time-domain data requested by the plugin. |
+| `defaultProperties` | object | Initial property values for each new instance. |
+| `controls` | object | Declarative Controls panel schema. |
+| `uniforms` | object | Property-to-uniform mapping for shader runtimes. |
+
+Paths are resolved relative to the manifest URL. Published files must use
+HTTPS; `http://localhost` is allowed for development.
+
+## Audio data
+
+Declare only the audio data the plugin needs:
+
+```jsonc
+"audio": {
+  "fft": {
+    "bins": 64,
+    "minFrequency": 0,
+    "maxFrequency": 6000,
+    "smoothing": 0.5,
+    "minDecibels": -100,
+    "maxDecibels": -12
+  },
+  "td": {
+    "samples": 256
+  }
+}
+```
+
+| Value | Range and meaning |
+| --- | --- |
+| `fft.bins` | 1–512 normalized frequency values |
+| `fft.minFrequency` / `maxFrequency` | Frequency window in hertz |
+| `fft.smoothing` | Exponential smoothing from 0–0.99 |
+| `fft.minDecibels` / `maxDecibels` | Input level normalization bounds |
+| `td.samples` | Number of time-domain waveform samples |
+
+FFT values arrive from 0 to 1. Time-domain values also range from 0 to 1,
+with silence centered at 0.5. The same analysis path is used during playback
+and video export.
+
+## Controls
+
+Supported control types are `text`, `number`, `toggle`, `checkbox`, `color`,
+`colorrange`, `range`, `select`, and `time`.
+
+Common fields include:
+
+| Field | Purpose |
+| --- | --- |
+| `label` | Human-readable control name |
+| `type` | Input component to render |
+| `min`, `max`, `step` | Numeric bounds and precision |
+| `withRange` | Show a slider for a numeric input |
+| `withReactor` | Allow a reactor to drive this property |
+| `items` | Available values for a select input |
+| `hidden` | Hide the input conditionally or permanently |
+
+Because a manifest is JSON, dynamic values use references:
+
+```jsonc
+{
+  "width": {
+    "label": "Width",
+    "type": "number",
+    "min": 16,
+    "max": { "$stage": "width" },
+    "withRange": true
+  },
+  "detail": {
+    "label": "Detail",
+    "type": "number",
+    "min": { "$prop": "minimumDetail" },
+    "max": 64
+  },
+  "manualSize": {
+    "label": "Manual size",
+    "type": "number",
+    "hidden": { "$prop": "autoSize" }
+  }
+}
+```
+
+Stage references can include `scale`; for example,
+`{ "$stage": "width", "scale": -1 }` resolves to the negative stage width.
+
+## Uniform mapping
+
+Shader runtimes map properties into GLSL uniforms:
+
+```jsonc
+"uniforms": {
+  "amount": { "type": "float", "from": "amount" },
+  "tint": { "type": "color", "from": "color" },
+  "center": { "type": "vec2", "from": ["x", "y"] }
+}
+```
+
+`color` converts a hexadecimal color to a three-component vector. Vector
+mappings read their components from the listed properties.
+
+## Worker factory inputs
+
+Depending on its manifest, a worker factory receives:
+
+| Input | Description |
+| --- | --- |
+| `properties` | Initial manifest and instance property values |
+| `seed` | Stable per-instance random seed |
+| `size` | Current stage dimensions |
+| `libraries` | Requested host library namespaces |
+| `renderer` | Shared Three.js renderer when `three` is requested |
+
+## Frame data
+
+`render(frame)` receives:
+
+| Field | Description |
+| --- | --- |
+| `id` | Frame identifier |
+| `time` | Deterministic time in seconds |
+| `delta` | Time since the previous frame in milliseconds |
+| `playing` | Whether the timeline or live input is active |
+| `exporting` | Whether an offline export is rendering |
+| `volume` | Overall normalized audio level |
+| `seed` | Stable plugin instance seed |
+| `fft` | Requested FFT array, when configured |
+| `td` | Requested time-domain array, when configured |
+
+During export, `delta` is fixed to `1000 / fps`. Use `time`, `delta`, and
+`seed` for reproducible animation.
+
+## Render result
+
+A worker `render()` method may return:
+
+```js
+return {
+  width,
+  height,
+  originX,
+  originY,
+};
+```
+
+Width and height set the layer bounds. The optional origin values set its
+transform origin.

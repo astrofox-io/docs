@@ -1,0 +1,69 @@
+---
+title: Install and manage plugins
+description: Add third-party displays and effects to Astrofox from a manifest URL.
+---
+
+Plugins extend Astrofox with displays and effects. A plugin is installed from
+the URL of an `astrofox.plugin.json` manifest and appears alongside built-in
+items in the add menu.
+
+## Install a plugin
+
+<Steps>
+  <Step title="Copy the manifest URL">
+    Get the direct HTTPS URL to `astrofox.plugin.json` from the plugin author.
+    Local development URLs may use HTTP on `localhost`.
+  </Step>
+  <Step title="Open the plugin manager">
+    Choose **Edit → Manage plugins**, then choose the action to add a plugin
+    from a URL.
+  </Step>
+  <Step title="Review the plugin">
+    Check its name, author, source, runtime, requested host libraries, and
+    permissions. A plugin that requests network access can make outbound
+    connections from its worker.
+  </Step>
+  <Step title="Install and add it">
+    Confirm the installation. The plugin becomes available in the Display or
+    Effect add menu, depending on its manifest type.
+  </Step>
+</Steps>
+
+<div className="docs-image-placeholder" role="img" aria-label="Placeholder for the Astrofox plugin manager">
+  <strong>Image placeholder</strong>
+  <span>Manage Plugins dialog showing an installed plugin, source URL, version, runtime, permissions, update, reload, and remove actions.</span>
+</div>
+
+## Security model
+
+Astrofox caches installed plugin files locally and pins them with SHA-384
+integrity hashes. The source URL is contacted again only when you explicitly
+update the plugin. Localhost development installs are marked as development
+plugins and skip integrity pinning so they can be reloaded while you work.
+
+JavaScript plugins run in a dedicated Web Worker with a Content Security
+Policy. They have no DOM access, cannot import arbitrary remote code, and
+cannot use the network unless the manifest requests the `network` permission.
+
+<Warning>
+  Integrity pinning prevents an installed version from changing silently; it
+  does not make unknown code trustworthy. Review the source and requested
+  permissions before installing a plugin.
+</Warning>
+
+## Update, reload, or remove
+
+- **Update** fetches the manifest and files again and presents the new version
+  for review.
+- **Reload** refreshes a development plugin after its local files change.
+- **Remove** unregisters the plugin from Astrofox. Existing project elements
+  that depend on it cannot render until it is installed again.
+
+## Missing project plugins
+
+Projects store each plugin's namespaced ID, source URL, and version. When a
+project refers to a missing plugin, Astrofox lists what is required and offers
+to install it. Reopen the project after installation so its elements are
+created normally.
+
+Want to build your own? Start with [Plugin authoring](/docs/plugin-authoring).

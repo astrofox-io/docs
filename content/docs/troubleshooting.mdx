@@ -1,0 +1,89 @@
+---
+title: Troubleshooting
+description: Fix common Astrofox audio, media, plugin, display, and export problems.
+---
+
+## The visual is not reacting to audio
+
+1. Confirm an audio file or live input is connected and active.
+2. Press Play for a file source, or start the selected live input.
+3. Test a built-in spectrum display to confirm Astrofox is receiving audio.
+4. Open the reactor and confirm its output meter moves.
+5. Expand the spectrum selection or lower **Max dB** if the signal is too weak.
+6. Confirm the target control is bound to the intended reactor and its value
+   range is not flat.
+
+If motion is delayed, lower reactor smoothing. If it is too jittery, increase
+smoothing or decay.
+
+## A microphone or MIDI device is missing
+
+- Grant microphone or MIDI permission when the browser asks.
+- Confirm the device is connected and available to other applications.
+- Refresh the available input list after connecting a new device.
+- Close another app if it has exclusive control of the device.
+- On macOS desktop, check Astrofox permissions in System Settings.
+
+Desktop audio availability depends on the selected screen-sharing source and
+the operating system. Some browsers expose tab audio but not system-wide
+audio.
+
+## A project opens with missing media
+
+Local files cannot always be reopened automatically, especially after a
+project moves to another computer. Use **Relink Media** to select the matching
+audio, image, or video file for every unresolved item.
+
+Keep media beside the project file when archiving or transferring work.
+
+## A plugin layer does not render
+
+1. Open **Edit → Manage plugins** and confirm the required plugin is installed.
+2. If it is a development plugin, reload it after changing files.
+3. Check that its manifest and referenced files are reachable and served with
+   CORS enabled.
+4. Use HTTPS for published plugins; HTTP is accepted only on localhost.
+5. Check shader compilation or worker errors in the browser developer console.
+6. Make sure animation uses `frame.time` instead of wall-clock timers.
+
+A worker that takes several seconds to render a frame is stopped and marked
+unresponsive so the rest of Astrofox can continue.
+
+## Save video is unavailable
+
+The export must have:
+
+- An audio file at least five seconds long
+- A start time before the end time
+- A selected range at least five seconds long
+- A save location when the platform can choose one in advance
+
+Live input alone does not define an offline export timeline. Choose an audio
+file in the Save Video dialog.
+
+## The export format is not what I expected
+
+Web export uses the formats supported by the current browser's
+`MediaRecorder`. Use the desktop app with bundled ffmpeg when you need a
+specific MP4 or WebM encoder. If the desktop app cannot find ffmpeg, it falls
+back to the browser-compatible path.
+
+## The desktop app will not capture audio
+
+Microphone input needs microphone permission. Desktop audio can also require
+screen-recording permission and a capture source that actually includes an
+audio track. Restart Astrofox after changing operating-system permissions.
+
+## An older project lost elements
+
+Astrofox migrates supported 1.x project elements automatically. Unsupported or
+unconvertible elements are removed and reported when the project opens. Keep a
+backup of the original `.afx` file and see [Upgrading from 1.x](/docs/upgrading-from-v1)
+for the mapped elements.
+
+## Report a bug
+
+Search or open an issue in the
+[Astrofox issue tracker](https://github.com/astrofox-io/astrofox/issues). Include
+the Astrofox version, web or desktop platform, operating system and browser,
+steps to reproduce, and a minimal project when it is safe to share.

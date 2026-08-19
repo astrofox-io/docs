@@ -1,0 +1,76 @@
+---
+title: Exporting
+description: Save an Astrofox composition as a still image or encoded video.
+---
+
+Astrofox exports the canvas at the resolution chosen in **Project settings**.
+The editor's stage zoom and panel layout do not affect the result.
+
+## Save an image
+
+Move playback to the frame you want, then choose **File → Save image**.
+Astrofox renders the stage and asks where to save the still image, using the
+best file-save flow available in your browser or desktop environment.
+
+## Save a video
+
+Choose **File → Save video**. The export dialog lets you:
+
+- Choose or confirm the audio source
+- Choose a save location when the platform supports it
+- Set start and end times with fields, a waveform, or range handles
+- Include or omit audio in the final file
+- Select 30 or 60 frames per second
+- Choose Low, Medium, or High quality
+- On desktop, select x264, x265, NVEnc, or WebM encoding
+
+<div className="docs-image-placeholder" role="img" aria-label="Placeholder for the Astrofox Save Video dialog">
+  <strong>Image placeholder</strong>
+  <span>Save Video dialog with audio source, waveform range, encoder, quality, frame rate, and Include audio controls.</span>
+</div>
+
+<Steps>
+  <Step title="Choose audio">
+    Select an audio file at least five seconds long. This source defines the
+    available export timeline even if the project was using live input.
+  </Step>
+  <Step title="Set the range">
+    Set a start time and an end time at least five seconds later. Use the
+    highlighted waveform segment to verify the selection.
+  </Step>
+  <Step title="Choose quality and frame rate">
+    Start with Medium at 30 fps. Use 60 fps for fast motion or smoother social
+    clips, and High quality for a final master when render time is less
+    important.
+  </Step>
+  <Step title="Start the export">
+    Choose **Save video**. Astrofox renders the selected range. The Stop button
+    cancels an active export.
+  </Step>
+</Steps>
+
+## Browser and desktop export
+
+| Platform | Export path | Typical output |
+| --- | --- | --- |
+| Web | Browser `MediaRecorder` support | WebM, or MP4 where supported by the browser |
+| Desktop with ffmpeg | Offline frame render followed by ffmpeg encoding | MP4 with H.264/AAC by default; other desktop encoders are selectable |
+| Desktop without ffmpeg | Browser-compatible fallback | The format supported by the embedded browser |
+
+Desktop offline rendering uses fixed frame timing, so animation and audio
+analysis remain deterministic. Plugin animation must use Astrofox's provided
+frame time for the same reason.
+
+## Choose an encoder
+
+- **x264** is the safest general-purpose MP4 choice.
+- **x265** creates HEVC video and may be smaller, but playback support is less
+  universal.
+- **NVEnc** uses supported NVIDIA hardware for faster H.264 encoding.
+- **WebM** is useful for web delivery and workflows that prefer the open WebM
+  container.
+
+<Warning>
+  A higher frame rate, resolution, and quality all increase render time and
+  file size. Test a short segment before committing to a long final export.
+</Warning>

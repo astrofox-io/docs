@@ -1,0 +1,71 @@
+---
+title: Interface
+description: Learn your way around the Astrofox editing workspace.
+---
+
+The workspace keeps project structure on the left, the rendered stage in the
+center, selected controls on the right, and audio playback along the bottom.
+
+<div className="docs-image-placeholder" role="img" aria-label="Placeholder for an annotated Astrofox interface screenshot">
+  <strong>Image placeholder</strong>
+  <span>Annotated full-window screenshot labeling the title bar, Layers panel, Reactors panel, stage, Controls panel, and player.</span>
+</div>
+
+## Title bar and menus
+
+The title bar contains the **File** and **Edit** menus, the editable project
+title, panel visibility buttons, language selection, and desktop window
+controls when applicable.
+
+Use **File** to create, open, and save projects; choose an audio input; and
+export images or video. Use **Edit** to change project settings or manage
+plugins.
+
+## Layers and reactors
+
+The left side contains two related panels:
+
+- **Layers** lists every scene and the displays and effects inside it. Select a
+  row to edit it, toggle its visibility, rename it, delete it, or drag it to a
+  new position.
+- **Reactors** lists the signals available to drive compatible numeric
+  controls. Selecting a reactor opens its spectrum and output controls above
+  the player.
+
+Use **Show active layer only** when a busy project makes it difficult to focus
+on one element. Switch back to **Show all layers** to inspect the complete
+composition.
+
+## Stage
+
+The stage is the project canvas. It shows the composition at the selected
+aspect ratio and resolution. Stage tools let you:
+
+- Fit or zoom the canvas in the available workspace
+- Open the stage in picture-in-picture when the browser supports it
+- Move, resize, and rotate supported display layers directly
+- Orbit and dolly supported 3D display cameras
+
+Stage zoom only changes the editor view; it does not change export resolution.
+
+## Controls
+
+Select a scene, display, or effect to show its controls on the right. Depending
+on the element, controls can include sliders, numbers, colors, ranges, toggles,
+media pickers, and select menus.
+
+Controls that support a reactor show a reactor binding control. The final value
+is calculated from the control's base value, its range, and the selected
+reactor output.
+
+## Player and live input
+
+With an audio file loaded, the bottom panel shows playback, volume, progress,
+repeat, and waveform controls. Switch to input mode to use a microphone,
+desktop audio, or MIDI instead. See [Audio and live input](/docs/audio) for
+details.
+
+<Tip>
+  The title bar can hide the left, bottom, or right panels. This is useful when
+  you want a larger stage without changing the project itself.
+</Tip>

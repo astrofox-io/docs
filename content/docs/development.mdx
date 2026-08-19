@@ -1,0 +1,89 @@
+---
+title: Development
+description: Run, build, and package Astrofox from source.
+---
+
+Astrofox is a client-side Next.js application with React and Three.js. It does
+not require a backend or authentication service for local development.
+
+## Requirements
+
+- Node.js compatible with the version declared by the project dependencies
+- pnpm
+- Git
+
+Clone and install:
+
+```bash
+git clone https://github.com/astrofox-io/astrofox.git
+cd astrofox
+pnpm install
+```
+
+## Run the web app
+
+```bash
+pnpm dev
+```
+
+Create a production build with:
+
+```bash
+pnpm build
+```
+
+The regular build path is used for web deployment. Projects and media stay on
+the user's device; no local API service is required.
+
+## Run the desktop app
+
+The desktop development command starts the Next.js development environment and
+the Electron shell:
+
+```bash
+pnpm dev:desktop
+```
+
+For a production desktop package:
+
+```bash
+pnpm install-ffmpeg
+pnpm build:desktop
+```
+
+Platform-specific commands are also available:
+
+```bash
+pnpm dist:win
+pnpm dist:mac
+pnpm dist:linux
+```
+
+`BUILD_TARGET=desktop` produces a static Next.js export in `out/`, which is
+then packaged with the Electron main process and preload bridge.
+
+## Develop plugins
+
+Run the example plugin server:
+
+```bash
+pnpm dev:plugins
+```
+
+It finds an available port, serves the example plugin directories with CORS,
+and prints manifest URLs to install in Astrofox. See
+[Plugin authoring](/docs/plugin-authoring) for the full workflow.
+
+## Architecture notes
+
+- The web and desktop builds share one application and project format.
+- File System Access APIs are preferred for ordinary project and media I/O.
+- The Electron bridge is limited to window chrome, ffmpeg, temporary files,
+  and operating-system integration after export.
+- Web video uses `MediaRecorder`; desktop offline export renders frames and
+  sends them through the bundled ffmpeg binary.
+- External JavaScript plugins run in sandboxed workers with a restrictive
+  Content Security Policy.
+
+Source code and contribution activity live in the
+[Astrofox GitHub repository](https://github.com/astrofox-io/astrofox).

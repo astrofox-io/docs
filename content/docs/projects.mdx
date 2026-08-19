@@ -1,0 +1,70 @@
+---
+title: Projects
+description: Configure, save, open, move, and recover Astrofox projects.
+---
+
+An Astrofox project stores the canvas, scenes, displays, effects, reactors,
+plugin references, and their settings. Projects save as human-readable `.json`
+files.
+
+## Configure the canvas
+
+Choose **Edit → Project settings** to set:
+
+| Setting | Options |
+| --- | --- |
+| Project title | The name shown in Astrofox and used as a default file name |
+| Format | Square, 9:16 portrait, 16:9 landscape, 3:4 portrait, or 4:3 landscape |
+| Size | 480p, 720p, or 1080p base resolution |
+| Background color | The color behind every scene |
+
+The dialog shows the exact output width and height before you save.
+
+<div className="docs-image-placeholder" role="img" aria-label="Placeholder for the Astrofox project settings dialog">
+  <strong>Image placeholder</strong>
+  <span>Project settings dialog with a 16:9 format, 1080p size, and the calculated 1920 × 1080 output.</span>
+</div>
+
+## Save and open
+
+- **File → Save project** writes the current project to your device.
+- **File → Open project** opens an Astrofox `.json` file or a legacy `.afx`
+  file.
+- **File → New project** clears the current composition after offering to save
+  unsaved changes.
+
+On browsers that support the File System Access API, Astrofox can write back to
+the selected file. Other browsers use the standard file picker and download
+flow.
+
+## Move a project to another computer
+
+Project files refer to local audio, image, and video sources. When those files
+cannot be loaded automatically, Astrofox opens **Relink Media** and lists each
+missing item.
+
+<Steps>
+  <Step title="Keep the files together">
+    Place the project and its source media in one folder before copying or
+    archiving it.
+  </Step>
+  <Step title="Open the project">
+    Open the `.json` project on the destination computer.
+  </Step>
+  <Step title="Relink missing media">
+    Choose the matching local file for every unresolved source. When all items
+    are resolved, return to the composition and verify playback.
+  </Step>
+</Steps>
+
+## Plugin dependencies
+
+Projects record the source URL and version of each external plugin. If a
+plugin is missing, Astrofox identifies what is required and offers to install
+it. Review the source and permissions before accepting. Reopen the project
+after installation so its plugin elements can render.
+
+<Warning>
+  A project can depend on third-party plugins. Only install plugins from
+  sources you trust, especially when they request network access.
+</Warning>

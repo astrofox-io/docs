@@ -1,0 +1,76 @@
+{
+  "$schema": "./node_modules/@umami/shiso/docs.schema.json",
+  "theme": "shiso",
+  "name": "Astrofox",
+  "description": "Create audio-reactive motion graphics and export them as images or video.",
+  "colors": {
+    "primary": "#8b5cf6"
+  },
+  "logo": "/icon.svg",
+  "favicon": "/icon.svg",
+  "appearance": {
+    "default": "dark"
+  },
+  "search": {
+    "prompt": "Search Astrofox docs"
+  },
+  "contextual": {
+    "options": ["copy", "view"]
+  },
+  "navbar": {
+    "links": [
+      {
+        "icon": "github",
+        "ariaLabel": "GitHub",
+        "href": "https://github.com/astrofox-io/astrofox"
+      }
+    ]
+  },
+  "footer": {
+    "socials": [
+      {
+        "icon": "github",
+        "ariaLabel": "GitHub",
+        "href": "https://github.com/astrofox-io/astrofox"
+      },
+      {
+        "icon": "x",
+        "ariaLabel": "X",
+        "href": "https://x.com/astrofox_io"
+      }
+    ]
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Overview",
+        "collapsible": false,
+        "pages": [
+          { "page": "index", "title": "Introduction" },
+          "getting-started",
+          "interface"
+        ]
+      },
+      {
+        "group": "Create",
+        "collapsible": false,
+        "pages": ["projects", "audio", "scenes-and-layers", "reactors"]
+      },
+      {
+        "group": "Export",
+        "collapsible": false,
+        "pages": ["exporting", "desktop-app"]
+      },
+      {
+        "group": "Plugins",
+        "collapsible": false,
+        "pages": ["plugins", "plugin-authoring", "plugin-runtimes", "plugin-reference"]
+      },
+      {
+        "group": "Help",
+        "collapsible": false,
+        "pages": ["troubleshooting", "upgrading-from-v1", "development"]
+      }
+    ]
+  }
+}

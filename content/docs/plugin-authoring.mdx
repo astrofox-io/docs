@@ -1,0 +1,128 @@
+---
+title: Plugin authoring
+description: Build and serve an external Astrofox display or effect plugin.
+---
+
+An external plugin is a small directory containing an
+`astrofox.plugin.json` manifest plus a fragment shader or JavaScript module.
+Astrofox supports three combinations:
+
+| Type | Runtime | Purpose |
+| --- | --- | --- |
+| Display | Shader | Generative 2D fragment-shader layer |
+| Effect | Shader | Post-processing pass over the current scene |
+| Display | Worker | Sandboxed JavaScript canvas or Three.js layer |
+
+## Start with an example
+
+The Astrofox repository includes complete examples under
+[`examples/plugins`](https://github.com/astrofox-io/astrofox/tree/main/examples/plugins):
+
+| Example | Shows |
+| --- | --- |
+| `bass-glow` | Shader effect with property uniforms |
+| `plasma` | Shader display with FFT data |
+| `pulse-bars` | 2D canvas drawing in a sandboxed worker |
+| `audio-orb` | Three.js through the host-provided library and renderer |
+| `cubes` | Three.js instancing with host-driven camera controls |
+
+Copy the closest example, change its namespaced ID, label, and implementation,
+then run it locally.
+
+## Minimal shader display
+
+Create this structure:
+
+```text
+my-plugin/
+├── astrofox.plugin.json
+└── display.frag
+```
+
+```jsonc title="astrofox.plugin.json"
+{
+  "api": 1,
+  "name": "@your-name/my-plugin",
+  "version": "1.0.0",
+  "label": "My Plugin",
+  "description": "A generative color field.",
+  "author": "Your Name",
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag",
+  "defaultProperties": {
+    "width": 1280,
+    "height": 720,
+    "speed": 1
+  },
+  "controls": {
+    "speed": {
+      "label": "Speed",
+      "type": "number",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "withRange": true,
+      "withReactor": true
+    }
+  },
+  "uniforms": {
+    "speed": { "type": "float", "from": "speed" }
+  }
+}
+```
+
+```glsl title="display.frag"
+precision highp float;
+
+varying vec2 vUv;
+uniform float time;
+uniform float speed;
+
+void main() {
+  vec3 color = 0.5 + 0.5 * cos(time * speed + vUv.xyx * 6.2831);
+  gl_FragColor = vec4(color, 1.0);
+}
+```
+
+Astrofox automatically adds position, rotation, scale, opacity, stage
+blending, on-stage transforms, and reactor support to external displays.
+
+## Develop locally
+
+<Steps>
+  <Step title="Install the Astrofox source dependencies">
+    Clone the Astrofox repository and run `pnpm install` once.
+  </Step>
+  <Step title="Start the plugin server">
+    Run `pnpm dev:plugins` from the Astrofox repository. It serves every
+    example plugin with CORS enabled on an available local port and prints the
+    manifest URLs.
+  </Step>
+  <Step title="Install the local manifest">
+    In Astrofox, open **Edit → Manage plugins** and install the printed
+    `http://localhost:…/astrofox.plugin.json` URL.
+  </Step>
+  <Step title="Iterate">
+    Edit the plugin files, then use **Reload** in Manage Plugins. Localhost
+    plugins are marked as development installs.
+  </Step>
+</Steps>
+
+## Publish
+
+Host the manifest and all referenced files on the same HTTPS-accessible
+origin. Relative file references resolve from the manifest URL. The server
+must allow Astrofox to fetch the files with CORS.
+
+Increase the manifest `version` when you publish changes. Installed releases
+are cached and integrity-pinned, so users choose when to update.
+
+<Tip>
+  Keep plugin URLs stable and version the manifest semantically. Projects
+  retain the plugin source URL and version, which makes missing dependencies
+  understandable later.
+</Tip>
+
+Continue with [Plugin runtimes](/docs/plugin-runtimes) or use the
+[manifest reference](/docs/plugin-reference).
