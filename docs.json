@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@umami/shiso/docs.schema.json",
   "theme": "shiso",
-  "name": "Astrofox",
+  "name": "ASTROFOX",
   "description": "Create audio-reactive motion graphics and export them as images or video.",
   "colors": {
     "primary": "#8b5cf6"
   },
-  "logo": "/icon.svg",
+  "logo": "/logo.png",
   "favicon": "/icon.svg",
   "appearance": {
     "default": "dark"

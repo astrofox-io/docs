@@ -11,7 +11,7 @@
     "preview": "shiso preview --outDir dist/client"
   },
   "dependencies": {
-    "@umami/shiso": "^1.1.8",
+    "@umami/shiso": "^1.1.11",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },

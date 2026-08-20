@@ -1,6 +1,13 @@
 :root,
 html[data-theme='light'],
 html[data-theme='dark'] {
+  --primary: #a78bfa;
+  --ring: #a78bfa;
+  --sidebar-primary: #a78bfa;
+  --sidebar-ring: #a78bfa;
+}
+
+html[data-theme='light'] {
   --primary: #8b5cf6;
   --ring: #8b5cf6;
   --sidebar-primary: #8b5cf6;
