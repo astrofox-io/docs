@@ -1,0 +1,61 @@
+---
+title: Reactors panel
+description: Create and manage the signals that make Astrofox controls react.
+---
+
+The Reactors panel lists the signals available to drive compatible controls.
+It occupies the lower half of the left panel and can be resized by dragging
+the divider between it and Layers.
+
+## Add and select a reactor
+
+Select the **+** beside **Reactors** to create a reactor. The new item appears
+with a live output meter and becomes selected automatically.
+
+Selecting a reactor opens its detailed editor above the player. Depending on
+the output mode, the editor can show:
+
+- Controls for the mode, level, smoothing, hold, decay, sensitivity, or speed
+- A spectrum with a draggable selection region
+- A vertical meter for the reactor's normalized output
+
+The editor appears only while a reactor is selected. Use its close button to
+dismiss the editor without deleting or disabling the reactor.
+
+## Manage the list
+
+Reactor rows behave similarly to layer rows:
+
+- Double-click a name to rename it.
+- Select the lightning row to open that reactor's editor.
+- Select the eye to enable or disable its output.
+- Hover and select the trash icon to remove it.
+
+The thin meter under each row lets you compare reactor activity without
+opening every editor.
+
+## Use a reactor
+
+Creating a reactor does not change the composition by itself. To use its
+output:
+
+<Steps>
+  <Step title="Tune the signal">
+    Play audio or enable live input, then adjust the reactor until its output
+    meter follows the sound or timing you want.
+  </Step>
+  <Step title="Select a visual element">
+    Select a display or effect in Layers and find a reactor-compatible control
+    in the Controls panel.
+  </Step>
+  <Step title="Bind and set the range">
+    Choose the reactor and define how far the control should move between low
+    and high output.
+  </Step>
+</Steps>
+
+One reactor can drive several controls. Disabling it pauses all of its bindings
+while keeping their configuration in the project.
+
+See [Reactors](/docs/reactors) for output modes, signal tuning, and practical
+binding patterns.

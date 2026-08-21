@@ -47,8 +47,20 @@
         "collapsible": false,
         "pages": [
           { "page": "index", "title": "Introduction" },
-          "getting-started",
-          "interface"
+          "getting-started"
+        ]
+      },
+      {
+        "group": "Interface",
+        "root": "interface",
+        "collapsible": false,
+        "pages": [
+          "interface/app-bar-and-actions",
+          "interface/layers-panel",
+          "interface/reactors-panel",
+          "interface/stage",
+          "interface/controls-panel",
+          "interface/player-and-status"
         ]
       },
       {

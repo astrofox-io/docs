@@ -1,71 +1,71 @@
 ---
 title: Interface
-description: Learn your way around the Astrofox editing workspace.
+description: Find every part of the Astrofox workspace and learn how the panels work together.
 ---
 
-The workspace keeps project structure on the left, the rendered stage in the
-center, selected controls on the right, and audio playback along the bottom.
+Astrofox keeps project structure and common actions on the left, the rendered
+stage in the center, element controls on the right, and audio playback along
+the bottom. Selecting an item in one area updates the others, so you can move
+between arranging, previewing, and fine-tuning without changing views.
 
-<div className="docs-image-placeholder" role="img" aria-label="Placeholder for an annotated Astrofox interface screenshot">
-  <strong>Image placeholder</strong>
-  <span>Annotated full-window screenshot labeling the title bar, Layers panel, Reactors panel, stage, Controls panel, and player.</span>
-</div>
+<img
+  src="/screenshot.png"
+  alt="Astrofox workspace with the Layers and Reactors panels on the left, stage in the center, Controls panel on the right, and player along the bottom"
+/>
 
-## Title bar and menus
+## Workspace map
 
-The title bar contains the **File** and **Edit** menus, the editable project
-title, panel visibility buttons, language selection, and desktop window
-controls when applicable.
+| Area | Location | What it does |
+| --- | --- | --- |
+| [App bar and actions](/docs/interface/app-bar-and-actions) | Top and far left | Opens, saves, and exports projects; opens settings; shows or hides panels |
+| [Layers panel](/docs/interface/layers-panel) | Upper left | Organizes scenes, displays, and effects |
+| [Reactors panel](/docs/interface/reactors-panel) | Lower left | Creates signals that can drive compatible controls |
+| [Stage](/docs/interface/stage) | Center | Previews the composition and provides direct transform and camera tools |
+| [Controls panel](/docs/interface/controls-panel) | Right | Edits the selected scene, display, or effect |
+| [Player and status](/docs/interface/player-and-status) | Bottom | Plays audio, selects live input, changes stage zoom, and reports app status |
 
-Use **File** to create, open, and save projects; choose an audio input; and
-export images or video. Use **Edit** to change project settings or manage
-plugins.
+## How the areas work together
 
-## Layers and reactors
+The **Layers** and **Controls** panels are selection-linked. Select a scene,
+display, or effect on the left and its control card becomes active on the
+right. When the Controls panel is showing every layer, selecting a layer also
+scrolls its card into view.
 
-The left side contains two related panels:
+The **Reactors** list has its own selection. Selecting a reactor opens its
+detailed signal editor above the player. You can then bind that signal from a
+compatible numeric control in the Controls panel.
 
-- **Layers** lists every scene and the displays and effects inside it. Select a
-  row to edit it, toggle its visibility, rename it, delete it, or drag it to a
-  new position.
-- **Reactors** lists the signals available to drive compatible numeric
-  controls. Selecting a reactor opens its spectrum and output controls above
-  the player.
+The **Stage** reflects both kinds of changes immediately. Layer edits change
+what is drawn; reactor and player changes update how the composition moves.
 
-Use **Show active layer only** when a busy project makes it difficult to focus
-on one element. Switch back to **Show all layers** to inspect the complete
-composition.
+## A practical editing loop
 
-## Stage
+<Steps>
+  <Step title="Build the structure">
+    Add scenes, displays, and effects in the Layers panel, then drag them into
+    the order you want.
+  </Step>
+  <Step title="Adjust the look">
+    Select a layer and change its values in Controls. Use the Stage transform
+    tool when direct manipulation is faster.
+  </Step>
+  <Step title="Add motion">
+    Load audio or enable live input, create a reactor, and bind it to controls
+    such as scale, rotation, opacity, or effect strength.
+  </Step>
+  <Step title="Preview and refine">
+    Play or scrub the track while watching the stage. Tune the reactor and
+    control range until the response matches the sound.
+  </Step>
+</Steps>
 
-The stage is the project canvas. It shows the composition at the selected
-aspect ratio and resolution. Stage tools let you:
+## Make more room
 
-- Fit or zoom the canvas in the available workspace
-- Open the stage in picture-in-picture when the browser supports it
-- Move, resize, and rotate supported display layers directly
-- Orbit and dolly supported 3D display cameras
-
-Stage zoom only changes the editor view; it does not change export resolution.
-
-## Controls
-
-Select a scene, display, or effect to show its controls on the right. Depending
-on the element, controls can include sliders, numbers, colors, ranges, toggles,
-media pickers, and select menus.
-
-Controls that support a reactor show a reactor binding control. The final value
-is calculated from the control's base value, its range, and the selected
-reactor output.
-
-## Player and live input
-
-With an audio file loaded, the bottom panel shows playback, volume, progress,
-repeat, and waveform controls. Switch to input mode to use a microphone,
-desktop audio, or MIDI instead. See [Audio and live input](/docs/audio) for
-details.
+Use the three panel buttons in the app bar to show or hide the left, bottom,
+or right areas. This changes only the workspace layout; it does not remove
+layers, change the canvas size, or affect an export.
 
 <Tip>
-  The title bar can hide the left, bottom, or right panels. This is useful when
-  you want a larger stage without changing the project itself.
+  Hover an icon when its purpose is unclear. Action, stage, player, and panel
+  buttons expose labels in tooltips.
 </Tip>

@@ -1,0 +1,62 @@
+---
+title: Layers panel
+description: Add, select, rename, arrange, hide, and remove scenes, displays, and effects.
+---
+
+The Layers panel is the structure of the composition. Every scene contains a
+**Displays** section for content that draws pixels and an **Effects** section
+for processing the completed scene.
+
+## Add content
+
+Use the **+** beside **Layers** to add a scene. Inside a scene, use the **+**
+beside **Displays** or **Effects** to open the corresponding add drawer.
+
+The drawer groups available items by type. Selecting an item adds it to that
+scene, selects its new layer, and exposes its settings in the Controls panel.
+Installed plugins appear in the same add workflow as built-in displays and
+effects.
+
+## Select and edit a row
+
+Select any scene, display, or effect row to make it active. The Controls panel
+then focuses the matching control card. A selected 2D or 3D display may also
+enable a compatible direct-manipulation tool on the stage.
+
+Each row supports these common actions:
+
+- **Rename:** double-click the name, enter a useful label, and confirm it.
+- **Show or hide:** select the eye icon. A disabled row remains in the project
+  but does not contribute to the result.
+- **Delete:** hover the row and select the trash icon. Deleting removes the
+  item rather than merely hiding it.
+
+## Reorder layers
+
+Select a row and use the up or down buttons at the top of the panel for a
+precise one-step move. A disabled button means the selected item has reached a
+valid boundary.
+
+You can also drag rows:
+
+- Scenes can be reordered with other scenes.
+- Displays can be reordered with displays and moved to another scene.
+- Effects can be reordered with effects and moved to another scene.
+- Dropping a display or effect on a scene moves it into that scene.
+
+Displays and effects remain in their respective sections because they play
+different roles in the render pipeline.
+
+## Resize Layers and Reactors
+
+Drag the horizontal divider between Layers and Reactors to give either list
+more vertical space. This is useful when a project has many layers or many
+reactors. The divider changes only the interface layout.
+
+<Tip>
+  Rename layers by purpose—such as “Title”, “Bass bars”, or “Final bloom”—so a
+  large composition remains easy to scan.
+</Tip>
+
+See [Scenes and layers](/docs/scenes-and-layers) for display types, effects,
+and composition structure.

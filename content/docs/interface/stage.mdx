@@ -1,0 +1,60 @@
+---
+title: Stage
+description: Preview the composition and manipulate supported displays directly.
+---
+
+The stage is the live preview of the project canvas. It shows the combined
+result of enabled scenes, displays, effects, reactor bindings, and the current
+audio or live input state.
+
+## Stage tools
+
+The buttons above the canvas enable tools only when the environment and current
+selection support them.
+
+### Picture in picture
+
+Open the stage in a floating picture-in-picture window when the browser or
+desktop environment supports it. This is useful when adjusting audio in
+another window or keeping the visual visible during a performance.
+
+If the button is disabled, picture in picture is unavailable in the current
+environment.
+
+### Layer transform
+
+Select a supported display in Layers, then enable the transform tool. The
+overlay lets you move, resize, and rotate the display directly on the canvas.
+Those changes update the same position and appearance values shown in Controls.
+
+The tool is disabled when the selected item cannot be transformed on the
+stage, such as a scene or effect.
+
+### Camera control
+
+Select a display with a 3D camera, then enable camera control. Drag on the
+stage to orbit and use the mouse wheel to change camera distance. The camera
+values stay synchronized with the display's controls.
+
+## Load audio by dropping it
+
+You can drag an audio file over the stage instead of using **Load audio** in
+the action rail. The drop indicator shows that Astrofox has detected the file,
+then the app loads it into the player for playback and analysis.
+
+## Zoom the editor view
+
+The center of the status bar shows the canvas size, zoom buttons, a zoom
+slider, and the current percentage.
+
+- Select the canvas dimensions to return to 100% zoom.
+- Use **−** and **+** or the slider for a precise view size.
+- Select the percentage to fit the stage into the available workspace.
+
+Stage zoom affects only how large the canvas appears in the editor. It does
+not change project resolution, layer scale, or export dimensions.
+
+<Tip>
+  Hide one or more side panels from the app bar before using **Fit to screen**
+  to make the stage as large as possible.
+</Tip>

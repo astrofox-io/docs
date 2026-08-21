@@ -1,0 +1,65 @@
+---
+title: Player and status
+description: Preview audio, choose live inputs, inspect reactor output, and control stage zoom.
+---
+
+The bottom panel changes with the selected input mode. With an audio file it
+acts as a timeline and transport. In live mode it becomes an input selector
+and signal monitor. A selected reactor adds its detailed editor above either
+view.
+
+## Audio-file mode
+
+After you load an audio file, the player provides:
+
+- A waveform for seeing the track's overall shape
+- Play or pause and stop controls
+- Monitor volume
+- A progress control for seeking through the track
+- Elapsed and total time
+- Repeat playback
+- A button for switching to live input
+
+Scrub to a busy or quiet part of the track when tuning a visual. Checking both
+extremes helps keep a reactor from feeling unresponsive in one section and
+overpowering in another.
+
+## Live-input mode
+
+Live mode replaces the timeline with controls for the selected source:
+
+- **Microphone:** choose an available device and monitor its live signal.
+- **Desktop audio:** start a capture when the current browser or desktop
+  environment supports system or shared-content audio.
+- **MIDI:** choose a MIDI input and connect it as the live control source.
+
+Use the gain control when an audio input is consistently too weak or too
+strong. The oscilloscope provides immediate feedback that a source is active.
+Switch out of live mode to return to the loaded-file timeline.
+
+Source availability depends on the platform, permissions, and attached
+devices. See [Audio and live input](/docs/audio) for setup and troubleshooting.
+
+## Selected reactor editor
+
+Selecting a reactor in the left panel opens a signal editor above the player.
+It includes the reactor's options, spectrum or timing visualization when
+applicable, and an output meter. Closing this editor clears the reactor
+selection but leaves the reactor and its bindings intact.
+
+## Status bar
+
+The status bar runs along the bottom edge of the app:
+
+- The left side shows current activity, including export progress and a cancel
+  action while video is rendering.
+- The center shows canvas dimensions and [stage zoom controls](/docs/interface/stage#zoom-the-editor-view).
+- The right side shows rendering frames per second and the Astrofox version.
+
+The FPS value can be blank while the renderer is idle. It is a preview
+performance indicator, not the frame rate selected for an export.
+
+<Info>
+  Hiding the bottom panel hides the reactor editor and player, but the status
+  bar remains available for zoom, progress, FPS, and version information.
+</Info>
