@@ -9,3 +9,30 @@ if (!element) {
 }
 
 hydrateRoot(element, <ShisoApp />);
+
+const topLevelTabs = [
+  { href: '/docs', matches: (pathname: string) => pathname === '/docs' || pathname.startsWith('/docs/') },
+  { href: '/downloads', matches: (pathname: string) => pathname === '/downloads' },
+  { href: '/changelog', matches: (pathname: string) => pathname === '/changelog' },
+];
+
+function syncTopLevelTabs() {
+  for (const tab of topLevelTabs) {
+    const link = document.querySelector<HTMLAnchorElement>(`header a[href="${tab.href}"]`);
+
+    if (tab.matches(window.location.pathname)) {
+      link?.setAttribute('aria-current', 'page');
+    } else {
+      link?.removeAttribute('aria-current');
+    }
+  }
+}
+
+syncTopLevelTabs();
+window.addEventListener('popstate', syncTopLevelTabs);
+document.addEventListener('click', () => queueMicrotask(syncTopLevelTabs));
+
+new MutationObserver(syncTopLevelTabs).observe(element, {
+  childList: true,
+  subtree: true,
+});

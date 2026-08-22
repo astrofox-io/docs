@@ -12,6 +12,14 @@
     {
       "path": "/",
       "page": "home"
+    },
+    {
+      "path": "/downloads",
+      "page": "downloads"
+    },
+    {
+      "path": "/changelog",
+      "page": "changelog"
     }
   ],
   "appearance": {
@@ -25,6 +33,18 @@
   },
   "navbar": {
     "links": [
+      {
+        "label": "Documentation",
+        "href": "/docs"
+      },
+      {
+        "label": "Downloads",
+        "href": "/downloads"
+      },
+      {
+        "label": "Changelog",
+        "href": "/changelog"
+      },
       {
         "icon": "github",
         "ariaLabel": "GitHub",
@@ -47,61 +67,48 @@
     ]
   },
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Documentation",
-        "groups": [
-          {
-            "group": "Overview",
-            "collapsible": false,
-            "pages": [
-              { "page": "index", "title": "Introduction" },
-              "getting-started",
-              { "page": "first-project", "title": "Create your first visual" }
-            ]
-          },
-          {
-            "group": "Interface",
-            "root": "interface",
-            "collapsible": false,
-            "pages": [
-              "interface/app-bar-and-actions",
-              "interface/layers-panel",
-              "interface/reactors-panel",
-              "interface/stage",
-              "interface/controls-panel",
-              "interface/player-and-status"
-            ]
-          },
-          {
-            "group": "Create",
-            "collapsible": false,
-            "pages": ["projects", "audio", "scenes-and-layers", "reactors"]
-          },
-          {
-            "group": "Export",
-            "collapsible": false,
-            "pages": ["exporting", "desktop-app"]
-          },
-          {
-            "group": "Plugins",
-            "collapsible": false,
-            "pages": ["plugins", "plugin-authoring", "plugin-runtimes", "plugin-reference"]
-          },
-          {
-            "group": "Help",
-            "collapsible": false,
-            "pages": ["troubleshooting", "upgrading-from-v1", "development"]
-          }
+        "group": "Overview",
+        "collapsible": false,
+        "pages": [
+          { "page": "index", "title": "Introduction" },
+          "getting-started",
+          { "page": "first-project", "title": "Create your first visual" }
         ]
       },
       {
-        "tab": "Downloads",
-        "pages": ["downloads"]
+        "group": "Interface",
+        "root": "interface",
+        "collapsible": false,
+        "pages": [
+          "interface/app-bar-and-actions",
+          "interface/layers-panel",
+          "interface/reactors-panel",
+          "interface/stage",
+          "interface/controls-panel",
+          "interface/player-and-status"
+        ]
       },
       {
-        "tab": "Changelog",
-        "pages": ["changelog"]
+        "group": "Create",
+        "collapsible": false,
+        "pages": ["projects", "audio", "scenes-and-layers", "reactors"]
+      },
+      {
+        "group": "Export",
+        "collapsible": false,
+        "pages": ["exporting", "desktop-app"]
+      },
+      {
+        "group": "Plugins",
+        "collapsible": false,
+        "pages": ["plugins", "plugin-authoring", "plugin-runtimes", "plugin-reference"]
+      },
+      {
+        "group": "Help",
+        "collapsible": false,
+        "pages": ["troubleshooting", "upgrading-from-v1", "development"]
       }
     ]
   }

@@ -16,6 +16,62 @@ html[data-theme='light'] {
   --home-shimmer-highlight: #c4b5fd;
 }
 
+@media (min-width: 64rem) {
+  header > div {
+    position: relative;
+  }
+
+  header a[href='/docs'],
+  header a[href='/downloads'],
+  header a[href='/changelog'] {
+    position: absolute;
+    top: 0;
+    display: flex;
+    height: calc(100% + 1px);
+    align-items: center;
+    padding: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    color: var(--muted-foreground);
+    white-space: nowrap;
+  }
+
+  header a[href='/docs']:hover,
+  header a[href='/downloads']:hover,
+  header a[href='/changelog']:hover {
+    background: transparent;
+    color: var(--foreground);
+  }
+
+  header a[href='/docs'][aria-current='page'],
+  header a[href='/downloads'][aria-current='page'],
+  header a[href='/changelog'][aria-current='page'] {
+    border-bottom-color: var(--primary);
+    color: var(--foreground);
+  }
+
+  header a[href='/docs'] {
+    left: calc(50% - 11.125rem);
+  }
+
+  header a[href='/downloads'] {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  header a[href='/changelog'] {
+    right: calc(50% - 10.125rem);
+  }
+}
+
+@media (max-width: 63.999rem) {
+  header a[href='/docs'],
+  header a[href='/downloads'],
+  header a[href='/changelog'] {
+    display: none;
+  }
+}
+
 .home-title-shimmer {
   color: var(--primary);
   background-image: linear-gradient(
