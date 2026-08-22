@@ -56,7 +56,8 @@
             "collapsible": false,
             "pages": [
               { "page": "index", "title": "Introduction" },
-              "getting-started"
+              "getting-started",
+              { "page": "first-project", "title": "Create your first visual" }
             ]
           },
           {
