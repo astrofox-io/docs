@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@umami/shiso':
-        specifier: ^1.5.0
-        version: 1.5.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.4)(yaml@2.9.0)
+        specifier: ^1.7.0
+        version: 1.7.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.4)(yaml@2.9.0)
       react:
         specifier: ^19.2.4
         version: 19.2.8
@@ -76,8 +76,8 @@ packages:
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
 
-  '@fontsource/inter@5.3.0':
-    resolution: {integrity: sha512-RofMylZmjlJEfELXeNHFWBRcSs75rGU/6bV2S2jfnvv/3rPXPGe0LgUJTklcHZ9lM4OZmAVFhcJPnACfb91A3g==}
+  '@fontsource-variable/inter@5.3.0':
+    resolution: {integrity: sha512-OupL48va4JNofb97w6NYeF9S7W/kHNKM0Er8Dem5nqi4jeOLrVJDoE8tZEpnMJmtkvNbB1EIPPwHcdkF6b1oUA==}
 
   '@fontsource/jetbrains-mono@5.3.0':
     resolution: {integrity: sha512-fqDfB5I9f1p1TV486aUgB9t8zP84P0O1FtQR5Ol9vjwPy+S+EIGlVYm1cvj2W5shcZMTg2nZFdVMoH5wFu8a1A==}
@@ -814,8 +814,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@umami/shiso@1.5.0':
-    resolution: {integrity: sha512-QK/puCWyHsbukYkUwf1YLH+Jw1SyVEC28trHK897gFOck2fxP2oIjWky8fgDqmseJdMB/qEbG1yutKv2cGjAMQ==}
+  '@umami/shiso@1.7.0':
+    resolution: {integrity: sha512-FmDWPyod7AHOkuMOlhsBer47LBLNLCrMYhByGUeR4TLDAmAjB+Xlz8VFGs0YNNO/JSfzAF9tmJidmwu8MRX14Q==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -1524,8 +1524,8 @@ packages:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
 
-  reselect@5.2.0:
-    resolution: {integrity: sha512-AgZ3UOZm3YndfrJ4OYjgrT7bmCm/1iqkjvEfH/oYjzh6PD2qw4QuT3jjnXIrpdt4MTpMXclMT3lXbmRY+XRakw==}
+  reselect@5.3.0:
+    resolution: {integrity: sha512-XGoLeRAVzUTcJ1qkxPQhDJyIZ5d6zzZD9nT7AEZOaaU9UbWclhycElmhO+VD5bFeLuzhPBaOV2oXC8uG35ZSpg==}
 
   rolldown@1.2.5:
     resolution: {integrity: sha512-VD2IE5PUG4Oj8zz2VGykiYd5wbnjdIiSsNQb8Qu5B+noEp+A78mu2iVvpp27g8es14Tk9rofNs5Tku9iQCS4fA==}
@@ -1729,7 +1729,7 @@ snapshots:
       '@floating-ui/utils': 0.2.12
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
-      reselect: 5.2.0
+      reselect: 5.3.0
       use-sync-external-store: 1.6.0(react@19.2.8)
     optionalDependencies:
       '@types/react': 19.2.18
@@ -1751,7 +1751,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.12': {}
 
-  '@fontsource/inter@5.3.0': {}
+  '@fontsource-variable/inter@5.3.0': {}
 
   '@fontsource/jetbrains-mono@5.3.0': {}
 
@@ -2275,10 +2275,10 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@umami/shiso@1.5.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.4)(yaml@2.9.0)':
+  '@umami/shiso@1.7.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.4)(yaml@2.9.0)':
     dependencies:
       '@base-ui/react': 1.7.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@fontsource/inter': 5.3.0
+      '@fontsource-variable/inter': 5.3.0
       '@fontsource/jetbrains-mono': 5.3.0
       '@mdx-js/react': 3.1.1(@types/react@19.2.18)(react@19.2.8)
       '@mdx-js/rollup': 3.1.1(rollup@4.62.4)
@@ -3352,7 +3352,7 @@ snapshots:
 
   require-from-string@2.0.2: {}
 
-  reselect@5.2.0: {}
+  reselect@5.3.0: {}
 
   rolldown@1.2.5:
     dependencies:
