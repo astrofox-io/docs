@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@umami/shiso':
-        specifier: ^1.7.0
-        version: 1.7.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.4)(yaml@2.9.0)
+        specifier: ^1.8.0
+        version: 1.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.4)(yaml@2.9.0)
       react:
         specifier: ^19.2.4
         version: 19.2.8
@@ -814,8 +814,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@umami/shiso@1.7.0':
-    resolution: {integrity: sha512-FmDWPyod7AHOkuMOlhsBer47LBLNLCrMYhByGUeR4TLDAmAjB+Xlz8VFGs0YNNO/JSfzAF9tmJidmwu8MRX14Q==}
+  '@umami/shiso@1.8.0':
+    resolution: {integrity: sha512-r3f5CgrwPDL9nNWv5bxX2CL6xw8ivIGmaNF7fSfvCOebTsAlcDpAOldwm/2MRRcv9vaF8J4FKnK8y5eHB7di9g==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -2275,7 +2275,7 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@umami/shiso@1.7.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.4)(yaml@2.9.0)':
+  '@umami/shiso@1.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.4)(yaml@2.9.0)':
     dependencies:
       '@base-ui/react': 1.7.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@fontsource-variable/inter': 5.3.0
