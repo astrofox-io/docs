@@ -22,7 +22,7 @@ export default function HomePage() {
         </p>
         <div className="flex gap-4">
           <a
-            href="/downloads"
+            href="/download"
             className="inline-flex h-12 items-center justify-center gap-2.5 rounded-md border border-border bg-background px-6 text-base font-medium text-foreground transition-colors hover:bg-accent"
           >
             <svg
