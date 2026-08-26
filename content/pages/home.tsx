@@ -1,7 +1,10 @@
+import { Link } from '@umami/shiso/components';
+
 export const frontmatter = {
   title: 'Audio-reactive motion graphics',
   description:
     'Create music visualizers, animated artwork, and live visuals that react to sound with Astrofox.',
+  search: false
 };
 
 export default function HomePage() {
@@ -21,8 +24,8 @@ export default function HomePage() {
           and TikTok.
         </p>
         <div className="flex gap-4">
-          <a
-            href="/download"
+          <Link
+            to="/download"
             className="inline-flex h-12 items-center justify-center gap-2.5 rounded-md border border-border bg-background px-6 text-base font-medium text-foreground transition-colors hover:bg-accent"
           >
             <svg
@@ -33,9 +36,9 @@ export default function HomePage() {
               <path d="M8 5v14l11-7z" />
             </svg>
             Download Astrofox
-          </a>
-          <a
-            href="/docs"
+          </Link>
+          <Link
+            to="/docs"
             className="inline-flex h-12 items-center justify-center gap-2.5 rounded-md bg-secondary px-6 text-base font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
           >
             <svg
@@ -52,7 +55,7 @@ export default function HomePage() {
               <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
             </svg>
             Get started
-          </a>
+          </Link>
         </div>
       </section>
     </div>
