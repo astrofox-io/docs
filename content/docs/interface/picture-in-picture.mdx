@@ -1,0 +1,42 @@
+---
+title: Picture in picture
+description: Float the stage output in an always-on-top window while you work elsewhere.
+---
+
+Picture in picture opens a small floating window that mirrors the stage. The
+window stays on top of other applications, which is handy when you are tuning
+audio or notes in another program during a performance, or when you want the
+visuals visible on a second screen without moving panels around.
+
+## Open and close
+
+Select **Open picture in picture** in the tool row above the canvas. The
+button stays highlighted while the window is open; select **Close picture in
+picture**, or close the floating window itself, to stop mirroring.
+
+Only the stage render appears in the window. There is no playback control or
+audio inside it; play and mix the track from the main window.
+
+<Info>
+  The floating window is a live mirror of the canvas. Layer edits, reactor
+  movement, and transport changes show up immediately, so keep editing while
+  it is open.
+</Info>
+
+## Requirements
+
+The feature relies on standard video picture-in-picture support. When the
+current environment cannot provide it, the button is disabled. If a start
+attempt fails anyway, Astrofox shows an error dialog.
+
+- Works in modern Chromium browsers and in the desktop app.
+- Opening one stage mirror closes any other picture-in-picture video first.
+- Closing the main app tab or window stops the mirror along with everything
+  else; there is no orphaned stream to clean up manually.
+
+## What it is not
+
+Picture in picture is a preview convenience, not an output format. It does not
+affect exports, resolution, or what viewers of a recording see — use
+[Save image](/docs/exporting) or [Save video](/docs/exporting) to produce
+shareable results.

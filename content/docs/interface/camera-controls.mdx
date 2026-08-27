@@ -1,0 +1,72 @@
+---
+title: Camera controls
+description: Orbit and zoom the virtual camera of 3D displays directly on the stage.
+---
+
+Displays rendered in 3D own a virtual camera. With camera control enabled,
+the stage becomes that camera's viewfinder: orbit around the scene, adjust the
+distance, and frame the shot exactly how you want it exported.
+
+## Which displays have a camera
+
+Three built-in displays provide cameras and appear under the **3D** category of
+the Add display menu:
+
+- Geometry
+- Tunnel
+- Mesh grid
+
+Installed plugins can declare a camera too; they show up alongside the built-ins
+once registered.
+
+## Use camera controls
+
+1. Select a 3D display in the Layers panel.
+2. Select **Camera control** above the canvas.
+3. Interact with the stage:
+
+| Gesture | Action |
+| --- | --- |
+| Drag left/right | Rotate around the scene (**Azimuth**) |
+| Drag up/down | Tilt toward the top or bottom limits (**Polar**) |
+| Mouse wheel | Move closer or farther away (**Distance**) |
+
+The cursor switches to a grab hand over the canvas while the mode is active.
+Built-in 3D displays also show a small axis helper; camera-enabled plugins
+orbit without that gizmo.
+
+`Esc` always ends camera mode. Selecting a scene, effect, disabled layer, or a
+display without a camera also ends it. Selecting another enabled camera
+display keeps the tool on. Enabling
+[layer transform](/docs/interface/layer-transform) turns camera mode off — the
+two direct-manipulation tools never run together.
+
+## Camera values in Controls
+
+Every adjustment writes back to the display's properties, where the
+[Controls panel](/docs/interface/controls-panel) exposes them in the **Camera**
+group:
+
+| Control | Range | Default |
+| --- | --- | --- |
+| Azimuth | −π to π radians | π/4 |
+| Polar | just under ±π/2 radians | π/6 |
+| Distance | 0 – 5000 | Auto |
+
+The Controls panel shows these as radians, not degrees. Polar stops just short
+of straight overhead and underneath so the view never flips through the poles.
+A distance of zero means automatic framing: the camera fits the whole stage
+height based on its field of view. Enter a value or drag until it looks right
+to take manual control.
+
+Because these are ordinary numeric properties, they can be bound to
+[reactors](/docs/interface/reactors-panel) — sweep the azimuth slowly with a
+low-frequency band, pull the camera in on volume spikes, or let MIDI notes
+jump between angles.
+
+## Related settings
+
+The same Control card groups everything else that shapes the 3D look:
+a three-light rig with shadows under **Lighting**, and focus falloff under
+**Depth of Field**. Both start off but stack naturally with camera framing when
+enabled.

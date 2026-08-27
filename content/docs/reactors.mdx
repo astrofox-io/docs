@@ -24,7 +24,7 @@ rotation follow treble, or an effect appear on each beat.
   </Step>
   <Step title="Bind a control">
     Select a display or effect. On a compatible numeric control, choose the
-    reactor and set the value range the signal should traverse.
+    reactor. Output 0 uses that control's minimum; output 1 uses its maximum.
   </Step>
 </Steps>
 
@@ -38,10 +38,10 @@ rotation follow treble, or an effect appear on each beat.
 | Beat | Beat Trigger, Beat Envelope | Discrete hits or a pulse that decays after each detected beat |
 | Static | Static Forward, Static Reverse, Static Cycle | Time-based motion that does not require audio |
 
-**Add** and **Subtract** offset the control around its base value. **Forward**
-and **Reverse** map the signal through the chosen range in opposite directions.
-**Cycle** alternates direction. Static modes generate the same types of motion
-at a configurable speed.
+**Add** follows band energy (quiet → 0, loud → 1). **Subtract** inverts that
+energy. **Forward**, **Reverse**, and **Cycle** accumulate energy over time so
+the output walks through 0–1 instead of tracking the level each frame. Static
+modes use the same walk at a configurable **Speed**, without audio.
 
 ## Tune the response
 
@@ -51,8 +51,10 @@ at a configurable speed.
 - **Max dB** changes the level treated as full output. Move it toward zero for
   loud sources and lower it for quiet sources.
 - **Smoothing** steadies jittery motion at the cost of slower response.
-- **Hold Time** keeps peaks active before they fall.
-- **Decay** controls how quickly the value returns after a peak or beat.
+- **Hold Time** (spectrum modes and Beat Trigger) keeps a peak or pulse on
+  before it falls. The value is in analysis frames, not seconds.
+- **Decay** (spectrum modes and Beat Envelope) controls how quickly the value
+  returns after a peak. Beat Trigger drops to zero after the hold instead.
 - **Sensitivity** changes how readily beat modes trigger.
 - **Speed** controls the rate of static modes.
 
@@ -60,7 +62,7 @@ at a configurable speed.
 
 <CardGroup cols={2}>
   <Card title="Bass pulse" icon="audio-waveform">
-    Select the low end of the spectrum and bind Forward output to scale or Bloom strength.
+    Select the low end of the spectrum and bind Add output to scale or Bloom strength.
   </Card>
   <Card title="Snare flash" icon="zap">
     Use Beat Trigger or Beat Envelope on opacity, brightness, or a stylized effect.

@@ -4,8 +4,9 @@ description: Open legacy Astrofox projects and understand the 2.0 migration.
 ---
 
 Astrofox 2.0 is a ground-up rewrite with a new renderer, interface, desktop
-shell, export pipeline, and plugin system. It can open legacy gzip-compressed
-`.afx` project files and migrates supported elements automatically.
+shell, export pipeline, and plugin system. It can open `.afx` project files —
+gzip-compressed 1.x files or uncompressed 2.0 files — and migrates supported
+elements automatically.
 
 <Warning>
   Keep an untouched backup of every 1.x project before opening and resaving it
@@ -15,16 +16,16 @@ shell, export pipeline, and plugin system. It can open legacy gzip-compressed
 ## Open a legacy project
 
 Select **Open project** in the action rail and choose the `.afx` file. Astrofox
-inflates the legacy data, converts supported elements, and reports anything it
-removes. Save the migrated project as the new `.json` format after checking the
-result.
+inflates gzip-compressed 1.x files when needed, converts supported elements,
+and reports anything it removes. Save the migrated project after checking the
+result. The file remains an `.afx` project.
 
 ## Element mappings
 
 | Astrofox 1.x | Astrofox 2.0 migration |
 | --- | --- |
 | Glow | Bloom; `amount` becomes `radius`, `intensity` becomes `strength` |
-| Bloom | Bloom values are rescaled; `amount` becomes `strength`, `threshold` becomes luminance threshold |
+| Bloom | `strength` is `amount × 3`; `threshold` is inverted (`1 − threshold`) |
 | Color Halftone | `scale` becomes `radius`; `angle` is converted to per-channel rotation |
 | Glitch | `amount` becomes `strength` |
 | Geometry lighting | Light intensity, light distance, and camera zoom become key-light and camera-distance settings with lighting enabled |
@@ -36,8 +37,9 @@ opens.
 
 ## Project format
 
-New projects save as `.json`. Astrofox can still read legacy `.afx` gzip files,
-but `.json` is the default format for ongoing work.
+Projects still use the `.afx` extension. Version 1.x stored gzip-compressed
+JSON; 2.0 writes uncompressed JSON. **Open project** loads either encoding.
+Some earlier 2.x builds also saved `.json` files, which still open.
 
 Local media can require relinking after migration. Review every image, video,
 and audio source before exporting.
@@ -57,7 +59,7 @@ After migration, check:
 2. Scene, display, and effect order
 3. Geometry camera and lighting
 4. Reactor bindings and value ranges
-5. Audio, image, and video sources
+5. Image and video sources, then reload audio with **Load audio**
 6. Bloom, distortion, glitch, and halftone appearance
 7. A short image or video test export
 

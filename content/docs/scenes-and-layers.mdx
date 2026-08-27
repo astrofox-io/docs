@@ -9,7 +9,7 @@ scenes; each scene contains display layers and an effect chain.
 ## Scenes
 
 A scene groups visual content and effects into one composited unit. Add scenes
-when you want independent groups, transitions between looks, or a clearer
+when you want independent looks you can hide, blend, or stack, or a clearer
 layer hierarchy. You can rename, hide, reorder, or delete a scene just like
 other layers.
 
@@ -34,15 +34,15 @@ controls to a reactor.
 Effects process the scene rather than drawing a standalone object. Built-in
 effects are organized into these groups:
 
-- **Color:** Color
+- **Color:** Color, Color Depth
 - **Blur & Focus:** Bloom, Blur, Tilt Shift
 - **Distortion:** Distortion, Glitch, Kaleidoscope, Lens Warp, Mirror, RGB
   Shift, Shockwave, VHS
 - **Pattern:** ASCII, Color Halftone, Dot Screen, LED, Pixelate, Scanline
 - **Stylize:** Edge Detection, Feedback Echo, Film Grain, Vignette
 
-The combined **Color** effect includes brightness, contrast, color averaging,
-color depth, hue, saturation, sepia, and tone-mapping controls.
+The **Color** effect includes brightness, contrast, hue, saturation, and
+sepia. **Color Depth** is a separate effect that reduces bit depth.
 
 ## Select and edit a layer
 
@@ -62,13 +62,14 @@ scene effect sections, and scenes can be reordered with other scenes.
 
 ## Transform a display on the stage
 
-Select a supported 2D display and enable the layer transform tool. Drag the
-layer to move it, use its handles to resize, and use the rotation handle to
-turn it. These changes update the same values shown in Controls.
+Select a supported 2D display and enable the [layer transform](/docs/interface/layer-transform)
+tool. Drag the layer to move it and use its handles to resize. Set rotation
+from the layer's **Rotation** control. These changes update the same values
+shown in Controls.
 
-For a supported 3D display, use camera mode to orbit around the scene and the
-mouse wheel to change camera distance. Geometry, Mesh Grid, Tunnel, and
-camera-enabled plugins expose this workflow.
+For a supported 3D display, use [camera control](/docs/interface/camera-controls)
+to orbit around the scene and the mouse wheel to change camera distance.
+Geometry, Mesh Grid, Tunnel, and camera-enabled plugins expose this workflow.
 
 <Tip>
   Effects are evaluated as a chain. If two effects interact, reorder them and

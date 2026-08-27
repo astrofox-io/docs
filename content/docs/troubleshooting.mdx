@@ -14,7 +14,7 @@ description: Fix common Astrofox audio, media, plugin, display, and export probl
    range is not flat.
 
 If motion is delayed, lower reactor smoothing. If it is too jittery, increase
-smoothing or decay.
+smoothing. In spectrum modes, a higher decay also falls more slowly.
 
 ## A microphone or MIDI device is missing
 
@@ -30,9 +30,12 @@ audio.
 
 ## A project opens with missing media
 
-Local files cannot always be reopened automatically, especially after a
-project moves to another computer. Use **Relink Media** to select the matching
-audio, image, or video file for every unresolved item.
+Local image and video files cannot always be reopened automatically, especially
+after a project moves to another computer. Use **Relink Media** to select the
+matching image or video for every unresolved layer.
+
+Audio is not stored in the project file. Load the track again with **Load
+audio** after you open the project.
 
 Keep media beside the project file when archiving or transferring work.
 
@@ -47,12 +50,14 @@ Keep media beside the project file when archiving or transferring work.
 5. Check shader compilation or worker errors in the browser developer console.
 6. Make sure animation uses `frame.time` instead of wall-clock timers.
 
-A worker that takes several seconds to render a frame is stopped and marked
-unresponsive so the rest of Astrofox can continue.
+A worker that takes longer than about 3 seconds to render a preview frame, or
+5 seconds during export, is stopped and marked unresponsive so the rest of
+Astrofox can continue.
 
-## Save video is unavailable
+## Save video will not start
 
-The export must have:
+**Save video** always opens the export dialog. The confirm button stays
+disabled until the export has:
 
 - An audio file at least five seconds long
 - A start time before the end time

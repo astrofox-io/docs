@@ -86,8 +86,12 @@
               "interface/layers-panel",
               "interface/reactors-panel",
               "interface/stage",
+              "interface/picture-in-picture",
+              "interface/layer-transform",
+              "interface/camera-controls",
               "interface/controls-panel",
-              "interface/player-and-status"
+              "interface/player-and-status",
+              "interface/input-mode"
             ]
           },
           {

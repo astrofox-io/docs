@@ -12,8 +12,8 @@ Selecting either part also selects the corresponding item in Layers.
 Use the two buttons in the Controls header to choose how much of the project is
 shown:
 
-- **Show active layer** displays only the card for the selected scene, display,
-  or effect. Use it for a focused workspace.
+- **Show active layer only** displays only the card for the selected scene,
+  display, or effect. Use it for a focused workspace.
 - **Show all layers** displays cards for the full composition. Selecting a row
   in Layers scrolls its card into view.
 
@@ -36,28 +36,27 @@ element-specific settings remain easy to find first.
 
 ## Reactor bindings
 
-Compatible controls show a reactor binding button. A binding combines the
-control's normal value or range with the selected reactor output. This allows
-the same property to have a designed baseline and an audio-driven variation.
+Compatible controls show a reactor binding button. While a reactor is bound,
+it drives the property between that control's minimum and maximum. The
+unbound value is unused until you remove the binding.
 
 To create a useful binding:
 
-1. Set the unbound value so the element looks correct when the signal is low.
-2. Choose a reactor.
-3. Set a modest range and play the audio.
-4. Expand the range only as much as the composition needs.
+1. Choose a control whose min and max already describe the motion you want.
+2. Bind a reactor and play the audio.
+3. If the motion is too abrupt, adjust smoothing or decay on the reactor.
 
-If a value moves too abruptly, adjust smoothing or decay in the reactor rather
-than trying to compensate with an extreme control range.
+Unbinding restores the last unbound value.
 
 ## Controls and direct manipulation
 
-For supported 2D displays, dragging the Stage transform overlay changes the
-same Position and Appearance values shown here. For 3D displays, camera
-control updates the corresponding camera values. Use whichever interaction is
-more convenient; both edit the project data.
+For supported 2D displays, dragging the [layer transform](/docs/interface/layer-transform)
+overlay changes the same Position and Appearance values shown here. For 3D
+displays, [camera control](/docs/interface/camera-controls) updates the
+corresponding camera values. Use whichever interaction is more convenient;
+both edit the project data.
 
 <Tip>
-  Use **Show active layer** on smaller screens. Use **Show all layers** when
+  Use **Show active layer only** on smaller screens. Use **Show all layers** when
   comparing the same setting across several displays or effects.
 </Tip>

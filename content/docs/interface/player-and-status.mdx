@@ -35,10 +35,12 @@ Live mode replaces the timeline with controls for the selected source:
 
 Use the gain control when an audio input is consistently too weak or too
 strong. The oscilloscope provides immediate feedback that a source is active.
-Switch out of live mode to return to the loaded-file timeline.
+Close input mode to return to the file transport. The previous audio file is
+not restored automatically; load it again if you need the timeline.
 
 Source availability depends on the platform, permissions, and attached
-devices. See [Audio and live input](/docs/audio) for setup and troubleshooting.
+devices. See [Input mode](/docs/interface/input-mode) for connecting a source
+and [Audio and live input](/docs/audio) for setup and troubleshooting.
 
 ## Selected reactor editor
 
@@ -56,7 +58,7 @@ The status bar runs along the bottom edge of the app:
 - The center shows canvas dimensions and [stage zoom controls](/docs/interface/stage#zoom-the-editor-view).
 - The right side shows rendering frames per second and the Astrofox version.
 
-The FPS value can be blank while the renderer is idle. It is a preview
+The FPS value shows an em dash while the renderer is idle. It is a preview
 performance indicator, not the frame rate selected for an export.
 
 <Info>

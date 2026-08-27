@@ -34,7 +34,8 @@ composites the display.
 
 ## Shader effect
 
-A shader effect receives the composition rendered so far in `inputTexture`:
+A shader effect receives the composition rendered so far in `inputTexture`,
+plus time, delta, and volume. It does not receive FFT or time-domain data:
 
 ```jsonc
 {
@@ -94,8 +95,9 @@ Follow these rules:
 - Redraw the complete canvas every frame. Transferring the bitmap to the host
   clears the worker's backing canvas.
 - Release owned resources in `dispose()`.
-- Keep frames responsive. A render that takes several seconds is stopped and
-  the instance is marked unresponsive.
+- Keep frames responsive. A render that takes longer than about 3 seconds in
+  preview, or 5 seconds during export, is stopped and the instance is marked
+  unresponsive.
 
 ## Three.js worker display
 

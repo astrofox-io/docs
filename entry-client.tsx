@@ -12,7 +12,7 @@ hydrateRoot(element, <ShisoApp />);
 
 const topLevelTabs = [
   { href: '/docs', matches: (pathname: string) => pathname === '/docs' || pathname.startsWith('/docs/') },
-  { href: '/downloads', matches: (pathname: string) => pathname === '/downloads' },
+  { href: '/download', matches: (pathname: string) => pathname === '/download' },
   { href: '/changelog', matches: (pathname: string) => pathname === '/changelog' },
 ];
 

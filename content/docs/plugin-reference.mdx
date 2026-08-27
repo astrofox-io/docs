@@ -16,7 +16,7 @@ Every plugin begins with an `astrofox.plugin.json` manifest.
 | `description` | string | Short explanation shown during installation. |
 | `author` | string | Plugin author or organization. |
 | `type` | string | `display` or `effect`. |
-| `runtime` | string | `shader` or `worker`. |
+| `runtime` | string | `shader` or `worker`. Displays may use either; effects require `shader`. |
 | `shader` | string | Fragment shader path for a shader runtime. |
 | `entry` | string | ES module path for a worker runtime. |
 | `icon` | string | Optional icon path shown in menus. |
@@ -60,8 +60,10 @@ Declare only the audio data the plugin needs:
 | `td.samples` | Number of time-domain waveform samples |
 
 FFT values arrive from 0 to 1. Time-domain values also range from 0 to 1,
-with silence centered at 0.5. The same analysis path is used during playback
-and video export.
+with silence centered at 0.5. Worker displays can request both FFT and
+time-domain data. Shader displays receive FFT and volume only. Shader effects
+receive volume, time, delta, and `inputTexture` — not FFT or time-domain
+arrays. The same analysis path is used during playback and video export.
 
 ## Controls
 

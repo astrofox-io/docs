@@ -13,6 +13,8 @@ Astrofox supports three combinations:
 | Effect | Shader | Post-processing pass over the current scene |
 | Display | Worker | Sandboxed JavaScript canvas or Three.js layer |
 
+Effect plugins support the shader runtime only. A worker effect is rejected.
+
 ## Start with an example
 
 The Astrofox repository includes complete examples under
@@ -85,8 +87,10 @@ void main() {
 }
 ```
 
-Astrofox automatically adds position, rotation, scale, opacity, stage
-blending, on-stage transforms, and reactor support to external displays.
+Astrofox automatically adds position, rotation, scale, opacity, and reactor
+support to external displays. Displays without a camera also get the stage
+transform overlay. Camera-enabled worker displays use
+[camera control](/docs/interface/camera-controls) instead.
 
 ## Develop locally
 

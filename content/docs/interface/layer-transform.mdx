@@ -1,0 +1,62 @@
+---
+title: Layer transform
+description: Move and resize 2D displays by dragging directly on the stage.
+---
+
+Layer transform puts a manipulation frame around the selected display so you
+can arrange it visually instead of typing numbers. The frame reads and writes
+the same properties as the [Controls panel](/docs/interface/controls-panel) —
+position X/Y, rotation, size — so both views stay in sync.
+
+## Start a transform
+
+1. Select a display in the [Layers panel](/docs/interface/layers-panel).
+2. Select **Layer transform** above the canvas.
+3. Drag the handles on the stage.
+
+The tool works only for displays that render as flat layers: text, shapes,
+images, videos, spectra, waveform rings, and sound waves. It stays disabled
+for scenes, effects, and any display that owns a [3D camera](/docs/interface/camera-controls).
+
+Press `Esc` to leave the mode. Selecting a scene, effect, disabled layer, or
+incompatible display also ends it. Selecting another enabled 2D display keeps
+the tool on.
+
+## Interactions
+
+| Gesture | Result |
+| --- | --- |
+| Drag inside the frame | Moves the layer (updates **X** and **Y**) |
+| Drag an edge or corner handle | Resizes according to the layer type below |
+
+Handle zones extend slightly past the drawn outline, so grabbing near an edge
+is forgiving. Cursors show which gesture each zone performs.
+
+## What resizing changes per layer
+
+- **Text:** any handle scales font size.
+- **Radial spectrum:** any handle scales inner and outer radius together.
+- **Waveform ring:** any handle scales radius, wave amplitude, and line width
+  together.
+- **Bar spectrum, wave spectrum, and sound wave:** edges change one dimension;
+  corners change width and height independently. Vertical bar-spectrum drags
+  also scale the reflection height.
+- **Image and video:** resize while keeping the media's aspect ratio.
+- **Shape:** non-rectangle shapes keep their proportions; rectangles resize
+  freely.
+
+Rotation is part of the same property set — rotated frames pivot correctly
+while you drag — but there is no rotate handle. Set rotation with the
+layer's **Rotation** control.
+
+<Info>
+  Edits commit as one change when you release the pointer. Dragging with stage
+  zoom active still moves handles 1:1 with your cursor; the zoom slider only
+  affects how large things appear.
+</Info>
+
+## Working with live playback
+
+The frame follows animated values each rendered frame while you are not
+dragging, so you can fine-tune placement against running reactors and then let
+go without losing position.

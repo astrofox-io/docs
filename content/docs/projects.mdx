@@ -4,8 +4,8 @@ description: Configure, save, open, move, and recover Astrofox projects.
 ---
 
 An Astrofox project stores the canvas, scenes, displays, effects, reactors,
-plugin references, and their settings. Projects save as human-readable `.json`
-files.
+plugin references, and their settings. Projects save as `.afx` files containing
+uncompressed JSON.
 
 ## Configure the canvas
 
@@ -26,7 +26,8 @@ The dialog shows the exact output width and height before you save.
 ## Save and open
 
 - **Save project** writes the current project to your device.
-- **Open project** opens an Astrofox `.json` file or a legacy `.afx` file.
+- **Open project** opens an `.afx` file, gzip-compressed or not, and also
+  accepts `.json` files from earlier 2.x saves.
 - **New project** clears the current composition after offering to save unsaved
   changes.
 
@@ -39,7 +40,8 @@ flow.
 
 ## Move a project to another computer
 
-Project files refer to local audio, image, and video sources. When those files
+Project files store composition settings and references to local image and
+video files. They do not include the audio track. When an image or video
 cannot be loaded automatically, Astrofox opens **Relink Media** and lists each
 missing item.
 
@@ -49,11 +51,11 @@ missing item.
     archiving it.
   </Step>
   <Step title="Open the project">
-    Open the `.json` project on the destination computer.
+    Open the `.afx` project on the destination computer.
   </Step>
-  <Step title="Relink missing media">
-    Choose the matching local file for every unresolved source. When all items
-    are resolved, return to the composition and verify playback.
+  <Step title="Restore media">
+    Choose the matching local file for every unresolved image or video. Load
+    the audio track again with **Load audio**. Then verify playback.
   </Step>
 </Steps>
 

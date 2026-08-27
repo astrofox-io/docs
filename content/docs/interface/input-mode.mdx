@@ -1,0 +1,82 @@
+---
+title: Input mode
+description: Drive visuals from a microphone, desktop audio, or a MIDI controller instead of a loaded audio file.
+---
+
+Input mode replaces the file transport with a live input. Visuals then react to
+whatever is coming through the selected device in real time — your voice,
+system or tab audio, or note and control data from a MIDI instrument.
+
+## Enable input mode
+
+On the file transport, select **Enable input mode** (the microphone button at
+the right end of the player). The player switches to the live panel.
+
+To leave live mode, select **Close input mode** (the X on the oscilloscope),
+or load an audio file. Leaving live mode does not restore the previous track;
+load the file again if you need the timeline. The last input type is
+remembered.
+
+## Choose an input
+
+A dropdown at the left of the live panel selects the input type. The controls
+to its right change with the selection:
+
+| Input | Controls | Notes |
+| --- | --- | --- |
+| Microphone | Device picker and the round start/stop button | The browser asks for permission the first time. Devices are listed automatically as they are connected or removed. |
+| Desktop Audio | **Capture Desktop Audio** button | Opens the screen-share dialog. Pick what to share and enable sharing of its sound. |
+| MIDI | Device picker and a **Connect** button | Requires Web MIDI support, which most Chromium-based browsers and the desktop app provide. |
+
+### Desktop audio
+
+To capture something other than a browser tab, choose a full screen and enable
+system audio in the share dialog. Window-only sharing often provides no sound;
+if Astrofox receives no audio track it warns you and stays disconnected.
+
+Stopping the capture from the browser's own share bar ends live input
+automatically, so visuals freeze gracefully instead of reacting to silence.
+
+### Start and stop
+
+Microphone and desktop audio use the round button beside the gain control:
+
+- With no connection yet, it connects the device you picked (**Start
+  microphone input** or **Capture Desktop Audio**).
+- A glowing border means the input is active; the oscilloscope above shows the
+  incoming signal.
+- Stopping a microphone pauses the input but stays in live mode.
+- Stopping desktop audio closes the capture and leaves live mode.
+
+MIDI has no round start/stop control and no gain. Use **Connect** after
+choosing a device.
+
+The status line in the bottom-left corner reflects the current state, for
+example `Live: USB Microphone` or `Live MIDI: Launchpad`. Before a device is
+connected it names the selected input type.
+
+<Info>
+  Loading an audio file always exits input mode. Switch back with **Enable
+  input mode** — your last input type is remembered, but the previous audio
+  file is not.
+</Info>
+
+## Gain
+
+For microphone and desktop audio, set the input gain from 0% to 300% when a
+source is consistently too quiet or too loud. Gain applies before analysis, so
+reactors bound to volume or spectrum ranges respond more predictably after you
+balance it. The oscilloscope gives immediate feedback while you adjust. MIDI
+has no gain control.
+
+## Reacting to live input
+
+Everything downstream behaves exactly as with a file: [reactors](/docs/reactors)
+sample the spectrum and volume each frame, so you can bind mic level to layer
+scale or drive effects from specific frequency bands. Live input has no
+timeline to seek, and [Save video](/docs/exporting) still needs an audio file
+so Astrofox can render a defined range.
+
+For setup problems — missing permissions, silent captures, or devices that do
+not appear — see [Audio and live input](/docs/audio) and
+[Troubleshooting](/docs/troubleshooting).
