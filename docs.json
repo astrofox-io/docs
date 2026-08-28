@@ -16,10 +16,6 @@
     {
       "path": "/download",
       "page": "download"
-    },
-    {
-      "path": "/changelog",
-      "page": "changelog"
     }
   ],
   "appearance": {
@@ -63,14 +59,13 @@
         "tab": "Documentation",
         "groups": [
           {
-            "group": "Overview",
+            "group": "Getting started",
             "collapsible": false,
             "pages": [
               {
                 "page": "index",
                 "title": "Introduction"
               },
-              "getting-started",
               {
                 "page": "first-project",
                 "title": "Create your first visual"
@@ -136,10 +131,6 @@
       {
         "tab": "Download",
         "href": "/download"
-      },
-      {
-        "tab": "Changelog",
-        "href": "/changelog"
       }
     ]
   }

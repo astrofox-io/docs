@@ -1,20 +1,60 @@
 ---
 title: Introduction
-description: Turn music and live audio into motion graphics, images, and videos.
+description: Open Astrofox, learn the workspace, and start building audio-reactive visuals.
 ---
 
-Astrofox is an open-source motion graphics app for building visuals that react
-to music. Combine spectrum displays, artwork, text, 3D geometry, and visual
-effects, then connect their controls to audio with reactors.
+## What is Astrofox?
+
+Astrofox is an application for making motion graphics that respond to audio.
+You build a composition on a canvas from layers such as spectrum displays,
+images, text, video, shapes, and 3D geometry, then apply effects. Sound can
+come from an audio file or from a live source: a microphone, desktop audio, or
+a MIDI controller. The app analyzes that input and can use it to change layer
+properties as the sound plays. You can save the current frame as an image, or
+export a video using a loaded audio file as the timeline.
+
+<CardGroup cols={2}>
+  <Card title="Use the web app" icon="globe-2" href="https://app.astrofox.io" cta="Open Astrofox">
+    Start immediately in a supported browser without installing anything.
+  </Card>
+  <Card title="Use the desktop app" icon="monitor-down" href="/download" cta="View downloads">
+    Work offline with native file access and desktop video export.
+  </Card>
+</CardGroup>
+
+Both versions use the same project format and editing interface, and neither
+requires an account.
 
 <img src="/screenshot.png" />
 
-Astrofox runs in the browser at [app.astrofox.io](https://app.astrofox.io) and as an
-offline [desktop](https://astrofox.io/download) app. Both use the same project format and editing interface.
+## How Astrofox is organized
+
+A project contains one or more **scenes**. Each scene contains **displays**,
+which draw visual content, and **effects**, which process the scene. **Reactors**
+turn audio or a generated signal into values that can drive compatible
+controls.
+
+The main areas stay in the same place while you work:
+
+- **Layers and Reactors** on the left organize the composition and its signals.
+- The **Stage** in the center previews the current result.
+- **Controls** on the right edit the selected scene, display, or effect.
+- The **Player** along the bottom handles audio playback and live input.
+
+Read the [Interface overview](/docs/interface) for a guided map of every panel
+and tool.
+
+## What you can make
+
+- Music visualizers for YouTube, social media, and live performance
+- Cover-art animations, lyric clips, and looping backgrounds
+- Spectrum, waveform, geometric, image, text, and video compositions
+- Still images and audio-synchronized video exports
+- Custom audio-reactive displays and effects with plugins
 
 <CardGroup cols={2}>
   <Card title="Create your first visual" icon="sparkles" href="/docs/first-project">
-    Load a song, add a display, make it react, and export the result.
+    Load a song, tune a spectrum, add a reactor, and export the result.
   </Card>
   <Card title="Learn the workspace" icon="panels-top-left" href="/docs/interface">
     Find scenes, layers, controls, playback, and stage tools.
@@ -26,18 +66,3 @@ offline [desktop](https://astrofox.io/download) app. Both use the same project f
     Read the code, report a bug, or contribute on GitHub.
   </Card>
 </CardGroup>
-
-## What you can make
-
-- Music visualizers for YouTube, social media, and live performance
-- Cover-art animations, lyric clips, and looping backgrounds
-- Spectrum, waveform, geometric, image, text, and video compositions
-- Still images and audio-synchronized video exports
-- Custom audio-reactive displays and effects with plugins
-
-## How Astrofox is organized
-
-A project contains one or more **scenes**. Each scene contains **displays**,
-which draw visual content, and **effects**, which process the scene. **Reactors**
-turn audio or a generated signal into values that can drive compatible
-controls.
