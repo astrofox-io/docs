@@ -46,15 +46,15 @@ export default function DownloadsPage() {
         <PlatformCard title="Linux" icon={<LinuxIcon />}>
           <DownloadRow
             label="AppImage"
-            href={latestDownloadUrl('Astrofox-linux-x64.AppImage')}
+            href={latestDownloadUrl('Astrofox-linux-x86_64.AppImage')}
           />
           <DownloadRow
             label="Debian / Ubuntu"
-            href={latestDownloadUrl('Astrofox-linux-x64.deb')}
+            href={latestDownloadUrl('Astrofox-linux-amd64.deb')}
           />
           <DownloadRow
             label="Fedora / RHEL"
-            href={latestDownloadUrl('Astrofox-linux-x64.rpm')}
+            href={latestDownloadUrl('Astrofox-linux-x86_64.rpm')}
           />
         </PlatformCard>
       </div>
