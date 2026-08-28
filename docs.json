@@ -50,6 +50,11 @@
         "icon": "x",
         "ariaLabel": "X",
         "href": "https://x.com/astrofox_io"
+      },
+      {
+        "icon": "discord",
+        "ariaLabel": "Discord",
+        "href": "https://discord.gg/wJ6pyMZ"
       }
     ]
   },
