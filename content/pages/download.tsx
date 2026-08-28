@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 export const frontmatter = {
   title: 'Download',
@@ -6,7 +6,8 @@ export const frontmatter = {
     'Download the Astrofox desktop app for Windows, macOS, and Linux.',
 };
 
-const releaseUrl = 'https://github.com/astrofox-io/astrofox/releases/latest';
+const latestDownloadUrl = (fileName: string) =>
+  `https://github.com/astrofox-io/astrofox/releases/latest/download/${fileName}`;
 
 type PlatformName = 'macOS' | 'Windows' | 'Linux';
 
@@ -18,24 +19,54 @@ export default function DownloadsPage() {
           Download Astrofox
         </h1>
         <p className="mt-3 text-base text-muted-foreground">
-          Available for macOS, Windows, and Linux.
+          Installers from the latest GitHub release. Available for macOS,
+          Windows, and Linux.
         </p>
       </header>
 
       <div className="mt-16 flex flex-col gap-6 w-160 mx-auto">
         <PlatformCard title="macOS" icon={<AppleIcon />}>
-          <DownloadRow label="macOS Apple Silicon" />
-          <DownloadRow label="macOS Intel" />
+          <DownloadRow
+            label="macOS Apple Silicon"
+            href={latestDownloadUrl('Astrofox-mac-arm64.dmg')}
+          />
+          <DownloadRow
+            label="macOS Intel"
+            href={latestDownloadUrl('Astrofox-mac-x64.dmg')}
+          />
         </PlatformCard>
 
         <PlatformCard title="Windows" icon={<WindowsIcon />}>
-          <DownloadRow label="Windows x64" />
+          <DownloadRow
+            label="Windows x64"
+            href={latestDownloadUrl('Astrofox-windows-x64-setup.exe')}
+          />
         </PlatformCard>
 
         <PlatformCard title="Linux" icon={<LinuxIcon />}>
-          <DownloadRow label="AppImage"/>
+          <DownloadRow
+            label="AppImage"
+            href={latestDownloadUrl('Astrofox-linux-x64.AppImage')}
+          />
+          <DownloadRow
+            label="Debian / Ubuntu"
+            href={latestDownloadUrl('Astrofox-linux-x64.deb')}
+          />
+          <DownloadRow
+            label="Fedora / RHEL"
+            href={latestDownloadUrl('Astrofox-linux-x64.rpm')}
+          />
         </PlatformCard>
       </div>
+
+      <p className="mt-10 text-center text-sm text-muted-foreground">
+        <a
+          href="https://github.com/astrofox-io/astrofox/releases"
+          className="hover:text-primary"
+        >
+          All GitHub releases
+        </a>
+      </p>
     </article>
   );
 }
@@ -60,10 +91,10 @@ function PlatformCard({
   );
 }
 
-function DownloadRow({ label }: { label: string; }) {
+function DownloadRow({ label, href }: { label: string; href: string }) {
   return (
     <a
-      href={releaseUrl}
+      href={href}
       target="_blank"
       rel="noreferrer"
       className="flex min-h-12 items-center justify-between gap-4 text-sm font-medium text-foreground hover:text-primary"
