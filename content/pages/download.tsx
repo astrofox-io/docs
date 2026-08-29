@@ -28,10 +28,12 @@ export default function DownloadsPage() {
         <PlatformCard title="macOS" icon={<AppleIcon />}>
           <DownloadRow
             label="macOS Apple Silicon"
+            fileName="Astrofox-mac-arm64.dmg"
             href={latestDownloadUrl('Astrofox-mac-arm64.dmg')}
           />
           <DownloadRow
             label="macOS Intel"
+            fileName="Astrofox-mac-x64.dmg"
             href={latestDownloadUrl('Astrofox-mac-x64.dmg')}
           />
         </PlatformCard>
@@ -39,6 +41,7 @@ export default function DownloadsPage() {
         <PlatformCard title="Windows" icon={<WindowsIcon />}>
           <DownloadRow
             label="Windows x64"
+            fileName="Astrofox-windows-x64-setup.exe"
             href={latestDownloadUrl('Astrofox-windows-x64-setup.exe')}
           />
         </PlatformCard>
@@ -46,14 +49,17 @@ export default function DownloadsPage() {
         <PlatformCard title="Linux" icon={<LinuxIcon />}>
           <DownloadRow
             label="AppImage"
+            fileName="Astrofox-linux-x86_64.AppImage"
             href={latestDownloadUrl('Astrofox-linux-x86_64.AppImage')}
           />
           <DownloadRow
             label="Debian / Ubuntu"
+            fileName="Astrofox-linux-amd64.deb"
             href={latestDownloadUrl('Astrofox-linux-amd64.deb')}
           />
           <DownloadRow
             label="Fedora / RHEL"
+            fileName="Astrofox-linux-x86_64.rpm"
             href={latestDownloadUrl('Astrofox-linux-x86_64.rpm')}
           />
         </PlatformCard>
@@ -62,6 +68,7 @@ export default function DownloadsPage() {
       <p className="mt-10 text-center text-sm text-muted-foreground">
         <a
           href="https://github.com/astrofox-io/astrofox/releases"
+          data-umami-event="download-all-releases"
           className="hover:text-primary"
         >
           All GitHub releases
@@ -91,12 +98,23 @@ function PlatformCard({
   );
 }
 
-function DownloadRow({ label, href }: { label: string; href: string }) {
+function DownloadRow({
+  label,
+  href,
+  fileName,
+}: {
+  label: string;
+  href: string;
+  fileName: string;
+}) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
+      data-umami-event="download-installer"
+      data-umami-event-label={label}
+      data-umami-event-file={fileName}
       className="flex min-h-12 items-center justify-between gap-4 text-sm font-medium text-foreground hover:text-primary"
     >
       <span>{label}</span>

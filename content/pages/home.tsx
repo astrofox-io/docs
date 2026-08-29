@@ -26,6 +26,7 @@ export default function HomePage() {
         <div className="flex gap-4">
           <Link
             to="/download"
+            data-umami-event="home-download"
             className="inline-flex h-12 items-center justify-center gap-2.5 rounded-md border border-border bg-background px-6 text-base font-medium text-foreground transition-colors hover:bg-accent"
           >
             <svg
@@ -39,6 +40,7 @@ export default function HomePage() {
           </Link>
           <Link
             to="/docs"
+            data-umami-event="home-get-started"
             className="inline-flex h-12 items-center justify-center gap-2.5 rounded-md bg-secondary px-6 text-base font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
           >
             <svg
