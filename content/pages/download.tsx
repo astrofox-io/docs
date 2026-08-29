@@ -19,8 +19,7 @@ export default function DownloadsPage() {
           Download Astrofox
         </h1>
         <p className="mt-3 text-base text-muted-foreground">
-          Installers from the latest GitHub release. Available for macOS,
-          Windows, and Linux.
+          Available for macOS, Windows, and Linux.
         </p>
       </header>
 
@@ -71,7 +70,7 @@ export default function DownloadsPage() {
           data-umami-event="download-all-releases"
           className="hover:text-primary"
         >
-          All GitHub releases
+          All releases
         </a>
       </p>
     </article>
