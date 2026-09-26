@@ -1,0 +1,59 @@
+---
+title: 场景和图层
+description: 使用场景、显示组件和效果构建 Astrofox 合成。
+---
+
+图层面板构成了合成的结构。一个项目包含多个场景；每个场景包含显示组件图层和一条效果链。
+
+## 场景
+
+场景将视觉内容和效果组合为一个整体合成的单元。当你需要可以单独隐藏、混合或叠加的独立外观，或者想让图层层级更清晰时，可以添加场景。你可以像操作其他图层一样重命名、隐藏、重新排序或删除场景。
+
+## 显示组件
+
+显示组件负责生成像素。Astrofox 按照控制方式对内置显示组件进行分组：
+
+| 分组 | 显示组件 |
+| --- | --- |
+| 2D | Image, Video, Text, Shape, Bar Spectrum, Radial Spectrum, Wave Spectrum, Waveform Ring, Sound Wave |
+| 3D | Geometry, Mesh Grid, Tunnel |
+
+频谱和波形显示组件会直接分析音频。图像、视频、文字、形状和 3D 显示组件在你将兼容的控件绑定到反应器后，同样可以响应音频。
+
+<img src="/add-display.png" alt="添加显示组件" />
+
+## 效果
+
+效果用于处理场景，而不是绘制独立的对象。内置效果分为以下几组：
+
+- **Color**：Color, Color Depth
+- **Blur & Focus**：Bloom, Blur, Tilt Shift
+- **Distortion**：Distortion, Glitch, Kaleidoscope, Lens Warp, Mirror, RGB Shift, Shockwave, VHS
+- **Pattern**：ASCII, Color Halftone, Dot Screen, LED, Pixelate, Scanline
+- **Stylize**：Edge Detection, Feedback Echo, Film Grain, Vignette
+
+**Color** 效果包含亮度、对比度、色相、饱和度和棕褐色调。**Color Depth** 是一个单独的效果，用于降低位深。
+
+## 选择和编辑图层
+
+在图层面板中选择一行，即可在控制面板中显示该元素的设置。你还可以：
+
+- 点击它的可见性控件来启用或禁用它
+- 重命名它，以说明它在合成中的作用
+- 拖动它来调整兼容图层的顺序，或将它移动到另一个场景中
+- 使用上移和下移控件进行精确排序
+- 不再需要时将其删除
+
+显示组件可以在各场景的显示组件区域之间移动，效果可以在各场景的效果区域之间移动，场景之间也可以相互调整顺序。
+
+<img src="/add-effect.png" alt="添加效果" />
+
+## 在舞台上变换显示组件
+
+选择一个受支持的 2D 显示组件，并启用[图层变换](/docs/zh-Hans/interface/layer-transform)工具。拖动图层即可移动它，拖动其控制柄即可调整大小。旋转角度可通过该图层的 **Rotation** 控件设置。这些更改会同步更新控制面板中显示的数值。
+
+对于受支持的 3D 显示组件，可以使用[相机控制](/docs/zh-Hans/interface/camera-controls)围绕场景环绕旋转，并使用鼠标滚轮调整相机距离。Geometry、Mesh Grid、Tunnel 以及支持相机的插件都提供这一操作方式。
+
+<Tip>
+  效果按链式顺序计算。如果两个效果相互影响，请调整它们的顺序并比较结果。例如，Bloom 在 Pixelate 之前与 Pixelate 在 Bloom 之前的效果并不相同。
+</Tip>

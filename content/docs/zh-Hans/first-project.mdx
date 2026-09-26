@@ -1,0 +1,57 @@
+---
+title: 创建你的第一个视觉作品
+description: 跟随一个示例项目，从新建画布到导出随音频变化的视觉作品。
+---
+
+本教程将使用一个音频文件创建一个简单的频谱视觉效果。你可以使用[网页版 Astrofox](https://app.astrofox.io)，也可以使用[桌面应用](/docs/zh-Hans/desktop-app)。
+
+<Steps>
+  <Step title="新建项目">
+    打开 Astrofox；如果已经打开了其他项目，请在操作栏中选择 **New project**（新建项目）。新项目默认包含 Image、Bar Spectrum 和 Text 图层。选择操作栏中的 **Project settings** 按钮（设置图标），然后设置标题、输出格式、尺寸和背景颜色。
+
+    <img src="/new-project.png" alt="新建项目" />
+  </Step>
+  <Step title="加载音频">
+    在操作栏中选择 **Load audio**（加载音频），然后从你的设备中选择一首歌曲。使用工作区底部的播放器来播放、暂停、停止、循环或在音轨中跳转。
+
+    <img src="/load-audio.png" alt="加载音频" />
+  </Step>
+  <Step title="添加显示组件">
+    新项目已经包含一个 **Bar Spectrum**。选中它，或者从图层面板添加 **Radial Spectrum** 或 **Wave Spectrum**。在控制面板中编辑它的颜色、尺寸、频率范围、平滑度、位置和其他设置。
+
+    <img src="/add-display.png" alt="添加显示组件" />
+  </Step>
+  <Step title="让其他控件产生响应">
+    在反应器面板中添加一个反应器。选择它要跟随的频谱区域，然后将该反应器绑定到兼容的控件上，例如缩放、旋转、不透明度或效果强度。
+
+    <img src="/add-reactor.png" alt="添加反应器" />
+  </Step>
+  <Step title="润色细节">
+    利用项目中已有的 Image 和 Text 图层，然后尝试 **Bloom**、**Color**、**Film Grain** 或 **Vignette** 等效果。调整图层和效果的顺序，直到合成看起来协调为止。
+  </Step>
+  <Step title="保存并导出">
+    在操作栏中选择 **Save project**（保存项目），保存一个可编辑的 `.afx` 项目。使用 **Save image** 保存静态帧，或使用 **Save video** 导出动画。
+  </Step>
+</Steps>
+
+## 实用的初始图层结构
+
+| 图层 | 用途 |
+| --- | --- |
+| Text | 艺人名称或曲目标题 |
+| Bar Spectrum | 主要的音频响应动画 |
+| Image | 封面或标志 |
+| Shape | 背景面板或边框元素 |
+| Bloom 效果 | 在明亮区域周围产生柔和的光晕 |
+| Color 效果 | 最终的亮度、对比度、色相和饱和度调整 |
+
+<Info>
+  Astrofox 会保存项目结构和设置。在另一台电脑上打开时，图像和视频图层可能需要重新链接，音轨也必须重新加载。移动项目时，请将这些文件与项目放在一起。
+</Info>
+
+## 后续步骤
+
+- 阅读[界面](/docs/zh-Hans/interface)，了解工作区概况。
+- 了解[场景、显示组件和效果](/docs/zh-Hans/scenes-and-layers)如何协同工作。
+- 使用[反应器](/docs/zh-Hans/reactors)精细调整动画。
+- 在[导出](/docs/zh-Hans/exporting)中选择合适的格式。

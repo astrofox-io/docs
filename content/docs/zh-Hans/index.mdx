@@ -1,0 +1,57 @@
+---
+title: 简介
+description: 打开 Astrofox，熟悉工作区，开始制作随音频变化的动态视觉效果。
+---
+
+## Astrofox 是什么？
+
+Astrofox 是一款用于制作随音频变化的动态图形的应用。你可以在画布上用频谱显示组件、图像、文字、视频、形状和 3D 几何体等图层搭建合成，再为其添加效果。声音既可以来自音频文件，也可以来自实时来源：麦克风、桌面音频或 MIDI 控制器。应用会分析这些输入，并在声音播放时用它来改变图层属性。你可以将当前帧保存为图像，也可以以已加载的音频文件作为时间线导出视频。
+
+<CardGroup cols={2}>
+  <Card title="使用网页版" icon="globe-2" href="https://app.astrofox.io" cta="打开 Astrofox">
+    在受支持的浏览器中直接开始使用，无需安装任何软件。
+  </Card>
+  <Card title="使用桌面应用" icon="monitor-down" href="/zh-Hans/download" cta="查看下载">
+    离线工作，享受原生文件访问和桌面端视频导出。
+  </Card>
+</CardGroup>
+
+两个版本使用相同的项目格式和编辑界面，并且都不需要注册账号。
+
+<img src="/screenshot.png" />
+
+## Astrofox 的组织方式
+
+一个项目包含一个或多个**场景**。每个场景包含用于绘制视觉内容的**显示组件**，以及用于处理场景的**效果**。**反应器**会将音频或生成的信号转换为数值，用来驱动兼容的控件。
+
+在你工作时，主要区域始终位于固定位置：
+
+- 左侧的**图层和反应器**用于组织合成及其信号。
+- 中间的**舞台**用于预览当前结果。
+- 右侧的**控制面板**用于编辑选中的场景、显示组件或效果。
+- 底部的**播放器**负责音频播放和实时输入。
+
+阅读[界面概览](/docs/zh-Hans/interface)，了解每个面板和工具的详细导览。
+
+## 你可以制作什么
+
+- 用于 YouTube、社交媒体和现场演出的音乐可视化
+- 封面动画、歌词片段和循环背景
+- 频谱、波形、几何、图像、文字和视频合成
+- 静态图像以及与音频同步的视频导出
+- 通过插件自定义随音频变化的显示组件和效果
+
+<CardGroup cols={2}>
+  <Card title="创建你的第一个视觉作品" icon="sparkles" href="/docs/zh-Hans/first-project">
+    加载一首歌曲，调整频谱，添加反应器，然后导出结果。
+  </Card>
+  <Card title="熟悉工作区" icon="panels-top-left" href="/docs/zh-Hans/interface">
+    了解场景、图层、控件、播放和舞台工具。
+  </Card>
+  <Card title="使用插件扩展" icon="plug" href="/docs/zh-Hans/plugin-authoring">
+    添加基于着色器或沙盒 JavaScript 的显示组件和效果。
+  </Card>
+  <Card title="查看源代码" icon="code" href="https://github.com/astrofox-io/astrofox">
+    在 GitHub 上阅读代码、报告问题或参与贡献。
+  </Card>
+</CardGroup>

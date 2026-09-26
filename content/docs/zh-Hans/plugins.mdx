@@ -1,0 +1,45 @@
+---
+title: 安装和管理插件
+description: 通过清单 URL 为 Astrofox 添加第三方显示组件和效果。
+---
+
+插件可以为 Astrofox 扩展显示组件和效果。插件通过 `astrofox.plugin.json` 清单的 URL 安装，安装后会与内置显示组件和效果一起出现在添加菜单中。
+
+## 安装插件
+
+<Steps>
+  <Step title="复制清单 URL">
+    从插件作者处获取指向 `astrofox.plugin.json` 的直接 HTTPS URL。本地开发时，`localhost` 上的 URL 可以使用 HTTP。
+  </Step>
+  <Step title="打开插件管理器">
+    在操作栏中选择 **Manage plugins**（管理插件），然后选择通过 URL 添加插件的操作。
+  </Step>
+  <Step title="检查插件">
+    检查插件的名称、作者、来源、运行时、请求的宿主库以及权限。请求网络访问权限的插件可以从其 worker 发起对外连接。
+  </Step>
+  <Step title="安装并添加">
+    确认安装。根据清单中的类型，插件会出现在 Display 或 Effect 的添加菜单中。
+  </Step>
+</Steps>
+
+## 安全模型
+
+Astrofox 会在本地缓存已安装的插件文件，并使用 SHA-384 完整性哈希将其固定。只有当你明确更新插件时，才会再次访问来源 URL。通过 localhost 安装的开发插件会被标记为开发插件，并跳过完整性固定，以便你在开发时重新加载。
+
+JavaScript 插件在带有内容安全策略（Content Security Policy）的专用 Web Worker 中运行。它们无法访问 DOM，不能导入任意远程代码，并且除非清单请求了 `network` 权限，否则无法使用网络。
+
+<Warning>
+  完整性固定可以防止已安装的版本被悄悄更改，但并不能让未知代码变得可信。在安装插件之前，请检查其源代码和请求的权限。
+</Warning>
+
+## 更新、重新加载或移除
+
+- **Update** 会重新获取清单和文件，并展示新版本供你审查。
+- **Reload** 会在开发插件的本地文件发生变化后刷新该插件。
+- **Remove** 会将插件从 Astrofox 中注销。依赖该插件的现有项目元素在重新安装之前无法渲染。
+
+## 项目缺少的插件
+
+项目会存储每个插件的带命名空间的 ID、来源 URL 和版本。当项目引用了缺失的插件时，Astrofox 会列出所需的插件并提供安装。安装完成后请重新打开项目，以便正常创建其中的元素。
+
+想自己开发插件？请从[插件开发](/docs/zh-Hans/plugin-authoring)开始。

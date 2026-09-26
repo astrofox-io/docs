@@ -1,0 +1,163 @@
+---
+title: 插件参考
+description: Astrofox 插件清单、控件、音频数据、uniform 和帧数据的参考文档。
+---
+
+每个插件都从一个 `astrofox.plugin.json` 清单开始。
+
+## 清单字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `api` | number | 插件规范版本。使用 `1`。 |
+| `name` | string | 必填的带命名空间的 ID，例如 `@author/plugin-name`。 |
+| `version` | string | 插件发布版本。 |
+| `label` | string | 在菜单和图层面板中显示的名称。 |
+| `description` | string | 安装时显示的简短说明。 |
+| `author` | string | 插件作者或组织。 |
+| `type` | string | `display` 或 `effect`。 |
+| `runtime` | string | `shader` 或 `worker`。显示组件可以使用任意一种；效果必须使用 `shader`。 |
+| `shader` | string | 着色器运行时所用的片段着色器路径。 |
+| `entry` | string | worker 运行时所用的 ES 模块路径。 |
+| `icon` | string | 可选的图标路径，显示在菜单中。 |
+| `permissions` | string[] | 请求的能力，目前包括 `network`。 |
+| `libraries` | string[] | worker 请求的宿主库；目前为 `three`。 |
+| `camera` | boolean | 为 worker 显示组件添加宿主相机控制。 |
+| `audio` | object | 插件请求的 FFT 和时域数据。 |
+| `defaultProperties` | object | 每个新实例的初始属性值。 |
+| `controls` | object | 声明式的控制面板结构定义。 |
+| `uniforms` | object | 着色器运行时的属性到 uniform 的映射。 |
+
+路径以清单 URL 为基准进行相对解析。已发布的文件必须使用 HTTPS；开发时允许使用 `http://localhost`。
+
+## 音频数据
+
+只声明插件需要的音频数据：
+
+```jsonc
+"audio": {
+  "fft": {
+    "bins": 64,
+    "minFrequency": 0,
+    "maxFrequency": 6000,
+    "smoothing": 0.5,
+    "minDecibels": -100,
+    "maxDecibels": -12
+  },
+  "td": {
+    "samples": 256
+  }
+}
+```
+
+| 值 | 范围和含义 |
+| --- | --- |
+| `fft.bins` | 1–512 个归一化的频率值 |
+| `fft.minFrequency` / `maxFrequency` | 以赫兹为单位的频率窗口 |
+| `fft.smoothing` | 0–0.99 的指数平滑 |
+| `fft.minDecibels` / `maxDecibels` | 输入电平归一化的上下限 |
+| `td.samples` | 时域波形的采样数量 |
+
+FFT 值的范围为 0 到 1。时域值的范围同样为 0 到 1，静音时位于中心值 0.5。Worker 显示组件可以同时请求 FFT 和时域数据。着色器显示组件只接收 FFT 和音量。着色器效果接收音量、time、delta 和 `inputTexture`，不接收 FFT 或时域数组。播放和视频导出时使用相同的分析流程。
+
+## 控件
+
+支持的控件类型包括 `text`、`number`、`toggle`、`checkbox`、`color`、`colorrange`、`range`、`select` 和 `time`。
+
+常用字段包括：
+
+| 字段 | 用途 |
+| --- | --- |
+| `label` | 便于阅读的控件名称 |
+| `type` | 要渲染的输入组件 |
+| `min`, `max`, `step` | 数值范围和精度 |
+| `withRange` | 为数值输入显示滑块 |
+| `withReactor` | 允许反应器驱动此属性 |
+| `items` | 下拉选择输入的可选值 |
+| `hidden` | 按条件或永久隐藏该输入 |
+
+由于清单是 JSON 格式，动态值需要使用引用：
+
+```jsonc
+{
+  "width": {
+    "label": "Width",
+    "type": "number",
+    "min": 16,
+    "max": { "$stage": "width" },
+    "withRange": true
+  },
+  "detail": {
+    "label": "Detail",
+    "type": "number",
+    "min": { "$prop": "minimumDetail" },
+    "max": 64
+  },
+  "manualSize": {
+    "label": "Manual size",
+    "type": "number",
+    "hidden": { "$prop": "autoSize" }
+  }
+}
+```
+
+舞台引用可以包含 `scale`；例如，`{ "$stage": "width", "scale": -1 }` 会解析为舞台宽度的负值。
+
+## Uniform 映射
+
+着色器运行时会将属性映射到 GLSL uniform：
+
+```jsonc
+"uniforms": {
+  "amount": { "type": "float", "from": "amount" },
+  "tint": { "type": "color", "from": "color" },
+  "center": { "type": "vec2", "from": ["x", "y"] }
+}
+```
+
+`color` 会将十六进制颜色转换为三分量向量。向量映射会从列出的属性中读取各个分量。
+
+## Worker 工厂函数输入
+
+根据清单内容，worker 工厂函数会接收：
+
+| 输入 | 说明 |
+| --- | --- |
+| `properties` | 来自清单和实例的初始属性值 |
+| `seed` | 每个实例固定的随机种子 |
+| `size` | 当前舞台尺寸 |
+| `libraries` | 所请求的宿主库命名空间 |
+| `renderer` | 请求 `three` 时提供的共享 Three.js 渲染器 |
+
+## 帧数据
+
+`render(frame)` 会接收：
+
+| 字段 | 说明 |
+| --- | --- |
+| `id` | 帧标识符 |
+| `time` | 以秒为单位的确定性时间 |
+| `delta` | 距上一帧的时间，以毫秒为单位 |
+| `playing` | 时间线或实时输入是否处于活动状态 |
+| `exporting` | 是否正在进行离线导出渲染 |
+| `volume` | 归一化的整体音频电平 |
+| `seed` | 固定的插件实例种子 |
+| `fft` | 所请求的 FFT 数组（已配置时提供） |
+| `td` | 所请求的时域数组（已配置时提供） |
+
+导出期间，`delta` 固定为 `1000 / fps`。请使用 `time`、`delta` 和 `seed` 来实现可复现的动画。
+
+## 渲染结果
+
+worker 的 `render()` 方法可以返回：
+
+```js
+return {
+  width,
+  height,
+  originX,
+  originY,
+};
+```
+
+宽度和高度用于设置图层边界。可选的原点值用于设置其变换原点。

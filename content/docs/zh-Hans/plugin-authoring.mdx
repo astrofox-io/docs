@@ -1,0 +1,115 @@
+---
+title: 插件开发
+description: 构建并托管外部 Astrofox 显示组件或效果插件。
+---
+
+外部插件是一个小型目录，其中包含一个 `astrofox.plugin.json` 清单以及一个片段着色器或 JavaScript 模块。Astrofox 支持三种组合：
+
+| 类型 | 运行时 | 用途 |
+| --- | --- | --- |
+| Display | Shader | 生成式 2D 片段着色器图层 |
+| Effect | Shader | 作用于当前场景的后期处理通道 |
+| Display | Worker | 在沙盒中运行的 JavaScript 画布或 Three.js 图层 |
+
+效果插件仅支持着色器运行时。worker 效果会被拒绝。
+
+## 从示例开始
+
+Astrofox 仓库在 [`examples/plugins`](https://github.com/astrofox-io/astrofox/tree/main/examples/plugins) 下提供了完整的示例：
+
+| 示例 | 演示内容 |
+| --- | --- |
+| `bass-glow` | 带属性 uniform 的着色器效果 |
+| `plasma` | 使用 FFT 数据的着色器显示组件 |
+| `pulse-bars` | 在沙盒 worker 中进行 2D 画布绘制 |
+| `audio-orb` | 通过宿主提供的库和渲染器使用 Three.js |
+| `cubes` | 使用 Three.js 实例化，并由宿主驱动相机控制 |
+
+复制最接近需求的示例，修改其带命名空间的 ID、标签和实现，然后在本地运行。
+
+## 最简着色器显示组件
+
+创建以下结构：
+
+```text
+my-plugin/
+├── astrofox.plugin.json
+└── display.frag
+```
+
+```jsonc title="astrofox.plugin.json"
+{
+  "api": 1,
+  "name": "@your-name/my-plugin",
+  "version": "1.0.0",
+  "label": "My Plugin",
+  "description": "A generative color field.",
+  "author": "Your Name",
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag",
+  "defaultProperties": {
+    "width": 1280,
+    "height": 720,
+    "speed": 1
+  },
+  "controls": {
+    "speed": {
+      "label": "Speed",
+      "type": "number",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "withRange": true,
+      "withReactor": true
+    }
+  },
+  "uniforms": {
+    "speed": { "type": "float", "from": "speed" }
+  }
+}
+```
+
+```glsl title="display.frag"
+precision highp float;
+
+varying vec2 vUv;
+uniform float time;
+uniform float speed;
+
+void main() {
+  vec3 color = 0.5 + 0.5 * cos(time * speed + vUv.xyx * 6.2831);
+  gl_FragColor = vec4(color, 1.0);
+}
+```
+
+Astrofox 会自动为外部显示组件添加位置、旋转、缩放、不透明度和反应器支持。没有相机的显示组件还会获得舞台上的变换叠加层。启用相机的 worker 显示组件则改用[相机控制](/docs/zh-Hans/interface/camera-controls)。
+
+## 本地开发
+
+<Steps>
+  <Step title="安装 Astrofox 源代码依赖">
+    克隆 Astrofox 仓库，并运行一次 `pnpm install`。
+  </Step>
+  <Step title="启动插件服务器">
+    在 Astrofox 仓库中运行 `pnpm dev:plugins`。它会在一个可用的本地端口上以启用 CORS 的方式托管所有示例插件，并输出各清单的 URL。
+  </Step>
+  <Step title="安装本地清单">
+    在 Astrofox 中，选择操作栏中的 **Manage plugins**，然后安装输出的 `http://localhost:…/astrofox.plugin.json` URL。
+  </Step>
+  <Step title="迭代开发">
+    编辑插件文件，然后在 Manage Plugins 中使用 **Reload**。localhost 插件会被标记为开发安装。
+  </Step>
+</Steps>
+
+## 发布
+
+将清单及其引用的所有文件托管在同一个可通过 HTTPS 访问的源上。相对文件引用以清单 URL 为基准进行解析。服务器必须通过 CORS 允许 Astrofox 获取这些文件。
+
+发布更改时，请提高清单中的 `version`。已安装的版本会被缓存并进行完整性固定，因此由用户自行决定何时更新。
+
+<Tip>
+  保持插件 URL 稳定，并按照语义化版本规范为清单设置版本号。项目会保留插件的来源 URL 和版本，这样以后遇到缺失的依赖时也能清楚了解原因。
+</Tip>
+
+接下来请阅读[插件运行时](/docs/zh-Hans/plugin-runtimes)，或查阅[清单参考](/docs/zh-Hans/plugin-reference)。

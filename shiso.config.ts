@@ -7,6 +7,7 @@ export default defineConfig({
   translations: {
     en: { searchPlaceholder: 'Search Astrofox docs' },
     ja: { searchPlaceholder: 'Astrofox ドキュメントを検索' },
+    'zh-Hans': { searchPlaceholder: '搜索 Astrofox 文档' },
     'zh-Hant': { searchPlaceholder: '搜尋 Astrofox 文件' },
     de: { searchPlaceholder: 'Astrofox-Dokumentation durchsuchen' },
     fr: { searchPlaceholder: 'Rechercher dans la documentation Astrofox' },

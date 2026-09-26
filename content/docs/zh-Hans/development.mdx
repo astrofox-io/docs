@@ -1,0 +1,79 @@
+---
+title: 开发
+description: 从源代码运行、构建和打包 Astrofox。
+---
+
+Astrofox 是一个基于 React 和 Three.js 的纯客户端 Next.js 应用。本地开发不需要后端或身份验证服务。
+
+## 环境要求
+
+- 与项目依赖所声明版本兼容的 Node.js
+- pnpm
+- Git
+
+克隆并安装：
+
+```bash
+git clone https://github.com/astrofox-io/astrofox.git
+cd astrofox
+pnpm install
+```
+
+## 运行网页版
+
+```bash
+pnpm dev
+```
+
+使用以下命令创建生产构建：
+
+```bash
+pnpm build
+```
+
+常规构建流程用于网页部署。项目和媒体文件都保留在用户的设备上，不需要本地 API 服务。
+
+## 运行桌面应用
+
+桌面开发命令会启动 Next.js 开发环境和 Electron 外壳：
+
+```bash
+pnpm dev:desktop
+```
+
+构建生产环境的桌面安装包：
+
+```bash
+pnpm install-ffmpeg
+pnpm build:desktop
+```
+
+也可以使用特定平台的命令：
+
+```bash
+pnpm dist:win
+pnpm dist:mac
+pnpm dist:linux
+```
+
+`BUILD_TARGET=desktop` 会在 `out/` 中生成 Next.js 静态导出，随后与 Electron 主进程和 preload 桥接一起打包。
+
+## 开发插件
+
+运行示例插件服务器：
+
+```bash
+pnpm dev:plugins
+```
+
+它会查找一个可用端口，以启用 CORS 的方式托管示例插件目录，并输出可在 Astrofox 中安装的清单 URL。完整的工作流程请参阅[插件开发](/docs/zh-Hans/plugin-authoring)。
+
+## 架构说明
+
+- 网页版和桌面版构建共享同一个应用和项目格式。
+- 普通的项目和媒体读写优先使用 File System Access API。
+- Electron 桥接仅限于窗口外框、ffmpeg、临时文件以及导出后的操作系统集成。
+- 网页版视频使用 `MediaRecorder`；桌面端离线导出会渲染各帧，并将其交给内置的 ffmpeg 程序处理。
+- 外部 JavaScript 插件在沙盒 worker 中运行，并受到严格的内容安全策略（Content Security Policy）限制。
+
+源代码和贡献动态位于 [Astrofox GitHub 仓库](https://github.com/astrofox-io/astrofox)。

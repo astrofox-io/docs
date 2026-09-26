@@ -60,6 +60,16 @@
       "path": "/fr/download",
       "page": "fr/download",
       "language": "fr"
+    },
+    {
+      "path": "/zh-Hans",
+      "page": "zh-Hans/home",
+      "language": "zh-Hans"
+    },
+    {
+      "path": "/zh-Hans/download",
+      "page": "zh-Hans/download",
+      "language": "zh-Hans"
     }
   ],
   "appearance": {
@@ -185,6 +195,157 @@
         ]
       },
       {
+        "language": "zh-Hans",
+        "tabs": [
+          {
+            "tab": "文档",
+            "groups": [
+              {
+                "group": "入门",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hans/index",
+                    "title": "简介"
+                  },
+                  {
+                    "page": "zh-Hans/first-project",
+                    "title": "创建你的第一个视觉作品"
+                  }
+                ]
+              },
+              {
+                "group": "界面",
+                "root": "zh-Hans/interface",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hans/interface/app-bar-and-actions",
+                    "title": "应用栏和操作"
+                  },
+                  {
+                    "page": "zh-Hans/interface/layers-panel",
+                    "title": "图层面板"
+                  },
+                  {
+                    "page": "zh-Hans/interface/reactors-panel",
+                    "title": "反应器面板"
+                  },
+                  {
+                    "page": "zh-Hans/interface/stage",
+                    "title": "舞台"
+                  },
+                  {
+                    "page": "zh-Hans/interface/picture-in-picture",
+                    "title": "画中画"
+                  },
+                  {
+                    "page": "zh-Hans/interface/layer-transform",
+                    "title": "图层变换"
+                  },
+                  {
+                    "page": "zh-Hans/interface/camera-controls",
+                    "title": "相机控制"
+                  },
+                  {
+                    "page": "zh-Hans/interface/controls-panel",
+                    "title": "控制面板"
+                  },
+                  {
+                    "page": "zh-Hans/interface/player-and-status",
+                    "title": "播放器和状态栏"
+                  },
+                  {
+                    "page": "zh-Hans/interface/input-mode",
+                    "title": "输入模式"
+                  }
+                ]
+              },
+              {
+                "group": "创建",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hans/projects",
+                    "title": "项目"
+                  },
+                  {
+                    "page": "zh-Hans/audio",
+                    "title": "音频和实时输入"
+                  },
+                  {
+                    "page": "zh-Hans/scenes-and-layers",
+                    "title": "场景和图层"
+                  },
+                  {
+                    "page": "zh-Hans/reactors",
+                    "title": "反应器"
+                  }
+                ]
+              },
+              {
+                "group": "导出",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hans/exporting",
+                    "title": "导出图像和视频"
+                  },
+                  {
+                    "page": "zh-Hans/desktop-app",
+                    "title": "桌面应用"
+                  }
+                ]
+              },
+              {
+                "group": "插件",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hans/plugins",
+                    "title": "安装和管理插件"
+                  },
+                  {
+                    "page": "zh-Hans/plugin-authoring",
+                    "title": "插件开发"
+                  },
+                  {
+                    "page": "zh-Hans/plugin-runtimes",
+                    "title": "插件运行时"
+                  },
+                  {
+                    "page": "zh-Hans/plugin-reference",
+                    "title": "插件参考"
+                  }
+                ]
+              },
+              {
+                "group": "帮助",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hans/troubleshooting",
+                    "title": "故障排除"
+                  },
+                  {
+                    "page": "zh-Hans/upgrading-from-v1",
+                    "title": "从 1.x 升级"
+                  },
+                  {
+                    "page": "zh-Hans/development",
+                    "title": "开发"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "下载",
+            "href": "/zh-Hans/download"
+          }
+        ]
+      },
+      {
         "language": "zh-Hant",
         "tabs": [
           {
@@ -279,7 +440,7 @@
                 "pages": [
                   {
                     "page": "zh-Hant/exporting",
-                    "title": "匯出"
+                    "title": "匯出圖片與影片"
                   },
                   {
                     "page": "zh-Hant/desktop-app",
@@ -430,7 +591,7 @@
                 "pages": [
                   {
                     "page": "ja/exporting",
-                    "title": "書き出し"
+                    "title": "画像と動画の書き出し"
                   },
                   {
                     "page": "ja/desktop-app",

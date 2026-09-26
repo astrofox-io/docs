@@ -1,0 +1,160 @@
+---
+title: 插件运行时
+description: 实现 Astrofox 着色器、画布 worker 和 Three.js 插件。
+---
+
+运行时决定了插件的渲染方式以及它使用哪些清单字段。
+
+## 着色器显示组件
+
+着色器显示组件通过片段着色器绘制一个新图层。它会接收舞台尺寸、确定性时间、音频电平以及所请求的 FFT 数据。
+
+```jsonc
+{
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag"
+}
+```
+
+可用的 GLSL 输入包括：
+
+```glsl
+varying vec2 vUv;
+uniform vec2 resolution; // pass size in pixels
+uniform float time;      // deterministic seconds
+uniform float delta;     // milliseconds since the previous frame
+uniform float volume;    // overall level from 0 to 1
+uniform float fft[64];   // present when audio.fft requests 64 bins
+```
+
+将最终颜色写入 `gl_FragColor`。Astrofox 合成该显示组件时会保留 Alpha 通道。
+
+## 着色器效果
+
+着色器效果通过 `inputTexture` 接收到目前为止已渲染的合成，以及 time、delta 和 volume。它不会接收 FFT 或时域数据：
+
+```jsonc
+{
+  "type": "effect",
+  "runtime": "shader",
+  "shader": "./effect.frag"
+}
+```
+
+```glsl
+uniform sampler2D inputTexture;
+varying vec2 vUv;
+
+void main() {
+  vec4 source = texture2D(inputTexture, vUv);
+  gl_FragColor = source;
+}
+```
+
+使用 `uniforms` 对象将清单属性映射到自定义 uniform。有效的类型包括 `float`、`int`、`vec2`、`vec3`、`vec4` 和 `color`。
+
+## Worker 显示组件
+
+Worker 显示组件以默认导出的方式提供一个工厂函数。它在专用的 Web Worker 中运行，没有 DOM，通常绘制到 `OffscreenCanvas` 上。
+
+```js
+export default function createPlugin({ properties, seed, size }) {
+  let props = { ...properties };
+  let canvas;
+  let context;
+
+  return {
+    init({ canvas: nextCanvas }) {
+      canvas = nextCanvas;
+      context = canvas.getContext('2d');
+    },
+    update(next) {
+      props = { ...props, ...next };
+    },
+    render(frame) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw using frame.time, frame.fft, frame.td, and props.
+      return { width: canvas.width, height: canvas.height };
+    },
+    resize(nextSize) {},
+    dispose() {},
+  };
+}
+```
+
+请遵循以下规则：
+
+- 根据 `frame.time` 和 `frame.delta` 计算动画，切勿使用系统时钟时间。
+- 使用 `frame.seed` 作为随机数种子，它在同一个插件实例中保持不变。
+- 每一帧都重绘整个画布。将位图传递给宿主会清空 worker 的底层画布。
+- 在 `dispose()` 中释放自己持有的资源。
+- 保持每帧快速响应。在预览中耗时超过约 3 秒、或在导出时耗时超过 5 秒的渲染会被终止，并且该实例会被标记为无响应。
+
+## Three.js Worker 显示组件
+
+请求使用 Astrofox 提供的 Three.js，而不是自行下载或打包：
+
+```jsonc
+{
+  "type": "display",
+  "runtime": "worker",
+  "entry": "./index.js",
+  "libraries": ["three"]
+}
+```
+
+工厂函数会接收 `libraries.three` 以及一个由宿主配置的共享 `renderer`。你需要自行创建场景、相机、几何体、材质和灯光，并使用借用的渲染器进行输出。
+
+```js
+export default function createPlugin({ properties, libraries, renderer }) {
+  const THREE = libraries.three;
+  let props = { ...properties };
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+
+  return {
+    init() {
+      camera.position.z = 5;
+      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    },
+    update(next) {
+      props = { ...props, ...next };
+    },
+    render() {
+      const width = props.width;
+      const height = props.height;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+      return { width, height };
+    },
+    dispose() {},
+  };
+}
+```
+
+渲染器是共享的。不要销毁它，也不要永久更改它的清除颜色、色彩空间、色调映射、阴影、渲染目标、裁剪状态或其他全局设置。如果临时更改了任何状态，请在从 `render()` 返回之前将其恢复。
+
+## 宿主相机控制
+
+在 Three.js worker 显示组件上设置 `"camera": true`，即可添加 `cameraAzimuth`、`cameraPolar` 和 `cameraDistance` 属性，并启用舞台上的环绕和推拉相机工具。
+
+```js
+const cosPolar = Math.cos(props.cameraPolar);
+const distance = props.cameraDistance || automaticDistance;
+
+camera.position.set(
+  Math.sin(props.cameraAzimuth) * cosPolar * distance,
+  Math.sin(props.cameraPolar) * distance,
+  Math.cos(props.cameraAzimuth) * cosPolar * distance,
+);
+camera.lookAt(0, 0, 0);
+```
+
+实际的相机和灯光仍由插件自己管理。Astrofox 只提供用户交互和持久保存的属性值。
+
+<Warning>
+  除非清单请求了 `network` 权限，否则 worker 插件无法访问网络。即使拥有该权限，远程可执行导入仍会被阻止；请将插件执行的代码打包在插件内。
+</Warning>

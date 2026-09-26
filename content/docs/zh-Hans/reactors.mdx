@@ -1,0 +1,66 @@
+---
+title: 反应器
+description: 将音频、节拍或生成的运动映射到 Astrofox 控件。
+---
+
+反应器将源信号转换为归一化的输出，用来驱动一个或多个兼容的控件。借助它，你可以让缩放随低音脉动、让旋转跟随高音，或者让某个效果在每个节拍出现。
+
+## 创建反应器
+
+<Steps>
+  <Step title="添加反应器">
+    在反应器面板中选择 **Add reactor**（添加反应器）。选中新建的反应器，即可在播放器上方打开它的详细控件和实时电平表。
+  </Step>
+  <Step title="选择输出模式">
+    根据你想要的运动效果，选择音频、节拍或静态模式。
+  </Step>
+  <Step title="调整信号源">
+    对于频谱模式，拖动选区覆盖你想要跟随的频率和电平区域。在音频播放时调整 Max dB、平滑、保持和衰减。
+  </Step>
+  <Step title="绑定控件">
+    选择一个显示组件或效果。在兼容的数值控件上选择该反应器。输出为 0 时使用该控件的最小值；输出为 1 时使用其最大值。
+  </Step>
+</Steps>
+
+<img src="/reactor-panel.png" alt="反应器面板" />
+
+## 输出模式
+
+| 类别 | 模式 | 用途 |
+| --- | --- | --- |
+| Spectrum | Add, Subtract, Forward, Reverse, Cycle | 由所选音频频段驱动的连续运动 |
+| Beat | Beat Trigger, Beat Envelope | 离散的触发，或在每次检测到节拍后逐渐衰减的脉冲 |
+| Static | Static Forward, Static Reverse, Static Cycle | 不需要音频、基于时间的运动 |
+
+**Add** 跟随频段能量（安静 → 0，响亮 → 1）。**Subtract** 将该能量反转。**Forward**、**Reverse** 和 **Cycle** 会随时间累积能量，使输出在 0–1 之间逐步推进，而不是逐帧跟踪电平。静态模式以可配置的 **Speed** 进行同样的推进，无需音频。
+
+## 调整响应
+
+- **Spectrum selection**（频谱选区）用于分离低频、中频或高频以及一个振幅范围。低音位于低频端；人声和旋律通常位于中间；镲片和空气感声音位于更高的频段。
+- **Max dB** 改变被视为满输出的电平。对于响亮的音源，将它调向零；对于安静的音源，则将它调低。
+- **Smoothing** 可以让抖动的运动更平稳，但响应会变慢。
+- **Hold Time**（频谱模式和 Beat Trigger）让峰值或脉冲在回落之前保持一段时间。该值以分析帧为单位，而不是秒。
+- **Decay**（频谱模式和 Beat Envelope）控制数值在峰值之后回落的速度。Beat Trigger 则会在保持结束后直接降为零。
+- **Sensitivity** 改变节拍模式触发的难易程度。
+- **Speed** 控制静态模式的速率。
+
+## 实用模式
+
+<CardGroup cols={2}>
+  <Card title="低音脉动" icon="audio-waveform">
+    选择频谱的低频端，将 Add 输出绑定到缩放或 Bloom 强度。
+  </Card>
+  <Card title="军鼓闪光" icon="zap">
+    在不透明度、亮度或风格化效果上使用 Beat Trigger 或 Beat Envelope。
+  </Card>
+  <Card title="缓慢旋转" icon="rotate-cw">
+    在旋转上使用 Static Forward 或 Static Cycle，使运动在静音时也能持续。
+  </Card>
+  <Card title="高频闪烁" icon="sparkles">
+    选择频谱的高频部分，并在 RGB Shift、Film Grain 或位移上使用较小的范围。
+  </Card>
+</CardGroup>
+
+<Tip>
+  一个反应器可以驱动多个控件。当不同元素需要不同的频段、平滑、节拍灵敏度或时间设置时，请使用单独的反应器。
+</Tip>
