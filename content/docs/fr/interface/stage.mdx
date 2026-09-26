@@ -1,0 +1,50 @@
+---
+title: Plateau
+description: Prévisualisez la composition et manipulez directement les affichages pris en charge.
+---
+
+Le plateau est l'aperçu en direct du canevas du projet. Il montre le résultat combiné des scènes, affichages et effets activés, des liaisons de réacteurs et de l'état actuel de l'audio ou de l'entrée en direct.
+
+## Outils du plateau
+
+Les boutons au-dessus du canevas n'activent les outils que lorsque l'environnement et la sélection actuelle les prennent en charge.
+
+### Image dans l'image
+
+Ouvrez le plateau dans une fenêtre flottante en image dans l'image lorsque le navigateur ou l'environnement de bureau le permet. C'est utile pour régler l'audio dans une autre fenêtre ou pour garder le visuel à l'écran pendant une performance.
+
+Si le bouton est désactivé, l'image dans l'image n'est pas disponible dans l'environnement actuel.
+
+Consultez [Image dans l'image](/docs/fr/interface/picture-in-picture) pour en savoir plus sur le fonctionnement, les limites et la prise en charge par les navigateurs.
+
+### Transformation de calque
+
+Sélectionnez un affichage pris en charge dans le panneau Calques, puis activez l'outil de transformation. La superposition vous permet de déplacer et de redimensionner l'affichage directement sur le canevas. Ces modifications mettent à jour les mêmes valeurs de position et de taille que celles du panneau Commandes.
+
+L'outil est désactivé lorsque l'élément sélectionné ne peut pas être transformé sur le plateau, par exemple une scène, un effet, un calque désactivé ou un affichage doté d'une caméra 3D.
+
+Consultez [Transformation de calque](/docs/fr/interface/layer-transform) pour le guide complet des gestes et la réaction de chaque type de calque au redimensionnement.
+
+### Commande de caméra
+
+Sélectionnez un affichage doté d'une caméra 3D, puis activez la commande de caméra. Faites glisser sur le plateau pour orbiter et utilisez la molette de la souris pour modifier la distance de la caméra. Les valeurs de la caméra restent synchronisées avec les commandes de l'affichage.
+
+Consultez [Commandes de caméra](/docs/fr/interface/camera-controls) pour les gestes, les limites et les propriétés de caméra pouvant être liées à des réacteurs.
+
+## Charger un fichier audio par glisser-déposer
+
+Vous pouvez faire glisser un fichier audio sur le plateau au lieu d'utiliser **Load audio** dans la barre d'actions. L'indicateur de dépôt montre qu'Astrofox a détecté le fichier, puis l'application le charge dans le lecteur pour la lecture et l'analyse.
+
+## Zoomer la vue de l'éditeur
+
+Le centre de la barre d'état affiche la taille du canevas, les boutons de zoom, un curseur de zoom et le pourcentage actuel.
+
+- Sélectionnez les dimensions du canevas pour revenir à un zoom de 100 %.
+- Utilisez **−** et **+** ou le curseur pour obtenir une taille d'affichage précise.
+- Sélectionnez le pourcentage pour ajuster le plateau à environ 80 % de l'espace de travail disponible (**Fit to screen**).
+
+Le zoom du plateau modifie uniquement la taille d'affichage du canevas dans l'éditeur. Il ne change ni la résolution du projet, ni l'échelle des calques, ni les dimensions d'exportation.
+
+<Tip>
+  Masquez un ou plusieurs panneaux latéraux depuis la barre d'application avant d'utiliser **Fit to screen**, afin de laisser davantage de place au canevas.
+</Tip>

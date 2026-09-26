@@ -1,0 +1,64 @@
+---
+title: Plugins installieren und verwalten
+description: Füge Astrofox über eine Manifest-URL Displays und Effekte von Drittanbietern hinzu.
+---
+
+Plugins erweitern Astrofox um Displays und Effekte. Ein Plugin wird über die
+URL eines `astrofox.plugin.json`-Manifests installiert und erscheint neben den integrierten
+Elementen im Hinzufügen-Menü.
+
+## Plugin installieren
+
+<Steps>
+  <Step title="Manifest-URL kopieren">
+    Besorge dir vom Plugin-Autor die direkte HTTPS-URL zu `astrofox.plugin.json`.
+    Lokale Entwicklungs-URLs dürfen HTTP auf `localhost` verwenden.
+  </Step>
+  <Step title="Plugin-Verwaltung öffnen">
+    Wähle in der Aktionsleiste **Manage plugins** und dann die Aktion, um ein Plugin
+    über eine URL hinzuzufügen.
+  </Step>
+  <Step title="Plugin prüfen">
+    Prüfe Name, Autor, Quelle, Laufzeitumgebung, angeforderte Host-Bibliotheken und
+    Berechtigungen. Ein Plugin, das Netzwerkzugriff anfordert, kann aus seinem Worker heraus
+    ausgehende Verbindungen aufbauen.
+  </Step>
+  <Step title="Installieren und hinzufügen">
+    Bestätige die Installation. Je nach Manifest-Typ steht das Plugin anschließend im Hinzufügen-Menü
+    für Displays oder Effekte zur Verfügung.
+  </Step>
+</Steps>
+
+## Sicherheitsmodell
+
+Astrofox speichert installierte Plugin-Dateien lokal zwischen und fixiert sie mit SHA-384-Integritäts-Hashes.
+Die Quell-URL wird erst wieder kontaktiert, wenn du das Plugin ausdrücklich
+aktualisierst. Lokale Entwicklungsinstallationen über localhost werden als Entwicklungs-Plugins
+markiert und überspringen die Integritätsfixierung, damit sie während der Arbeit neu geladen werden können.
+
+JavaScript-Plugins laufen in einem eigenen Web Worker mit einer Content Security
+Policy. Sie haben keinen DOM-Zugriff, können keinen beliebigen Remote-Code importieren und
+können das Netzwerk nur nutzen, wenn das Manifest die Berechtigung `network` anfordert.
+
+<Warning>
+  Die Integritätsfixierung verhindert, dass sich eine installierte Version unbemerkt ändert; sie
+  macht unbekannten Code aber nicht vertrauenswürdig. Prüfe die Quelle und die angeforderten
+  Berechtigungen, bevor du ein Plugin installierst.
+</Warning>
+
+## Aktualisieren, neu laden oder entfernen
+
+- **Update** ruft das Manifest und die Dateien erneut ab und zeigt dir die neue Version
+  zur Prüfung an.
+- **Reload** aktualisiert ein Entwicklungs-Plugin, nachdem sich seine lokalen Dateien geändert haben.
+- **Remove** meldet das Plugin in Astrofox ab. Vorhandene Projektelemente,
+  die davon abhängen, können erst wieder gerendert werden, wenn es erneut installiert ist.
+
+## Fehlende Projekt-Plugins
+
+Projekte speichern für jedes Plugin die ID mit Namespace, die Quell-URL und die Version. Verweist ein
+Projekt auf ein fehlendes Plugin, listet Astrofox auf, was benötigt wird, und bietet an,
+es zu installieren. Öffne das Projekt nach der Installation erneut, damit seine Elemente
+normal erstellt werden.
+
+Möchtest du selbst ein Plugin bauen? Beginne mit [Plugins entwickeln](/docs/de/plugin-authoring).

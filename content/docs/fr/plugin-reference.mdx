@@ -1,0 +1,163 @@
+---
+title: Référence des plugins
+description: Référence des manifestes, commandes, données audio, uniforms et images des plugins Astrofox.
+---
+
+Tout plugin commence par un manifeste `astrofox.plugin.json`.
+
+## Champs du manifeste
+
+| Champ | Type | Description |
+| --- | --- | --- |
+| `api` | number | Version de la spécification des plugins. Utilisez `1`. |
+| `name` | string | Identifiant avec espace de noms obligatoire, par exemple `@author/plugin-name`. |
+| `version` | string | Version publiée du plugin. |
+| `label` | string | Nom affiché dans les menus et dans le panneau Calques. |
+| `description` | string | Courte explication affichée pendant l'installation. |
+| `author` | string | Auteur ou organisation à l'origine du plugin. |
+| `type` | string | `display` ou `effect`. |
+| `runtime` | string | `shader` ou `worker`. Les affichages peuvent utiliser l'un ou l'autre ; les effets exigent `shader`. |
+| `shader` | string | Chemin du fragment shader pour un environnement d'exécution shader. |
+| `entry` | string | Chemin du module ES pour un environnement d'exécution worker. |
+| `icon` | string | Chemin facultatif de l'icône affichée dans les menus. |
+| `permissions` | string[] | Capacités demandées, dont actuellement `network`. |
+| `libraries` | string[] | Bibliothèques de l'hôte demandées par un worker ; actuellement `three`. |
+| `camera` | boolean | Ajoute les commandes de caméra de l'hôte à un affichage worker. |
+| `audio` | object | Données FFT et temporelles demandées par le plugin. |
+| `defaultProperties` | object | Valeurs initiales des propriétés pour chaque nouvelle instance. |
+| `controls` | object | Schéma déclaratif du panneau Commandes. |
+| `uniforms` | object | Correspondance entre propriétés et uniforms pour les environnements d'exécution shader. |
+
+Les chemins sont résolus par rapport à l'URL du manifeste. Les fichiers publiés doivent utiliser HTTPS ; `http://localhost` est autorisé pour le développement.
+
+## Données audio
+
+Déclarez uniquement les données audio dont le plugin a besoin :
+
+```jsonc
+"audio": {
+  "fft": {
+    "bins": 64,
+    "minFrequency": 0,
+    "maxFrequency": 6000,
+    "smoothing": 0.5,
+    "minDecibels": -100,
+    "maxDecibels": -12
+  },
+  "td": {
+    "samples": 256
+  }
+}
+```
+
+| Valeur | Plage et signification |
+| --- | --- |
+| `fft.bins` | De 1 à 512 valeurs de fréquence normalisées |
+| `fft.minFrequency` / `maxFrequency` | Fenêtre de fréquences en hertz |
+| `fft.smoothing` | Lissage exponentiel de 0 à 0,99 |
+| `fft.minDecibels` / `maxDecibels` | Bornes de normalisation du niveau d'entrée |
+| `td.samples` | Nombre d'échantillons de forme d'onde dans le domaine temporel |
+
+Les valeurs FFT sont comprises entre 0 et 1. Les valeurs du domaine temporel sont également comprises entre 0 et 1, le silence étant centré sur 0,5. Les affichages worker peuvent demander à la fois des données FFT et des données temporelles. Les affichages shader ne reçoivent que les données FFT et le volume. Les effets shader reçoivent le volume, le temps, le delta et `inputTexture`, mais pas de tableaux FFT ni de données temporelles. Le même processus d'analyse est utilisé pendant la lecture et l'exportation vidéo.
+
+## Commandes
+
+Les types de commandes pris en charge sont `text`, `number`, `toggle`, `checkbox`, `color`, `colorrange`, `range`, `select` et `time`.
+
+Les champs courants sont notamment :
+
+| Champ | Rôle |
+| --- | --- |
+| `label` | Nom lisible de la commande |
+| `type` | Composant de saisie à afficher |
+| `min`, `max`, `step` | Bornes et précision numériques |
+| `withRange` | Affiche un curseur pour une saisie numérique |
+| `withReactor` | Permet à un réacteur de piloter cette propriété |
+| `items` | Valeurs disponibles pour une liste de sélection |
+| `hidden` | Masque la saisie de façon conditionnelle ou permanente |
+
+Un manifeste étant du JSON, les valeurs dynamiques utilisent des références :
+
+```jsonc
+{
+  "width": {
+    "label": "Width",
+    "type": "number",
+    "min": 16,
+    "max": { "$stage": "width" },
+    "withRange": true
+  },
+  "detail": {
+    "label": "Detail",
+    "type": "number",
+    "min": { "$prop": "minimumDetail" },
+    "max": 64
+  },
+  "manualSize": {
+    "label": "Manual size",
+    "type": "number",
+    "hidden": { "$prop": "autoSize" }
+  }
+}
+```
+
+Les références au plateau peuvent inclure `scale` ; par exemple, `{ "$stage": "width", "scale": -1 }` correspond à la largeur du plateau en négatif.
+
+## Correspondance des uniforms
+
+Les environnements d'exécution shader associent les propriétés à des uniforms GLSL :
+
+```jsonc
+"uniforms": {
+  "amount": { "type": "float", "from": "amount" },
+  "tint": { "type": "color", "from": "color" },
+  "center": { "type": "vec2", "from": ["x", "y"] }
+}
+```
+
+`color` convertit une couleur hexadécimale en vecteur à trois composantes. Les correspondances vectorielles lisent leurs composantes dans les propriétés listées.
+
+## Entrées de la fabrique worker
+
+Selon son manifeste, une fabrique worker reçoit :
+
+| Entrée | Description |
+| --- | --- |
+| `properties` | Valeurs initiales des propriétés du manifeste et de l'instance |
+| `seed` | Graine aléatoire stable propre à l'instance |
+| `size` | Dimensions actuelles du plateau |
+| `libraries` | Espaces de noms des bibliothèques de l'hôte demandées |
+| `renderer` | Moteur de rendu Three.js partagé lorsque `three` est demandé |
+
+## Données d'image
+
+`render(frame)` reçoit :
+
+| Champ | Description |
+| --- | --- |
+| `id` | Identifiant de l'image |
+| `time` | Temps déterministe en secondes |
+| `delta` | Temps écoulé depuis l'image précédente, en millisecondes |
+| `playing` | Indique si la ligne temporelle ou l'entrée en direct est active |
+| `exporting` | Indique si une exportation hors ligne est en cours de rendu |
+| `volume` | Niveau audio global normalisé |
+| `seed` | Graine stable de l'instance du plugin |
+| `fft` | Tableau FFT demandé, s'il est configuré |
+| `td` | Tableau de données temporelles demandé, s'il est configuré |
+
+Pendant l'exportation, `delta` est fixé à `1000 / fps`. Utilisez `time`, `delta` et `seed` pour obtenir une animation reproductible.
+
+## Résultat du rendu
+
+La méthode `render()` d'un worker peut renvoyer :
+
+```js
+return {
+  width,
+  height,
+  originX,
+  originY,
+};
+```
+
+La largeur et la hauteur définissent les limites du calque. Les valeurs d'origine facultatives définissent son point d'origine de transformation.

@@ -1,0 +1,44 @@
+---
+title: Ebenentransformation
+description: Verschiebe 2D-Displays und ändere ihre Größe, indem du direkt auf der Bühne ziehst.
+---
+
+Die Ebenentransformation legt einen Bearbeitungsrahmen um das ausgewählte Display, damit du es visuell anordnen kannst, statt Zahlen einzugeben. Der Rahmen liest und schreibt dieselben Eigenschaften wie das [Steuerungs-Bedienfeld](/docs/de/interface/controls-panel) – Position X/Y, Drehung, Größe –, sodass beide Ansichten synchron bleiben.
+
+## Transformation starten
+
+1. Wähle im [Ebenen-Bedienfeld](/docs/de/interface/layers-panel) ein Display aus.
+2. Wähle oberhalb der Leinwand **Layer transform** aus.
+3. Ziehe an den Griffen auf der Bühne.
+
+Das Werkzeug funktioniert nur bei Displays, die als flache Ebenen gerendert werden: Text, Formen, Bilder, Videos, Spektren, Wellenformringe und Schallwellen. Für Szenen, Effekte und Displays mit einer [3D-Kamera](/docs/de/interface/camera-controls) bleibt es deaktiviert.
+
+Drücke `Esc`, um den Modus zu verlassen. Er endet auch, wenn du eine Szene, einen Effekt, eine deaktivierte Ebene oder ein inkompatibles Display auswählst. Wählst du ein anderes aktiviertes 2D-Display aus, bleibt das Werkzeug aktiv.
+
+## Interaktionen
+
+| Geste | Ergebnis |
+| --- | --- |
+| Innerhalb des Rahmens ziehen | Verschiebt die Ebene (aktualisiert **X** und **Y**) |
+| An einem Kanten- oder Eckgriff ziehen | Ändert die Größe je nach Ebenentyp (siehe unten) |
+
+Die Griffbereiche reichen etwas über den gezeichneten Umriss hinaus, sodass du eine Kante auch knapp daneben noch greifen kannst. Der Mauszeiger zeigt, welche Geste ein Bereich ausführt.
+
+## Was die Größenänderung je Ebene bewirkt
+
+- **Text:** Jeder Griff skaliert die Schriftgröße.
+- **Radial spectrum:** Jeder Griff skaliert Innen- und Außenradius gemeinsam.
+- **Waveform ring:** Jeder Griff skaliert Radius, Wellenamplitude und Linienstärke gemeinsam.
+- **Bar spectrum, wave spectrum und sound wave:** Kanten ändern eine Dimension; Ecken ändern Breite und Höhe unabhängig voneinander. Beim senkrechten Ziehen eines Bar Spectrum wird auch die Höhe der Spiegelung skaliert.
+- **Bild und Video:** Die Größe ändert sich unter Beibehaltung des Seitenverhältnisses des Mediums.
+- **Form:** Formen, die keine Rechtecke sind, behalten ihre Proportionen; Rechtecke lassen sich frei skalieren.
+
+Die Drehung gehört zum selben Eigenschaftssatz – gedrehte Rahmen drehen sich beim Ziehen korrekt um ihren Mittelpunkt –, es gibt aber keinen Drehgriff. Lege die Drehung über das Steuerelement **Rotation** der Ebene fest.
+
+<Info>
+  Änderungen werden als eine einzige Änderung übernommen, sobald du den Zeiger loslässt. Auch bei aktivem Bühnenzoom bewegen sich die Griffe 1:1 mit deinem Mauszeiger; der Zoom-Schieberegler beeinflusst nur, wie groß die Elemente dargestellt werden.
+</Info>
+
+## Arbeiten bei laufender Wiedergabe
+
+Solange du nicht ziehst, folgt der Rahmen in jedem gerenderten Frame den animierten Werten. So kannst du die Platzierung bei laufenden Reaktoren feinjustieren und dann loslassen, ohne die Position zu verlieren.

@@ -1,0 +1,71 @@
+---
+title: Fehlerbehebung
+description: Behebe häufige Probleme in Astrofox mit Audio, Medien, Plugins, Displays und Exporten.
+---
+
+## Das Visual reagiert nicht auf Audio
+
+1. Prüfe, ob eine Audiodatei oder Live-Eingabe verbunden und aktiv ist.
+2. Drücke bei einer Datei als Quelle auf Play oder starte die ausgewählte Live-Eingabe.
+3. Teste ein integriertes Spektrum-Display, um zu prüfen, ob Astrofox Audio empfängt.
+4. Öffne den Reaktor und prüfe, ob sich seine Ausgangsanzeige bewegt.
+5. Erweitere die Spektrumauswahl oder senke **Max dB**, wenn das Signal zu schwach ist.
+6. Prüfe, ob das Ziel-Steuerelement an den richtigen Reaktor gebunden ist und sein Wertebereich nicht flach ist.
+
+Reagiert die Bewegung verzögert, verringere die Glättung des Reaktors. Ist sie zu unruhig, erhöhe die Glättung. In Spektrum-Modi sorgt ein höherer Decay-Wert außerdem für ein langsameres Abfallen.
+
+## Ein Mikrofon oder MIDI-Gerät fehlt
+
+- Erteile die Mikrofon- oder MIDI-Berechtigung, wenn der Browser danach fragt.
+- Prüfe, ob das Gerät angeschlossen ist und anderen Anwendungen zur Verfügung steht.
+- Aktualisiere die Liste der verfügbaren Eingaben, nachdem du ein neues Gerät angeschlossen hast.
+- Schließe andere Apps, die das Gerät exklusiv belegen.
+- Prüfe in der Desktop-App unter macOS die Berechtigungen für Astrofox in den Systemeinstellungen.
+
+Ob Desktop-Audio verfügbar ist, hängt von der gewählten Quelle für die Bildschirmfreigabe und vom Betriebssystem ab. Manche Browser stellen Tab-Audio bereit, aber kein systemweites Audio.
+
+## Ein Projekt öffnet sich mit fehlenden Medien
+
+Lokale Bild- und Videodateien lassen sich nicht immer automatisch erneut öffnen, besonders nachdem ein Projekt auf einen anderen Computer verschoben wurde. Wähle mit **Relink Media** für jede nicht aufgelöste Ebene das passende Bild oder Video aus.
+
+Audio wird nicht in der Projektdatei gespeichert. Lade den Track nach dem Öffnen des Projekts mit **Load audio** erneut.
+
+Bewahre Medien beim Archivieren oder Übertragen neben der Projektdatei auf.
+
+## Eine Plugin-Ebene wird nicht gerendert
+
+1. Wähle in der Aktionsleiste **Manage plugins** aus und prüfe, ob das benötigte Plugin installiert ist.
+2. Handelt es sich um ein Entwicklungs-Plugin, lade es nach Dateiänderungen neu.
+3. Prüfe, ob sein Manifest und die referenzierten Dateien erreichbar sind und mit aktiviertem CORS ausgeliefert werden.
+4. Verwende für veröffentlichte Plugins HTTPS; HTTP wird nur auf localhost akzeptiert.
+5. Prüfe die Entwicklerkonsole des Browsers auf Fehler bei der Shader-Kompilierung oder im Worker.
+6. Stelle sicher, dass Animationen `frame.time` statt Timern auf Basis der Systemzeit verwenden.
+
+Ein Worker, der länger als etwa 3 Sekunden für einen Vorschau-Frame bzw. 5 Sekunden während eines Exports braucht, wird angehalten und als nicht reagierend markiert, damit der Rest von Astrofox weiterlaufen kann.
+
+## Save video startet nicht
+
+**Save video** öffnet immer den Exportdialog. Die Bestätigungsschaltfläche bleibt deaktiviert, bis für den Export Folgendes vorliegt:
+
+- Eine Audiodatei mit mindestens fünf Sekunden Länge
+- Eine Startzeit vor der Endzeit
+- Ein ausgewählter Bereich mit mindestens fünf Sekunden Länge
+- Ein Speicherort, sofern die Plattform ihn vorab festlegen kann
+
+Eine Live-Eingabe allein legt keine Zeitleiste für einen Offline-Export fest. Wähle im Dialog „Save Video“ eine Audiodatei aus.
+
+## Das Exportformat entspricht nicht meinen Erwartungen
+
+Der Web-Export verwendet die Formate, die der `MediaRecorder` des aktuellen Browsers unterstützt. Nutze die Desktop-App mit mitgeliefertem ffmpeg, wenn du einen bestimmten MP4- oder WebM-Encoder brauchst. Findet die Desktop-App ffmpeg nicht, weicht sie auf den browserkompatiblen Weg aus.
+
+## Die Desktop-App nimmt kein Audio auf
+
+Die Mikrofoneingabe benötigt die Mikrofonberechtigung. Für Desktop-Audio können zusätzlich die Berechtigung zur Bildschirmaufnahme und eine Aufnahmequelle nötig sein, die tatsächlich eine Audiospur enthält. Starte Astrofox neu, nachdem du Berechtigungen im Betriebssystem geändert hast.
+
+## In einem älteren Projekt fehlen Elemente
+
+Astrofox migriert unterstützte Projektelemente aus 1.x automatisch. Nicht unterstützte oder nicht konvertierbare Elemente werden entfernt und beim Öffnen des Projekts gemeldet. Bewahre eine Sicherung der ursprünglichen `.afx`-Datei auf und sieh dir unter [Upgrade von 1.x](/docs/de/upgrading-from-v1) die zugeordneten Elemente an.
+
+## Einen Fehler melden
+
+Durchsuche den [Astrofox-Issue-Tracker](https://github.com/astrofox-io/astrofox/issues) oder eröffne dort ein Issue. Gib die Astrofox-Version, die Plattform (Web oder Desktop), Betriebssystem und Browser, Schritte zur Reproduktion und – sofern du es bedenkenlos teilen kannst – ein minimales Projekt an.

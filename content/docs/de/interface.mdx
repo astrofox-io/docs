@@ -1,0 +1,55 @@
+---
+title: Oberfläche
+description: Finde dich im Astrofox-Arbeitsbereich zurecht und erfahre, wie die Bedienfelder zusammenarbeiten.
+---
+
+Astrofox zeigt die Projektstruktur und häufige Aktionen links, die gerenderte Bühne in der Mitte, die Steuerelemente rechts und die Audiowiedergabe unten. Wählst du in einem Bereich etwas aus, aktualisieren sich die anderen Bereiche. So wechselst du zwischen Anordnen, Vorschau und Feinabstimmung, ohne die Ansicht zu wechseln.
+
+<img
+  src="/screenshot.png"
+  alt="Astrofox-Arbeitsbereich mit dem Ebenen- und dem Reaktoren-Bedienfeld links, der Bühne in der Mitte, dem Steuerungs-Bedienfeld rechts und dem Player unten"
+/>
+
+## Übersicht des Arbeitsbereichs
+
+| Bereich | Position | Funktion |
+| --- | --- | --- |
+| [App-Leiste und Aktionen](/docs/de/interface/app-bar-and-actions) | Oben und ganz links | Öffnet, speichert und exportiert Projekte, öffnet die Einstellungen und blendet Bedienfelder ein oder aus |
+| [Ebenen-Bedienfeld](/docs/de/interface/layers-panel) | Oben links | Organisiert Szenen, Displays und Effekte |
+| [Reaktoren-Bedienfeld](/docs/de/interface/reactors-panel) | Unten links | Erzeugt Signale, die kompatible Steuerelemente antreiben können |
+| [Bühne](/docs/de/interface/stage) | Mitte | Zeigt eine Vorschau der Komposition und bietet direkte Transformations- und Kamerawerkzeuge |
+| [Steuerungs-Bedienfeld](/docs/de/interface/controls-panel) | Rechts | Bearbeitet die ausgewählte Szene, das ausgewählte Display oder den ausgewählten Effekt |
+| [Player und Statusleiste](/docs/de/interface/player-and-status) | Unten | Spielt Audio und Live-Eingaben ab; die Statusleiste darunter zeigt Zoom, Fortschritt, FPS und Version |
+
+## So arbeiten die Bereiche zusammen
+
+Die Bedienfelder **Layers** (Ebenen) und **Controls** (Steuerung) sind über die Auswahl miteinander verknüpft. Wählst du links eine Szene, ein Display oder einen Effekt aus, wird rechts die zugehörige Steuerungskarte aktiv. Zeigt das Steuerungs-Bedienfeld alle Ebenen an, wird die Karte einer ausgewählten Ebene außerdem in den sichtbaren Bereich gescrollt.
+
+Die Liste **Reactors** (Reaktoren) hat eine eigene Auswahl. Wählst du einen Reaktor aus, öffnet sich sein ausführlicher Signal-Editor oberhalb des Players. Anschließend kannst du dieses Signal über ein kompatibles numerisches Steuerelement im Steuerungs-Bedienfeld binden.
+
+Die **Bühne** spiegelt beide Arten von Änderungen sofort wider. Änderungen an Ebenen bestimmen, was gezeichnet wird; Änderungen an Reaktoren und am Player bestimmen, wie sich die Komposition bewegt.
+
+## Ein praktischer Arbeitsablauf
+
+<Steps>
+  <Step title="Struktur aufbauen">
+    Füge im Ebenen-Bedienfeld Szenen, Displays und Effekte hinzu und ziehe sie dann in die gewünschte Reihenfolge.
+  </Step>
+  <Step title="Aussehen anpassen">
+    Wähle eine Ebene aus und ändere ihre Werte in Controls. Nutze das Transformationswerkzeug der Bühne, wenn die direkte Bearbeitung schneller geht.
+  </Step>
+  <Step title="Bewegung hinzufügen">
+    Lade Audio oder aktiviere die Live-Eingabe, erstelle einen Reaktor und binde ihn an Steuerelemente wie Skalierung, Drehung, Deckkraft oder Effektstärke.
+  </Step>
+  <Step title="Vorschau ansehen und verfeinern">
+    Spiele den Track ab oder scrubbe durch ihn, während du die Bühne beobachtest. Passe den Reaktor und den Wertebereich des Steuerelements an, bis die Reaktion zum Klang passt.
+  </Step>
+</Steps>
+
+## Mehr Platz schaffen
+
+Mit den drei Bedienfeld-Schaltflächen in der App-Leiste blendest du den linken, unteren oder rechten Bereich ein oder aus. Dadurch ändert sich nur das Layout des Arbeitsbereichs: Es werden keine Ebenen entfernt, die Leinwandgröße bleibt gleich und der Export ist nicht betroffen.
+
+<Tip>
+  Bewege den Mauszeiger über ein Symbol, wenn seine Funktion unklar ist. Aktions-, Bühnen-, Player- und Bedienfeld-Schaltflächen zeigen ihre Bezeichnung in einem Tooltip an.
+</Tip>

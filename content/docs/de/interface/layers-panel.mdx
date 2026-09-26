@@ -1,0 +1,45 @@
+---
+title: Ebenen-Bedienfeld
+description: Szenen, Displays und Effekte hinzufügen, auswählen, umbenennen, anordnen, ausblenden und entfernen.
+---
+
+Das Ebenen-Bedienfeld bildet die Struktur der Komposition ab. Jede Szene enthält einen Abschnitt **Displays** für Inhalte, die Pixel zeichnen, und einen Abschnitt **Effects** für die Nachbearbeitung der fertigen Szene.
+
+## Inhalte hinzufügen
+
+Mit dem **+** neben **Layers** fügst du eine Szene hinzu. Innerhalb einer Szene öffnest du mit dem **+** neben **Displays** oder **Effects** die entsprechende Auswahlleiste zum Hinzufügen.
+
+Die Auswahlleiste gruppiert die verfügbaren Elemente nach Typ. Wählst du ein Element aus, wird es der Szene hinzugefügt, seine neue Ebene ausgewählt und seine Einstellungen im Steuerungs-Bedienfeld angezeigt. Installierte Plugins erscheinen im selben Ablauf wie die integrierten Displays und Effekte.
+
+## Eine Zeile auswählen und bearbeiten
+
+Wähle eine Szenen-, Display- oder Effektzeile aus, um sie zu aktivieren. Das Steuerungs-Bedienfeld zeigt dann die passende Steuerungskarte an. Bei einem ausgewählten 2D-Display kann die [Ebenentransformation](/docs/de/interface/layer-transform) verfügbar sein, bei einem 3D-Display die [Kamerasteuerung](/docs/de/interface/camera-controls).
+
+Jede Zeile unterstützt diese allgemeinen Aktionen:
+
+- **Umbenennen:** Doppelklicke auf den Namen, gib eine aussagekräftige Bezeichnung ein und bestätige sie.
+- **Ein- oder ausblenden:** Wähle das Augensymbol aus. Eine deaktivierte Zeile bleibt im Projekt, trägt aber nicht zum Ergebnis bei.
+- **Löschen:** Bewege den Mauszeiger über die Zeile und wähle das Papierkorbsymbol aus. Beim Löschen wird das Element entfernt und nicht nur ausgeblendet.
+
+## Ebenen neu anordnen
+
+Wähle eine Zeile aus und verschiebe sie mit den Pfeilschaltflächen oben im Bedienfeld präzise um einen Schritt nach oben oder unten. Ist eine Schaltfläche deaktiviert, hat das ausgewählte Element eine gültige Grenze erreicht.
+
+Du kannst Zeilen auch ziehen:
+
+- Szenen lassen sich untereinander neu anordnen.
+- Displays lassen sich untereinander neu anordnen und in eine andere Szene verschieben.
+- Effekte lassen sich untereinander neu anordnen und in eine andere Szene verschieben.
+- Legst du ein Display oder einen Effekt auf einer Szene ab, wird es in diese Szene verschoben.
+
+Displays und Effekte bleiben in ihren jeweiligen Abschnitten, weil sie in der Render-Pipeline unterschiedliche Aufgaben erfüllen.
+
+## Layers und Reactors in der Größe anpassen
+
+Ziehe die waagerechte Trennlinie zwischen Layers und Reactors, um einer der beiden Listen mehr Platz in der Höhe zu geben. Das ist praktisch, wenn ein Projekt viele Ebenen oder viele Reaktoren enthält. Die Trennlinie ändert nur das Layout der Oberfläche.
+
+<Tip>
+  Benenne Ebenen nach ihrem Zweck – etwa „Titel“, „Bass-Balken“ oder „Finaler Bloom“ –, damit auch eine große Komposition übersichtlich bleibt.
+</Tip>
+
+Unter [Szenen und Ebenen](/docs/de/scenes-and-layers) findest du Display-Typen, Effekte und den Aufbau von Kompositionen.

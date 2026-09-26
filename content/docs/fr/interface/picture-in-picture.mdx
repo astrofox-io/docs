@@ -1,0 +1,28 @@
+---
+title: Image dans l'image
+description: Affichez le rendu du plateau dans une fenêtre flottante toujours au premier plan pendant que vous travaillez ailleurs.
+---
+
+L'image dans l'image ouvre une petite fenêtre flottante qui reproduit le plateau. La fenêtre reste au-dessus des autres applications, ce qui est pratique lorsque vous réglez l'audio ou des notes dans un autre programme pendant une performance, ou lorsque vous voulez garder les visuels visibles sur un second écran sans déplacer les panneaux.
+
+## Ouvrir et fermer
+
+Sélectionnez **Open picture in picture** dans la rangée d'outils au-dessus du canevas. Le bouton reste en surbrillance tant que la fenêtre est ouverte ; sélectionnez **Close picture in picture**, ou fermez directement la fenêtre flottante, pour arrêter la recopie.
+
+Seul le rendu du plateau apparaît dans la fenêtre. Elle ne contient ni commande de lecture ni audio ; lisez et mixez la piste depuis la fenêtre principale.
+
+<Info>
+  La fenêtre flottante est une copie en direct du canevas. Les modifications de calques, le mouvement des réacteurs et les changements de transport y apparaissent immédiatement : vous pouvez donc continuer à travailler pendant qu'elle est ouverte.
+</Info>
+
+## Configuration requise
+
+Cette fonctionnalité repose sur la prise en charge standard de l'image dans l'image pour la vidéo. Lorsque l'environnement actuel ne la fournit pas, le bouton est désactivé. Si une tentative de démarrage échoue malgré tout, Astrofox affiche une boîte de dialogue d'erreur.
+
+- Fonctionne dans les navigateurs Chromium récents et dans l'application de bureau.
+- Ouvrir une copie du plateau ferme d'abord toute autre vidéo en image dans l'image.
+- Fermer l'onglet ou la fenêtre principale de l'application arrête la copie en même temps que tout le reste ; aucun flux orphelin n'est à nettoyer manuellement.
+
+## Ce que ce n'est pas
+
+L'image dans l'image est une commodité d'aperçu, pas un format de sortie. Elle n'affecte ni les exportations, ni la résolution, ni ce que voient les spectateurs d'un enregistrement. Utilisez [Save image](/docs/fr/exporting) ou [Save video](/docs/fr/exporting) pour produire des résultats à partager.

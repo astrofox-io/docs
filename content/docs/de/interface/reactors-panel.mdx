@@ -1,0 +1,49 @@
+---
+title: Reaktoren-Bedienfeld
+description: Erstelle und verwalte die Signale, mit denen Steuerelemente in Astrofox reagieren.
+---
+
+Das Reaktoren-Bedienfeld listet die Signale auf, die kompatible Steuerelemente antreiben können. Es nimmt die untere Hälfte des linken Bedienfelds ein und lässt sich über die Trennlinie zu Layers in der Größe anpassen.
+
+## Reaktor hinzufügen und auswählen
+
+Wähle das **+** neben **Reactors** aus, um einen Reaktor zu erstellen. Das neue Element erscheint mit einer Live-Ausgangsanzeige und wird automatisch ausgewählt.
+
+Wählst du einen Reaktor aus, öffnet sich oberhalb des Players sein ausführlicher Editor. Je nach Ausgabemodus kann der Editor Folgendes anzeigen:
+
+- Steuerelemente für Ausgabemodus, Max dB, Glättung, Haltezeit, Abklingen, Empfindlichkeit oder Geschwindigkeit
+- Ein Spektrum mit einem verschiebbaren Auswahlbereich
+- Eine senkrechte Anzeige für die normalisierte Ausgabe des Reaktors
+
+Der Editor erscheint nur, solange ein Reaktor ausgewählt ist. Mit seiner Schließen-Schaltfläche blendest du den Editor aus, ohne den Reaktor zu löschen oder zu deaktivieren.
+
+## Die Liste verwalten
+
+Reaktorzeilen verhalten sich ähnlich wie Ebenenzeilen:
+
+- Doppelklicke auf einen Namen, um ihn umzubenennen.
+- Wähle die Zeile mit dem Blitzsymbol aus, um den Editor dieses Reaktors zu öffnen.
+- Wähle das Auge aus, um seine Ausgabe zu aktivieren oder zu deaktivieren.
+- Bewege den Mauszeiger über die Zeile und wähle das Papierkorbsymbol aus, um ihn zu entfernen.
+
+Mit der schmalen Anzeige unter jeder Zeile vergleichst du die Aktivität der Reaktoren, ohne jeden Editor öffnen zu müssen.
+
+## Einen Reaktor verwenden
+
+Das Erstellen eines Reaktors allein verändert die Komposition nicht. So nutzt du seine Ausgabe:
+
+<Steps>
+  <Step title="Signal abstimmen">
+    Spiele Audio ab oder aktiviere die Live-Eingabe und passe den Reaktor an, bis seine Ausgangsanzeige dem gewünschten Klang oder Timing folgt.
+  </Step>
+  <Step title="Visuelles Element auswählen">
+    Wähle in Layers ein Display oder einen Effekt aus und suche im Steuerungs-Bedienfeld ein reaktorkompatibles Steuerelement.
+  </Step>
+  <Step title="Steuerelement binden">
+    Wähle den Reaktor aus. Die Ausgabe wird auf den Bereich zwischen Minimum und Maximum dieses Steuerelements abgebildet.
+  </Step>
+</Steps>
+
+Ein Reaktor kann mehrere Steuerelemente antreiben. Deaktivierst du ihn, werden alle seine Bindungen pausiert, ihre Konfiguration bleibt aber im Projekt erhalten.
+
+Unter [Reaktoren](/docs/de/reactors) findest du Ausgabemodi, Signalabstimmung und praktische Muster für Bindungen.

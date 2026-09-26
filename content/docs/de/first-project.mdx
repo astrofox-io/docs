@@ -1,0 +1,75 @@
+---
+title: Erstelle dein erstes Visual
+description: Folge einem Beispielprojekt von einer leeren Leinwand bis zum exportierten audioreaktiven Visual.
+---
+
+In dieser Anleitung erstellst du aus einer Audiodatei ein einfaches Spektrum-Visual. Du kannst
+[Astrofox im Web](https://app.astrofox.io) oder die
+[Desktop-App](/docs/de/desktop-app) verwenden.
+
+<Steps>
+  <Step title="Projekt starten">
+    Öffne Astrofox und wähle in der Aktionsleiste **New project** (Neues Projekt), falls bereits ein anderes
+    Projekt geöffnet ist. Ein neues Projekt beginnt mit den Ebenen Image, Bar Spectrum und
+    Text. Wähle in der Aktionsleiste die Schaltfläche **Project settings** (Projekteinstellungen, das Einstellungssymbol)
+    und lege dann Titel, Ausgabeformat, Größe und Hintergrundfarbe
+    fest.
+
+    <img src="/new-project.png" alt="Neues Projekt" />
+  </Step>
+  <Step title="Audio laden">
+    Wähle in der Aktionsleiste **Load audio** (Audio laden) und such dir einen Song von deinem Gerät aus.
+    Mit dem Player unten im Arbeitsbereich kannst du den Track abspielen, pausieren, stoppen, wiederholen
+    oder darin navigieren.
+
+    <img src="/load-audio.png" alt="Audio laden" />
+  </Step>
+  <Step title="Display hinzufügen">
+    Das neue Projekt enthält bereits ein **Bar Spectrum**. Wähle es aus oder füge
+    im Ebenen-Bedienfeld ein **Radial Spectrum** oder **Wave Spectrum** hinzu. Bearbeite im
+    Steuerungs-Bedienfeld Farben, Größe, Frequenzbereich, Glättung, Position und weitere Einstellungen.
+
+    <img src="/add-display.png" alt="Display hinzufügen" />
+  </Step>
+  <Step title="Ein weiteres Steuerelement reagieren lassen">
+    Füge im Reaktoren-Bedienfeld einen Reaktor hinzu. Wähle den Bereich des Spektrums aus, dem er
+    folgen soll, und verknüpfe den Reaktor dann mit einem kompatiblen Steuerelement, etwa
+    Skalierung, Drehung, Deckkraft oder Effektstärke.
+
+    <img src="/add-reactor.png" alt="Reaktor hinzufügen" />
+  </Step>
+  <Step title="Feinschliff">
+    Nutze die Image- und Text-Ebenen, die bereits im Projekt vorhanden sind, und probiere dann
+    Effekte wie **Bloom**, **Color**, **Film Grain** oder **Vignette** aus.
+    Ordne Ebenen und Effekte so lange um, bis die Komposition ausgewogen wirkt.
+  </Step>
+  <Step title="Speichern und exportieren">
+    Wähle in der Aktionsleiste **Save project**, um ein bearbeitbares `.afx`-Projekt
+    zu behalten. Verwende **Save image** für ein Standbild oder **Save video** für einen
+    animierten Export.
+  </Step>
+</Steps>
+
+## Ein sinnvoller erster Ebenenaufbau
+
+| Ebene | Zweck |
+| --- | --- |
+| Text | Name des Künstlers oder Titel des Tracks |
+| Bar Spectrum | Primäre audioreaktive Bewegung |
+| Image | Cover-Art oder Logo |
+| Shape | Hintergrundfläche oder Rahmenelement |
+| Bloom-Effekt | Weicher Schein um helle Bereiche |
+| Color-Effekt | Abschließende Anpassung von Helligkeit, Kontrast, Farbton und Sättigung |
+
+<Info>
+  Astrofox speichert die Projektstruktur und die Einstellungen. Bild- und Video-Ebenen müssen
+  auf einem anderen Computer eventuell neu verknüpft werden, und der Audiotrack muss erneut
+  geladen werden. Bewahre diese Dateien zusammen mit deinem Projekt auf, wenn du es verschiebst.
+</Info>
+
+## Nächste Schritte
+
+- Lies [Oberfläche](/docs/de/interface) für einen Rundgang durch den Arbeitsbereich.
+- Erfahre, wie [Szenen, Displays und Effekte](/docs/de/scenes-and-layers) zusammenspielen.
+- Verfeinere die Bewegung mit [Reaktoren](/docs/de/reactors).
+- Wähle unter [Exportieren](/docs/de/exporting) das passende Format.

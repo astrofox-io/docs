@@ -1,0 +1,48 @@
+---
+title: Steuerungs-Bedienfeld
+description: Bearbeite Szenen, Displays, Effekte, Transformationen, Medien und Reaktorbindungen.
+---
+
+Das Steuerungs-Bedienfeld zeigt bearbeitbare Steuerungskarten für die Komposition. Die Kopfzeile einer Karte nennt links den Elementtyp und rechts den Ebenennamen. Wählst du einen der beiden Teile aus, wird auch das entsprechende Element in Layers ausgewählt.
+
+## Aktive Ebene und alle Ebenen
+
+Mit den beiden Schaltflächen in der Kopfzeile von Controls legst du fest, wie viel vom Projekt angezeigt wird:
+
+- **Show active layer only** zeigt nur die Karte der ausgewählten Szene, des ausgewählten Displays oder Effekts. Nutze diese Option für einen fokussierten Arbeitsbereich.
+- **Show all layers** zeigt Karten für die gesamte Komposition. Wählst du eine Zeile in Layers aus, wird ihre Karte in den sichtbaren Bereich gescrollt.
+
+Das Umschalten des Modus aktiviert, deaktiviert oder verändert keine Ebene.
+
+## Arten von Steuerelementen
+
+Die Steuerelemente unterscheiden sich je nach Element und können Folgendes umfassen:
+
+- Zahlenfelder und Schieberegler für präzise oder schnelle Wertänderungen
+- Bereichssteuerungen für Minimal- und Maximalwerte
+- Farbwähler und Farbbereiche
+- Umschalter, Kontrollkästchen und Auswahllisten
+- Eingaben für Text, Bilder und Videos
+- Einklappbare Gruppen wie **Appearance** und **Position**
+
+Die App übernimmt Änderungen sofort, sodass du die Bühne beobachten kannst, während du einen Wert anpasst. Die Gruppen Appearance und Position stehen weiter unten in einer Karte, damit du elementspezifische Einstellungen zuerst findest.
+
+## Reaktorbindungen
+
+Kompatible Steuerelemente zeigen eine Schaltfläche für die Reaktorbindung. Solange ein Reaktor gebunden ist, steuert er die Eigenschaft zwischen dem Minimum und dem Maximum dieses Steuerelements. Der ungebundene Wert wird nicht verwendet, bis du die Bindung entfernst.
+
+So erstellst du eine sinnvolle Bindung:
+
+1. Wähle ein Steuerelement, dessen Minimum und Maximum bereits die gewünschte Bewegung beschreiben.
+2. Binde einen Reaktor und spiele das Audio ab.
+3. Ist die Bewegung zu abrupt, passe Glättung oder Abklingen (Decay) am Reaktor an.
+
+Beim Lösen der Bindung wird der letzte ungebundene Wert wiederhergestellt.
+
+## Steuerelemente und direkte Bearbeitung
+
+Bei unterstützten 2D-Displays ändert das Ziehen am Overlay der [Ebenentransformation](/docs/de/interface/layer-transform) dieselben Werte für Position und Appearance, die hier angezeigt werden. Bei 3D-Displays aktualisiert die [Kamerasteuerung](/docs/de/interface/camera-controls) die entsprechenden Kamerawerte. Verwende die Methode, die dir gerade bequemer ist; beide bearbeiten die Projektdaten.
+
+<Tip>
+  Nutze **Show active layer only** auf kleineren Bildschirmen. Nutze **Show all layers**, wenn du dieselbe Einstellung über mehrere Displays oder Effekte hinweg vergleichen willst.
+</Tip>

@@ -1,0 +1,52 @@
+---
+title: Desktop-App
+description: Nutze Astrofox offline mit nativem Videoexport und Desktop-Integration.
+---
+
+Die Astrofox-Desktop-App verpackt dieselbe React-Oberfläche wie die Web-App in
+Electron. Projekte lassen sich ohne Konvertierung zwischen Web und Desktop austauschen.
+
+Aktuelle Installationsprogramme findest du auf der [Download-Seite](/de/download). Jeder Link
+verweist auf das neueste GitHub-Release.
+
+## Warum die Desktop-App?
+
+- Nach der Installation ohne Netzwerkverbindung arbeiten
+- Offline MP4-Video über die mitgelieferte ffmpeg-Binärdatei rendern
+- Zwischen den Encodern x264, x265, NVEnc und WebM wählen
+- Einen absoluten Exportpfad wählen und das Ergebnis in seinem Ordner anzeigen
+- Desktop-Audio aufnehmen, sofern das Betriebssystem es erlaubt
+- App-Updates aus veröffentlichten GitHub-Releases erhalten
+
+## Plattformpakete
+
+Astrofox-Builds gibt es für Windows x64, macOS (Intel und Apple Silicon)
+und Linux x64. Ein Release kann Windows-Installationsprogramme, macOS-DMG- oder -ZIP-Dateien
+und ein Linux-AppImage enthalten.
+
+## Dateizugriff und Berechtigungen
+
+Astrofox verwendet für Projekte, Audio, Bilder und Video Dateiauswahldialoge im Browserstil.
+Native Dialoge sind Abläufen vorbehalten, die einen echten Pfad benötigen,
+etwa die ffmpeg-Ausgabe.
+
+macOS fragt eventuell nach Zugriff auf Mikrofon und Bildschirmaufnahme für die Live-Eingabe und
+die Aufnahme von Desktop-Audio. Erteile nur die Berechtigungen, die dein Workflow benötigt.
+
+## ffmpeg-Fallback
+
+Die Desktop-Pakete enthalten normalerweise ffmpeg. Fehlt es oder ist es nicht verfügbar,
+greift Astrofox auf den Export über `MediaRecorder` im Browser zurück. Das verfügbare Format
+hängt dann vom eingebetteten Browser ab und nicht von der Liste der Desktop-Encoder.
+
+## App aktualisieren
+
+Öffne **Settings** unten in der Aktionsleiste, um nach Updates zu suchen.
+Sobald ein Update heruntergeladen wurde, erscheint in der App-Leiste eine Schaltfläche zum Neustarten. Die
+App installiert das Update, nachdem das Release auf GitHub veröffentlicht wurde.
+
+<Info>
+  Der Desktop-Renderer ist bewusst vom Betriebssystem isoliert.
+  Er nutzt eine schmale Preload-Brücke für Fenstersteuerung, ffmpeg, temporäre Dateien
+  und die Integration nach dem Export.
+</Info>

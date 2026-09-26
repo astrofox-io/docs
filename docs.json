@@ -40,6 +40,26 @@
       "path": "/ja/download",
       "page": "ja/download",
       "language": "ja"
+    },
+    {
+      "path": "/de",
+      "page": "de/home",
+      "language": "de"
+    },
+    {
+      "path": "/de/download",
+      "page": "de/download",
+      "language": "de"
+    },
+    {
+      "path": "/fr",
+      "page": "fr/home",
+      "language": "fr"
+    },
+    {
+      "path": "/fr/download",
+      "page": "fr/download",
+      "language": "fr"
     }
   ],
   "appearance": {
@@ -463,6 +483,308 @@
           {
             "tab": "ダウンロード",
             "href": "/ja/download"
+          }
+        ]
+      },
+      {
+        "language": "de",
+        "tabs": [
+          {
+            "tab": "Dokumentation",
+            "groups": [
+              {
+                "group": "Erste Schritte",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "de/index",
+                    "title": "Einführung"
+                  },
+                  {
+                    "page": "de/first-project",
+                    "title": "Erstelle dein erstes Visual"
+                  }
+                ]
+              },
+              {
+                "group": "Oberfläche",
+                "root": "de/interface",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "de/interface/app-bar-and-actions",
+                    "title": "App-Leiste und Aktionen"
+                  },
+                  {
+                    "page": "de/interface/layers-panel",
+                    "title": "Ebenen-Bedienfeld"
+                  },
+                  {
+                    "page": "de/interface/reactors-panel",
+                    "title": "Reaktoren-Bedienfeld"
+                  },
+                  {
+                    "page": "de/interface/stage",
+                    "title": "Bühne"
+                  },
+                  {
+                    "page": "de/interface/picture-in-picture",
+                    "title": "Bild-in-Bild"
+                  },
+                  {
+                    "page": "de/interface/layer-transform",
+                    "title": "Ebenentransformation"
+                  },
+                  {
+                    "page": "de/interface/camera-controls",
+                    "title": "Kamerasteuerung"
+                  },
+                  {
+                    "page": "de/interface/controls-panel",
+                    "title": "Steuerungs-Bedienfeld"
+                  },
+                  {
+                    "page": "de/interface/player-and-status",
+                    "title": "Player und Statusleiste"
+                  },
+                  {
+                    "page": "de/interface/input-mode",
+                    "title": "Eingabemodus"
+                  }
+                ]
+              },
+              {
+                "group": "Erstellen",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "de/projects",
+                    "title": "Projekte"
+                  },
+                  {
+                    "page": "de/audio",
+                    "title": "Audio und Live-Eingabe"
+                  },
+                  {
+                    "page": "de/scenes-and-layers",
+                    "title": "Szenen und Ebenen"
+                  },
+                  {
+                    "page": "de/reactors",
+                    "title": "Reaktoren"
+                  }
+                ]
+              },
+              {
+                "group": "Export",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "de/exporting",
+                    "title": "Exportieren"
+                  },
+                  {
+                    "page": "de/desktop-app",
+                    "title": "Desktop-App"
+                  }
+                ]
+              },
+              {
+                "group": "Plugins",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "de/plugins",
+                    "title": "Plugins installieren und verwalten"
+                  },
+                  {
+                    "page": "de/plugin-authoring",
+                    "title": "Plugins entwickeln"
+                  },
+                  {
+                    "page": "de/plugin-runtimes",
+                    "title": "Plugin-Laufzeitumgebungen"
+                  },
+                  {
+                    "page": "de/plugin-reference",
+                    "title": "Plugin-Referenz"
+                  }
+                ]
+              },
+              {
+                "group": "Hilfe",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "de/troubleshooting",
+                    "title": "Fehlerbehebung"
+                  },
+                  {
+                    "page": "de/upgrading-from-v1",
+                    "title": "Upgrade von 1.x"
+                  },
+                  {
+                    "page": "de/development",
+                    "title": "Entwicklung"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Download",
+            "href": "/de/download"
+          }
+        ]
+      },
+      {
+        "language": "fr",
+        "tabs": [
+          {
+            "tab": "Documentation",
+            "groups": [
+              {
+                "group": "Premiers pas",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "fr/index",
+                    "title": "Introduction"
+                  },
+                  {
+                    "page": "fr/first-project",
+                    "title": "Créer votre premier visuel"
+                  }
+                ]
+              },
+              {
+                "group": "Interface",
+                "root": "fr/interface",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "fr/interface/app-bar-and-actions",
+                    "title": "Barre d'application et actions"
+                  },
+                  {
+                    "page": "fr/interface/layers-panel",
+                    "title": "Panneau Calques"
+                  },
+                  {
+                    "page": "fr/interface/reactors-panel",
+                    "title": "Panneau Réacteurs"
+                  },
+                  {
+                    "page": "fr/interface/stage",
+                    "title": "Plateau"
+                  },
+                  {
+                    "page": "fr/interface/picture-in-picture",
+                    "title": "Image dans l'image"
+                  },
+                  {
+                    "page": "fr/interface/layer-transform",
+                    "title": "Transformation de calque"
+                  },
+                  {
+                    "page": "fr/interface/camera-controls",
+                    "title": "Commandes de caméra"
+                  },
+                  {
+                    "page": "fr/interface/controls-panel",
+                    "title": "Panneau Commandes"
+                  },
+                  {
+                    "page": "fr/interface/player-and-status",
+                    "title": "Lecteur et barre d'état"
+                  },
+                  {
+                    "page": "fr/interface/input-mode",
+                    "title": "Mode d'entrée"
+                  }
+                ]
+              },
+              {
+                "group": "Créer",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "fr/projects",
+                    "title": "Projets"
+                  },
+                  {
+                    "page": "fr/audio",
+                    "title": "Audio et entrée en direct"
+                  },
+                  {
+                    "page": "fr/scenes-and-layers",
+                    "title": "Scènes et calques"
+                  },
+                  {
+                    "page": "fr/reactors",
+                    "title": "Réacteurs"
+                  }
+                ]
+              },
+              {
+                "group": "Exporter",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "fr/exporting",
+                    "title": "Exportation"
+                  },
+                  {
+                    "page": "fr/desktop-app",
+                    "title": "Application de bureau"
+                  }
+                ]
+              },
+              {
+                "group": "Plugins",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "fr/plugins",
+                    "title": "Installer et gérer des plugins"
+                  },
+                  {
+                    "page": "fr/plugin-authoring",
+                    "title": "Création de plugins"
+                  },
+                  {
+                    "page": "fr/plugin-runtimes",
+                    "title": "Environnements d'exécution des plugins"
+                  },
+                  {
+                    "page": "fr/plugin-reference",
+                    "title": "Référence des plugins"
+                  }
+                ]
+              },
+              {
+                "group": "Aide",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "fr/troubleshooting",
+                    "title": "Dépannage"
+                  },
+                  {
+                    "page": "fr/upgrading-from-v1",
+                    "title": "Mise à niveau depuis la version 1.x"
+                  },
+                  {
+                    "page": "fr/development",
+                    "title": "Développement"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Téléchargement",
+            "href": "/fr/download"
           }
         ]
       }

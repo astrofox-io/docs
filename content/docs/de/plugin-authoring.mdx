@@ -1,0 +1,132 @@
+---
+title: Plugins entwickeln
+description: Erstelle und hoste ein externes Display- oder Effekt-Plugin für Astrofox.
+---
+
+Ein externes Plugin ist ein kleines Verzeichnis mit einem
+`astrofox.plugin.json`-Manifest sowie einem Fragment-Shader oder einem JavaScript-Modul.
+Astrofox unterstützt drei Kombinationen:
+
+| Typ | Laufzeitumgebung | Zweck |
+| --- | --- | --- |
+| Display | Shader | Generative 2D-Ebene aus einem Fragment-Shader |
+| Effekt | Shader | Post-Processing-Durchgang über die aktuelle Szene |
+| Display | Worker | JavaScript-Canvas- oder Three.js-Ebene in einer Sandbox |
+
+Effekt-Plugins unterstützen nur die Shader-Laufzeitumgebung. Ein Worker-Effekt wird abgelehnt.
+
+## Mit einem Beispiel beginnen
+
+Das Astrofox-Repository enthält vollständige Beispiele unter
+[`examples/plugins`](https://github.com/astrofox-io/astrofox/tree/main/examples/plugins):
+
+| Beispiel | Zeigt |
+| --- | --- |
+| `bass-glow` | Shader-Effekt mit Eigenschafts-Uniforms |
+| `plasma` | Shader-Display mit FFT-Daten |
+| `pulse-bars` | 2D-Canvas-Zeichnung in einem Worker in einer Sandbox |
+| `audio-orb` | Three.js über die vom Host bereitgestellte Bibliothek und den Renderer |
+| `cubes` | Three.js-Instancing mit hostgesteuerter Kamerasteuerung |
+
+Kopiere das am besten passende Beispiel, ändere seine ID mit Namespace, die Bezeichnung und die Implementierung
+und führe es dann lokal aus.
+
+## Minimales Shader-Display
+
+Lege diese Struktur an:
+
+```text
+my-plugin/
+├── astrofox.plugin.json
+└── display.frag
+```
+
+```jsonc title="astrofox.plugin.json"
+{
+  "api": 1,
+  "name": "@your-name/my-plugin",
+  "version": "1.0.0",
+  "label": "My Plugin",
+  "description": "A generative color field.",
+  "author": "Your Name",
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag",
+  "defaultProperties": {
+    "width": 1280,
+    "height": 720,
+    "speed": 1
+  },
+  "controls": {
+    "speed": {
+      "label": "Speed",
+      "type": "number",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "withRange": true,
+      "withReactor": true
+    }
+  },
+  "uniforms": {
+    "speed": { "type": "float", "from": "speed" }
+  }
+}
+```
+
+```glsl title="display.frag"
+precision highp float;
+
+varying vec2 vUv;
+uniform float time;
+uniform float speed;
+
+void main() {
+  vec3 color = 0.5 + 0.5 * cos(time * speed + vUv.xyx * 6.2831);
+  gl_FragColor = vec4(color, 1.0);
+}
+```
+
+Astrofox fügt externen Displays automatisch Position, Drehung, Skalierung, Deckkraft und
+Reaktor-Unterstützung hinzu. Displays ohne Kamera erhalten außerdem das Transformations-Overlay
+der Bühne. Worker-Displays mit Kamera verwenden stattdessen die
+[Kamerasteuerung](/docs/de/interface/camera-controls).
+
+## Lokal entwickeln
+
+<Steps>
+  <Step title="Abhängigkeiten des Astrofox-Quellcodes installieren">
+    Klone das Astrofox-Repository und führe einmal `pnpm install` aus.
+  </Step>
+  <Step title="Plugin-Server starten">
+    Führe im Astrofox-Repository `pnpm dev:plugins` aus. Der Server stellt jedes
+    Beispiel-Plugin mit aktiviertem CORS auf einem freien lokalen Port bereit und gibt die
+    Manifest-URLs aus.
+  </Step>
+  <Step title="Lokales Manifest installieren">
+    Wähle in Astrofox in der Aktionsleiste **Manage plugins** und installiere die
+    ausgegebene URL `http://localhost:…/astrofox.plugin.json`.
+  </Step>
+  <Step title="Iterieren">
+    Bearbeite die Plugin-Dateien und verwende dann **Reload** in Manage Plugins. Plugins von localhost
+    werden als Entwicklungsinstallationen markiert.
+  </Step>
+</Steps>
+
+## Veröffentlichen
+
+Hoste das Manifest und alle referenzierten Dateien auf demselben per HTTPS erreichbaren
+Origin. Relative Dateiverweise werden ausgehend von der Manifest-URL aufgelöst. Der Server
+muss Astrofox erlauben, die Dateien per CORS abzurufen.
+
+Erhöhe die `version` im Manifest, wenn du Änderungen veröffentlichst. Installierte Releases
+werden zwischengespeichert und per Integritätsprüfung fixiert, sodass Nutzer selbst entscheiden, wann sie aktualisieren.
+
+<Tip>
+  Halte Plugin-URLs stabil und versioniere das Manifest semantisch. Projekte
+  speichern die Quell-URL und die Version des Plugins, wodurch fehlende Abhängigkeiten
+  später nachvollziehbar bleiben.
+</Tip>
+
+Weiter geht es mit [Plugin-Laufzeitumgebungen](/docs/de/plugin-runtimes) oder der
+[Manifest-Referenz](/docs/de/plugin-reference).

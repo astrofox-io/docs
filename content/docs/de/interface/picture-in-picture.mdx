@@ -1,0 +1,28 @@
+---
+title: Bild-in-Bild
+description: Zeige die Bühnenausgabe in einem schwebenden Fenster im Vordergrund an, während du an anderer Stelle arbeitest.
+---
+
+Bild-in-Bild öffnet ein kleines schwebendes Fenster, das die Bühne spiegelt. Das Fenster bleibt über anderen Anwendungen, was praktisch ist, wenn du während einer Performance Audio oder Noten in einem anderen Programm anpasst oder die Visuals auf einem zweiten Bildschirm sichtbar halten möchtest, ohne Bedienfelder zu verschieben.
+
+## Öffnen und schließen
+
+Wähle in der Werkzeugzeile oberhalb der Leinwand **Open picture in picture** aus. Die Schaltfläche bleibt hervorgehoben, solange das Fenster geöffnet ist. Wähle **Close picture in picture** oder schließe das schwebende Fenster selbst, um die Spiegelung zu beenden.
+
+Im Fenster erscheint nur die gerenderte Bühne. Es enthält weder Wiedergabesteuerung noch Audio; spiele und mische den Track im Hauptfenster.
+
+<Info>
+  Das schwebende Fenster ist ein Live-Spiegel der Leinwand. Änderungen an Ebenen, Reaktorbewegungen und Änderungen an der Wiedergabe erscheinen sofort, du kannst also weiterarbeiten, während es geöffnet ist.
+</Info>
+
+## Voraussetzungen
+
+Die Funktion nutzt die standardmäßige Bild-in-Bild-Unterstützung für Videos. Kann die aktuelle Umgebung sie nicht bereitstellen, ist die Schaltfläche deaktiviert. Schlägt ein Startversuch trotzdem fehl, zeigt Astrofox einen Fehlerdialog an.
+
+- Funktioniert in modernen Chromium-Browsern und in der Desktop-App.
+- Beim Öffnen eines Bühnenspiegels wird zuerst jedes andere Bild-in-Bild-Video geschlossen.
+- Schließt du den Tab oder das Fenster der Haupt-App, endet der Spiegel zusammen mit allem anderen; es bleibt kein verwaister Stream zurück, den du manuell aufräumen müsstest.
+
+## Wofür es nicht gedacht ist
+
+Bild-in-Bild ist eine Vorschauhilfe, kein Ausgabeformat. Es beeinflusst weder Exporte noch die Auflösung oder das, was Zuschauer einer Aufnahme sehen – nutze [Save image](/docs/de/exporting) oder [Save video](/docs/de/exporting), um teilbare Ergebnisse zu erstellen.

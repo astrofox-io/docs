@@ -1,0 +1,61 @@
+---
+title: Audio und Live-Eingabe
+description: Steuere Astrofox mit einem Song, einem Mikrofon, Desktop-Audio oder MIDI.
+---
+
+Astrofox kann eine gespeicherte Audiodatei für eine reproduzierbare Zeitleiste analysieren oder
+für Auftritte und Experimente auf eine Live-Quelle reagieren.
+
+## Audiodatei laden
+
+Wähle in der Aktionsleiste **Load audio** (Audio laden) und such dir einen Track aus. Die Wellenform und
+die Fortschrittssteuerung erscheinen im Player. Du kannst abspielen, pausieren, stoppen, springen, die
+Abhörlautstärke anpassen und die Wiederholung umschalten.
+
+Verwende eine Datei, wenn du Folgendes brauchst:
+
+- Präzises Scrubben und reproduzierbares Timing
+- Einen festgelegten Start- und Endbereich für den Export
+- Audio im fertigen Video
+- Bei jedem Rendern des Projekts identische Ergebnisse
+
+<img src="/load-audio.png" alt="Audio laden" />
+
+## Live-Eingabe verwenden
+
+Wechsle im Player in den [Eingabemodus](/docs/de/interface/input-mode) und wähle dann
+eine Eingabe. Welche Quellen verfügbar sind, hängt von Browser, Betriebssystem und
+Berechtigungen ab.
+
+### Mikrofon
+
+Wähle im Eingabemodus **Microphone**, wähle ein Gerät aus und erlaube den Zugriff auf das
+Mikrofon. Passe die Eingangsverstärkung an, wenn das Signal zu leise ist oder zu oft übersteuert.
+
+### Desktop-Audio
+
+Wähle im Eingabemodus **Desktop Audio** und dann einen Bildschirm, ein Fenster oder einen Tab,
+der eine Audiospur liefert. Die Regeln des Browsers für die Bildschirmfreigabe bestimmen, welche
+Quellen Audio bereitstellen können.
+
+### MIDI
+
+Wähle **MIDI**, wähle eine Eingabe aus und erteile die MIDI-Berechtigung, wenn du dazu aufgefordert wirst.
+MIDI liefert ein Live-Steuersignal ohne Audio-Wellenform.
+
+<Info>
+  Die Live-Eingabe ist für Echtzeit-Visuals gedacht. Der **Save video**-Ablauf
+  verwendet eine Audiodatei, damit Astrofox einen deterministischen Zeitbereich rendern und
+  das ausgewählte Audio in das Ergebnis muxen kann.
+</Info>
+
+## Schwaches Signal beheben
+
+1. Prüfe, ob das richtige Mikrofon, die richtige Freigabequelle bzw. das richtige MIDI-Gerät ausgewählt ist.
+2. Erhöhe die Eingangsverstärkung der Live-Eingabe schrittweise.
+3. Senke im Reaktor **Max dB** oder vergrößere den ausgewählten Spektrumbereich.
+4. Senke **Smoothing** für eine schnellere Reaktion oder erhöhe den Wert für ruhigere Bewegungen.
+5. Teste mit einem direkt audioreaktiven Display wie Bar Spectrum, bevor du
+   die Verknüpfung eines Reaktors debuggst.
+
+Unter [Reaktoren](/docs/de/reactors) erfährst du, wie du das analysierte Signal in Bewegung umsetzt.

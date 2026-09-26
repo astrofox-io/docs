@@ -1,0 +1,55 @@
+---
+title: Projets
+description: Configurez, enregistrez, ouvrez, déplacez et récupérez vos projets Astrofox.
+---
+
+Un projet Astrofox stocke le canevas, les scènes, les affichages, les effets, les réacteurs, les références aux plugins et leurs paramètres. Les projets sont enregistrés sous forme de fichiers `.afx` contenant du JSON non compressé.
+
+## Configurer le canevas
+
+Sélectionnez le bouton **Project settings** (paramètres du projet, l'icône en forme d'engrenage) dans la barre d'actions pour définir :
+
+| Paramètre | Options |
+| --- | --- |
+| Titre du projet | Le nom affiché dans Astrofox et utilisé comme nom de fichier par défaut |
+| Format | Carré, portrait 9:16, paysage 16:9, portrait 3:4 ou paysage 4:3 |
+| Taille | Résolution de base 480p, 720p ou 1080p |
+| Couleur d'arrière-plan | La couleur située derrière chaque scène |
+
+La boîte de dialogue indique la largeur et la hauteur exactes de sortie avant l'enregistrement.
+
+<img src="/project-settings.png" alt="Paramètres du projet" />
+
+## Enregistrer et ouvrir
+
+- **Save project** enregistre le projet courant sur votre appareil.
+- **Open project** ouvre un fichier `.afx`, compressé au format gzip ou non, et accepte également les fichiers `.json` issus d'enregistrements 2.x antérieurs.
+- **New project** efface la composition courante après vous avoir proposé d'enregistrer les modifications non enregistrées.
+
+Ces boutons se trouvent dans la barre d'actions, tout à gauche. Survolez une icône pour afficher son nom.
+
+Dans les navigateurs qui prennent en charge l'API File System Access, Astrofox peut écrire directement dans le fichier sélectionné. Les autres navigateurs utilisent le sélecteur de fichiers et le processus de téléchargement standard.
+
+## Déplacer un projet vers un autre ordinateur
+
+Les fichiers de projet stockent les paramètres de composition et des références aux fichiers image et vidéo locaux. Ils n'incluent pas la piste audio. Lorsqu'une image ou une vidéo ne peut pas être chargée automatiquement, Astrofox ouvre **Relink Media** (relier les médias) et liste chaque élément manquant.
+
+<Steps>
+  <Step title="Regrouper les fichiers">
+    Placez le projet et ses médias sources dans un même dossier avant de le copier ou de l'archiver.
+  </Step>
+  <Step title="Ouvrir le projet">
+    Ouvrez le projet `.afx` sur l'ordinateur de destination.
+  </Step>
+  <Step title="Restaurer les médias">
+    Choisissez le fichier local correspondant pour chaque image ou vidéo non résolue. Rechargez la piste audio avec **Load audio**. Vérifiez ensuite la lecture.
+  </Step>
+</Steps>
+
+## Dépendances de plugins
+
+Les projets enregistrent l'URL source et la version de chaque plugin externe. Si un plugin est manquant, Astrofox indique ce qui est requis et propose de l'installer. Vérifiez la source et les autorisations avant d'accepter. Rouvrez le projet après l'installation pour que ses éléments de plugin puissent s'afficher.
+
+<Warning>
+  Un projet peut dépendre de plugins tiers. N'installez des plugins que depuis des sources de confiance, en particulier lorsqu'ils demandent un accès au réseau.
+</Warning>

@@ -1,0 +1,72 @@
+---
+title: Projekte
+description: Astrofox-Projekte konfigurieren, speichern, öffnen, verschieben und wiederherstellen.
+---
+
+Ein Astrofox-Projekt speichert die Leinwand, Szenen, Displays, Effekte, Reaktoren,
+Plugin-Verweise und deren Einstellungen. Projekte werden als `.afx`-Dateien mit
+unkomprimiertem JSON gespeichert.
+
+## Leinwand konfigurieren
+
+Wähle in der Aktionsleiste die Schaltfläche **Project settings** (Projekteinstellungen, das Einstellungssymbol), um
+Folgendes festzulegen:
+
+| Einstellung | Optionen |
+| --- | --- |
+| Project title | Der Name, der in Astrofox angezeigt und als Standard-Dateiname verwendet wird |
+| Format | Quadratisch, 9:16 Hochformat, 16:9 Querformat, 3:4 Hochformat oder 4:3 Querformat |
+| Size | 480p, 720p oder 1080p als Basisauflösung |
+| Background color | Die Farbe hinter jeder Szene |
+
+Der Dialog zeigt vor dem Speichern die genaue Ausgabebreite und -höhe an.
+
+<img src="/project-settings.png" alt="Projekteinstellungen" />
+
+## Speichern und öffnen
+
+- **Save project** schreibt das aktuelle Projekt auf dein Gerät.
+- **Open project** öffnet eine `.afx`-Datei, ob gzip-komprimiert oder nicht, und
+  akzeptiert auch `.json`-Dateien aus früheren 2.x-Versionen.
+- **New project** leert die aktuelle Komposition, nachdem angeboten wurde, ungespeicherte
+  Änderungen zu sichern.
+
+Diese Schaltflächen befinden sich in der Aktionsleiste ganz links. Fahre mit der Maus über ein Symbol, um seinen
+Namen zu sehen.
+
+In Browsern, die die File System Access API unterstützen, kann Astrofox direkt in die
+ausgewählte Datei zurückschreiben. Andere Browser verwenden die übliche Dateiauswahl und den
+normalen Download-Ablauf.
+
+## Projekt auf einen anderen Computer übertragen
+
+Projektdateien speichern die Kompositionseinstellungen sowie Verweise auf lokale Bild- und
+Videodateien. Den Audiotrack enthalten sie nicht. Wenn ein Bild oder Video
+nicht automatisch geladen werden kann, öffnet Astrofox **Relink Media** und listet jedes
+fehlende Element auf.
+
+<Steps>
+  <Step title="Dateien zusammenhalten">
+    Lege das Projekt und seine Quellmedien in einen gemeinsamen Ordner, bevor du ihn kopierst oder
+    archivierst.
+  </Step>
+  <Step title="Projekt öffnen">
+    Öffne das `.afx`-Projekt auf dem Zielcomputer.
+  </Step>
+  <Step title="Medien wiederherstellen">
+    Wähle für jedes nicht aufgelöste Bild oder Video die passende lokale Datei aus. Lade
+    den Audiotrack mit **Load audio** erneut. Prüfe anschließend die Wiedergabe.
+  </Step>
+</Steps>
+
+## Plugin-Abhängigkeiten
+
+Projekte speichern die Quell-URL und die Version jedes externen Plugins. Fehlt ein
+Plugin, zeigt Astrofox an, was benötigt wird, und bietet an, es zu installieren.
+Prüfe vor dem Bestätigen die Quelle und die Berechtigungen. Öffne das Projekt nach der
+Installation erneut, damit seine Plugin-Elemente gerendert werden können.
+
+<Warning>
+  Ein Projekt kann von Plugins Dritter abhängen. Installiere Plugins nur aus
+  Quellen, denen du vertraust, besonders wenn sie Netzwerkzugriff anfordern.
+</Warning>

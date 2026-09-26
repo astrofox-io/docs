@@ -1,0 +1,66 @@
+---
+title: Réacteurs
+description: Associez l'audio, les battements ou un mouvement généré aux commandes d'Astrofox.
+---
+
+Un réacteur convertit un signal source en une sortie normalisée capable de piloter une ou plusieurs commandes compatibles. C'est ainsi que vous faites pulser l'échelle avec les basses, suivre les aigus par la rotation ou apparaître un effet à chaque battement.
+
+## Créer un réacteur
+
+<Steps>
+  <Step title="Ajouter un réacteur">
+    Dans le panneau Réacteurs, choisissez **Add reactor** (ajouter un réacteur). Sélectionnez le nouveau réacteur pour ouvrir ses commandes détaillées et ses indicateurs en direct au-dessus du lecteur.
+  </Step>
+  <Step title="Choisir un mode de sortie">
+    Choisissez un mode audio, battement ou statique selon le mouvement souhaité.
+  </Step>
+  <Step title="Régler la source">
+    Pour les modes spectre, faites glisser la sélection sur la zone de fréquences et de niveaux à suivre. Ajustez Max dB, le lissage, le maintien et la décroissance pendant la lecture de l'audio.
+  </Step>
+  <Step title="Associer une commande">
+    Sélectionnez un affichage ou un effet. Sur une commande numérique compatible, choisissez le réacteur. Une sortie de 0 correspond au minimum de cette commande ; une sortie de 1 correspond à son maximum.
+  </Step>
+</Steps>
+
+<img src="/reactor-panel.png" alt="Panneau Réacteurs" />
+
+## Modes de sortie
+
+| Famille | Modes | Utilisation |
+| --- | --- | --- |
+| Spectre | Add, Subtract, Forward, Reverse, Cycle | Mouvement continu piloté par la bande audio sélectionnée |
+| Battement | Beat Trigger, Beat Envelope | Impulsions ponctuelles ou pulsation qui décroît après chaque battement détecté |
+| Statique | Static Forward, Static Reverse, Static Cycle | Mouvement basé sur le temps qui ne nécessite pas d'audio |
+
+**Add** suit l'énergie de la bande (silence → 0, fort → 1). **Subtract** inverse cette énergie. **Forward**, **Reverse** et **Cycle** accumulent l'énergie au fil du temps, de sorte que la sortie parcourt l'intervalle 0–1 au lieu de suivre le niveau à chaque image. Les modes statiques utilisent le même parcours à une vitesse (**Speed**) configurable, sans audio.
+
+## Régler la réponse
+
+- **Spectrum selection** (sélection du spectre) isole les fréquences basses, moyennes ou hautes ainsi qu'une plage d'amplitude. Les basses se situent vers l'extrémité des basses fréquences ; les voix et la mélodie occupent généralement le médium ; les cymbales et les harmoniques aériennes se situent plus haut.
+- **Max dB** modifie le niveau considéré comme sortie maximale. Rapprochez-le de zéro pour les sources fortes et baissez-le pour les sources faibles.
+- **Smoothing** stabilise un mouvement saccadé, au prix d'une réponse plus lente.
+- **Hold Time** (modes spectre et Beat Trigger) maintient un pic ou une impulsion avant sa retombée. La valeur est exprimée en images d'analyse, et non en secondes.
+- **Decay** (modes spectre et Beat Envelope) détermine la vitesse à laquelle la valeur redescend après un pic. Beat Trigger retombe plutôt à zéro après le maintien.
+- **Sensitivity** modifie la facilité de déclenchement des modes battement.
+- **Speed** contrôle la vitesse des modes statiques.
+
+## Recettes pratiques
+
+<CardGroup cols={2}>
+  <Card title="Pulsation des basses" icon="audio-waveform">
+    Sélectionnez le bas du spectre et associez la sortie Add à l'échelle ou à l'intensité de Bloom.
+  </Card>
+  <Card title="Flash de caisse claire" icon="zap">
+    Utilisez Beat Trigger ou Beat Envelope sur l'opacité, la luminosité ou un effet de stylisation.
+  </Card>
+  <Card title="Rotation lente" icon="rotate-cw">
+    Utilisez Static Forward ou Static Cycle sur la rotation pour un mouvement qui se poursuit pendant les silences.
+  </Card>
+  <Card title="Scintillement des aigus" icon="sparkles">
+    Sélectionnez le haut du spectre et utilisez une plage réduite sur RGB Shift, Film Grain ou un déplacement.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Un même réacteur peut piloter plusieurs commandes. Utilisez des réacteurs distincts lorsque des éléments nécessitent des bandes de fréquences, un lissage, une sensibilité aux battements ou un minutage différents.
+</Tip>

@@ -1,0 +1,68 @@
+---
+title: Einführung
+description: Öffne Astrofox, lerne den Arbeitsbereich kennen und beginne mit audioreaktiven Visuals.
+---
+
+## Was ist Astrofox?
+
+Astrofox ist eine Anwendung zum Erstellen von Motion Graphics, die auf Audio reagieren.
+Du baust auf einer Leinwand eine Komposition aus Ebenen wie Spektrum-Displays,
+Bildern, Text, Video, Formen und 3D-Geometrie auf und wendest anschließend Effekte an. Der Ton kann
+aus einer Audiodatei oder aus einer Live-Quelle stammen: einem Mikrofon, dem Desktop-Audio oder
+einem MIDI-Controller. Die App analysiert diese Eingabe und kann damit während der Wiedergabe
+Ebeneneigenschaften verändern. Du kannst den aktuellen Frame als Bild speichern oder
+ein Video exportieren, wobei eine geladene Audiodatei als Zeitleiste dient.
+
+<CardGroup cols={2}>
+  <Card title="Web-App verwenden" icon="globe-2" href="https://app.astrofox.io" cta="Astrofox öffnen">
+    Leg sofort in einem unterstützten Browser los, ohne etwas zu installieren.
+  </Card>
+  <Card title="Desktop-App verwenden" icon="monitor-down" href="/de/download" cta="Downloads ansehen">
+    Arbeite offline mit nativem Dateizugriff und Videoexport auf dem Desktop.
+  </Card>
+</CardGroup>
+
+Beide Versionen nutzen dasselbe Projektformat und dieselbe Bearbeitungsoberfläche, und keine
+von beiden erfordert ein Konto.
+
+<img src="/screenshot.png" />
+
+## So ist Astrofox aufgebaut
+
+Ein Projekt enthält eine oder mehrere **Szenen**. Jede Szene enthält **Displays**,
+die visuelle Inhalte zeichnen, und **Effekte**, die die Szene bearbeiten. **Reaktoren**
+wandeln Audio oder ein generiertes Signal in Werte um, die kompatible
+Steuerelemente antreiben können.
+
+Die wichtigsten Bereiche bleiben beim Arbeiten an derselben Stelle:
+
+- **Ebenen und Reaktoren** links organisieren die Komposition und ihre Signale.
+- Die **Bühne** in der Mitte zeigt eine Vorschau des aktuellen Ergebnisses.
+- Die **Steuerung** rechts bearbeitet die ausgewählte Szene, das ausgewählte Display oder den ausgewählten Effekt.
+- Der **Player** unten übernimmt die Audiowiedergabe und die Live-Eingabe.
+
+In der [Übersicht der Oberfläche](/docs/de/interface) findest du einen geführten Überblick über alle Bedienfelder
+und Werkzeuge.
+
+## Was du erstellen kannst
+
+- Musikvisualisierungen für YouTube, soziale Medien und Live-Auftritte
+- Cover-Art-Animationen, Lyric-Clips und Loop-Hintergründe
+- Kompositionen aus Spektren, Wellenformen, Geometrie, Bildern, Text und Video
+- Standbilder und audiosynchrone Videoexporte
+- Eigene audioreaktive Displays und Effekte mit Plugins
+
+<CardGroup cols={2}>
+  <Card title="Erstelle dein erstes Visual" icon="sparkles" href="/docs/de/first-project">
+    Lade einen Song, passe ein Spektrum an, füge einen Reaktor hinzu und exportiere das Ergebnis.
+  </Card>
+  <Card title="Lerne den Arbeitsbereich kennen" icon="panels-top-left" href="/docs/de/interface">
+    Finde Szenen, Ebenen, Steuerelemente, Wiedergabe und Bühnenwerkzeuge.
+  </Card>
+  <Card title="Mit Plugins entwickeln" icon="plug" href="/docs/de/plugin-authoring">
+    Füge Shader- oder in einer Sandbox laufende JavaScript-Displays und -Effekte hinzu.
+  </Card>
+  <Card title="Quellcode ansehen" icon="code" href="https://github.com/astrofox-io/astrofox">
+    Lies den Code, melde einen Fehler oder trage auf GitHub bei.
+  </Card>
+</CardGroup>

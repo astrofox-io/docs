@@ -1,0 +1,55 @@
+---
+title: Eingabemodus
+description: Steuere Visuals über ein Mikrofon, Desktop-Audio oder einen MIDI-Controller statt über eine geladene Audiodatei.
+---
+
+Der Eingabemodus ersetzt die Dateiwiedergabe durch eine Live-Eingabe. Die Visuals reagieren dann in Echtzeit auf alles, was über das ausgewählte Gerät hereinkommt – deine Stimme, System- oder Tab-Audio oder Noten- und Steuerdaten eines MIDI-Instruments.
+
+## Eingabemodus aktivieren
+
+Wähle in der Dateiwiedergabe **Enable input mode** aus (die Mikrofon-Schaltfläche am rechten Ende des Players). Der Player wechselt zum Live-Bereich.
+
+Um den Live-Modus zu verlassen, wähle **Close input mode** (das X auf dem Oszilloskop) oder lade eine Audiodatei. Beim Verlassen des Live-Modus wird der vorherige Track nicht wiederhergestellt; lade die Datei erneut, wenn du die Zeitleiste brauchst. Der zuletzt verwendete Eingabetyp wird gespeichert.
+
+## Eingabe auswählen
+
+Über ein Dropdown links im Live-Bereich wählst du den Eingabetyp aus. Die Steuerelemente rechts daneben ändern sich je nach Auswahl:
+
+| Eingabe | Steuerelemente | Hinweise |
+| --- | --- | --- |
+| Microphone | Geräteauswahl und die runde Start-/Stopp-Schaltfläche | Der Browser fragt beim ersten Mal nach der Berechtigung. Geräte werden automatisch aufgelistet, sobald sie angeschlossen oder entfernt werden. |
+| Desktop Audio | Schaltfläche **Capture Desktop Audio** | Öffnet den Dialog zur Bildschirmfreigabe. Wähle aus, was du teilen möchtest, und aktiviere die Freigabe des Tons. |
+| MIDI | Geräteauswahl und Schaltfläche **Connect** | Erfordert Web-MIDI-Unterstützung, die die meisten Chromium-basierten Browser und die Desktop-App bieten. |
+
+### Desktop-Audio
+
+Um etwas anderes als einen Browser-Tab aufzunehmen, wähle im Freigabedialog einen ganzen Bildschirm und aktiviere das Systemaudio. Bei der Freigabe einzelner Fenster wird oft kein Ton übertragen; erhält Astrofox keine Audiospur, zeigt es eine Warnung an und bleibt getrennt.
+
+Beendest du die Aufnahme über die Freigabeleiste des Browsers, endet die Live-Eingabe automatisch. So frieren die Visuals sauber ein, statt auf Stille zu reagieren.
+
+### Starten und stoppen
+
+Mikrofon und Desktop-Audio verwenden die runde Schaltfläche neben dem Gain-Regler:
+
+- Besteht noch keine Verbindung, verbindet sie das ausgewählte Gerät (**Start microphone input** oder **Capture Desktop Audio**).
+- Ein leuchtender Rahmen zeigt, dass die Eingabe aktiv ist; das Oszilloskop darüber zeigt das eingehende Signal.
+- Das Stoppen eines Mikrofons pausiert die Eingabe, der Live-Modus bleibt aber aktiv.
+- Das Stoppen von Desktop-Audio beendet die Aufnahme und verlässt den Live-Modus.
+
+MIDI hat weder eine runde Start-/Stopp-Schaltfläche noch einen Gain-Regler. Wähle ein Gerät aus und nutze dann **Connect**.
+
+Die Statuszeile in der unteren linken Ecke zeigt den aktuellen Zustand an, zum Beispiel `Live: USB Microphone` oder `Live MIDI: Launchpad`. Bevor ein Gerät verbunden ist, nennt sie den ausgewählten Eingabetyp.
+
+<Info>
+  Das Laden einer Audiodatei beendet den Eingabemodus immer. Mit **Enable input mode** wechselst du zurück – dein letzter Eingabetyp wird gespeichert, die vorherige Audiodatei jedoch nicht.
+</Info>
+
+## Gain
+
+Für Mikrofon und Desktop-Audio kannst du den Eingangspegel (Gain) zwischen 0 % und 300 % einstellen, wenn eine Quelle durchgehend zu leise oder zu laut ist. Gain wird vor der Analyse angewendet, sodass an Lautstärke- oder Spektrumbereiche gebundene Reaktoren nach dem Ausgleichen berechenbarer reagieren. Das Oszilloskop gibt dir beim Einstellen sofort Rückmeldung. MIDI hat keinen Gain-Regler.
+
+## Auf Live-Eingaben reagieren
+
+Alles Weitere funktioniert genau wie bei einer Datei: [Reaktoren](/docs/de/reactors) werten Spektrum und Lautstärke in jedem Frame aus, sodass du den Mikrofonpegel an die Skalierung einer Ebene binden oder Effekte über bestimmte Frequenzbänder steuern kannst. Eine Live-Eingabe hat keine Zeitleiste zum Springen, und [Save video](/docs/de/exporting) benötigt weiterhin eine Audiodatei, damit Astrofox einen festgelegten Bereich rendern kann.
+
+Bei Problemen mit der Einrichtung – fehlende Berechtigungen, stumme Aufnahmen oder Geräte, die nicht erscheinen – siehe [Audio und Live-Eingabe](/docs/de/audio) und [Fehlerbehebung](/docs/de/troubleshooting).

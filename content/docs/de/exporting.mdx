@@ -1,0 +1,73 @@
+---
+title: Exportieren
+description: Speichere eine Astrofox-Komposition als Standbild oder als kodiertes Video.
+---
+
+Astrofox exportiert die Leinwand in der Auflösung, die in **Project settings** festgelegt ist.
+Der Zoom der Bühne im Editor und die Anordnung der Bedienfelder wirken sich nicht auf das Ergebnis aus.
+
+## Bild speichern
+
+Bewege die Wiedergabe zum gewünschten Frame und wähle dann in der Aktionsleiste **Save image**.
+Astrofox rendert die Bühne und fragt, wo das Standbild gespeichert werden soll. Dabei wird
+der beste Speicherablauf genutzt, den dein Browser oder deine Desktop-Umgebung bietet.
+
+## Video speichern
+
+Wähle in der Aktionsleiste **Save video**. Im Exportdialog kannst du:
+
+- Die Audioquelle auswählen oder bestätigen
+- Einen Speicherort wählen, sofern die Plattform das unterstützt
+- Start- und Endzeit über Eingabefelder, eine Wellenform oder Bereichsregler festlegen
+- Audio in die fertige Datei aufnehmen oder weglassen
+- 30 oder 60 Frames pro Sekunde auswählen
+- Die Qualität Low, Medium oder High wählen
+- Auf dem Desktop die Kodierung x264, x265, NVEnc oder WebM auswählen
+
+<img src="/save-video.png" alt="Video speichern" />
+
+<Steps>
+  <Step title="Audio wählen">
+    Wähle eine Audiodatei mit mindestens fünf Sekunden Länge. Diese Quelle bestimmt die
+    verfügbare Export-Zeitleiste, auch wenn das Projekt eine Live-Eingabe verwendet hat.
+  </Step>
+  <Step title="Bereich festlegen">
+    Lege eine Startzeit und eine mindestens fünf Sekunden spätere Endzeit fest. Prüfe die Auswahl anhand
+    des hervorgehobenen Wellenformabschnitts.
+  </Step>
+  <Step title="Qualität und Framerate wählen">
+    Beginne mit Medium bei 30 fps. Verwende 60 fps für schnelle Bewegungen oder flüssigere Social-Media-Clips
+    und die Qualität High für ein finales Master, wenn die Renderzeit weniger
+    wichtig ist.
+  </Step>
+  <Step title="Export starten">
+    Wähle **Save video**. Astrofox rendert den ausgewählten Bereich. Mit der Stopp-Schaltfläche
+    brichst du einen laufenden Export ab.
+  </Step>
+</Steps>
+
+## Export im Browser und auf dem Desktop
+
+| Plattform | Exportweg | Typische Ausgabe |
+| --- | --- | --- |
+| Web | Unterstützung für `MediaRecorder` im Browser | WebM oder MP4, sofern der Browser es unterstützt |
+| Desktop mit ffmpeg | Offline-Rendering der Frames, anschließend Kodierung mit ffmpeg | Standardmäßig MP4 mit H.264/AAC; andere Desktop-Encoder sind auswählbar |
+| Desktop ohne ffmpeg | Browserkompatibler Fallback | Das Format, das der eingebettete Browser unterstützt |
+
+Das Offline-Rendering auf dem Desktop verwendet ein festes Frame-Timing, sodass Animation und Audioanalyse
+deterministisch bleiben. Aus demselben Grund müssen Plugin-Animationen die von Astrofox bereitgestellte
+Frame-Zeit verwenden.
+
+## Encoder wählen
+
+- **x264** ist die sicherste Allzweck-Wahl für MP4.
+- **x265** erzeugt HEVC-Video und kann kleinere Dateien liefern, wird aber nicht
+  überall gleich gut abgespielt.
+- **NVEnc** nutzt unterstützte NVIDIA-Hardware für eine schnellere H.264-Kodierung.
+- **WebM** eignet sich für die Auslieferung im Web und für Workflows, die den offenen WebM-Container
+  bevorzugen.
+
+<Warning>
+  Eine höhere Framerate, Auflösung und Qualität erhöhen jeweils die Renderzeit und
+  die Dateigröße. Teste einen kurzen Abschnitt, bevor du dich auf einen langen finalen Export festlegst.
+</Warning>

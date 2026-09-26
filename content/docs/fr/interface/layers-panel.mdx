@@ -1,0 +1,45 @@
+---
+title: Panneau Calques
+description: Ajoutez, sélectionnez, renommez, organisez, masquez et supprimez des scènes, des affichages et des effets.
+---
+
+Le panneau Calques représente la structure de la composition. Chaque scène contient une section **Displays** pour le contenu qui dessine des pixels et une section **Effects** pour le traitement de la scène terminée.
+
+## Ajouter du contenu
+
+Utilisez le **+** à côté de **Layers** pour ajouter une scène. Dans une scène, utilisez le **+** à côté de **Displays** ou **Effects** pour ouvrir le tiroir d'ajout correspondant.
+
+Le tiroir regroupe les éléments disponibles par type. Sélectionner un élément l'ajoute à la scène, sélectionne son nouveau calque et affiche ses paramètres dans le panneau Commandes. Les plugins installés apparaissent dans le même processus d'ajout que les affichages et effets intégrés.
+
+## Sélectionner et modifier une ligne
+
+Sélectionnez une ligne de scène, d'affichage ou d'effet pour la rendre active. Le panneau Commandes affiche alors la carte de commandes correspondante. Un affichage 2D sélectionné peut activer la [transformation de calque](/docs/fr/interface/layer-transform) ; un affichage 3D peut activer la [commande de caméra](/docs/fr/interface/camera-controls).
+
+Chaque ligne propose ces actions courantes :
+
+- **Renommer :** double-cliquez sur le nom, saisissez un libellé explicite et validez.
+- **Afficher ou masquer :** sélectionnez l'icône en forme d'œil. Une ligne désactivée reste dans le projet, mais ne contribue pas au résultat.
+- **Supprimer :** survolez la ligne et sélectionnez l'icône de corbeille. La suppression retire l'élément au lieu de simplement le masquer.
+
+## Réorganiser les calques
+
+Sélectionnez une ligne et utilisez les boutons haut ou bas en haut du panneau pour la déplacer précisément d'un cran. Un bouton désactivé signifie que l'élément sélectionné a atteint une limite valide.
+
+Vous pouvez aussi faire glisser les lignes :
+
+- Les scènes peuvent être réorganisées entre elles.
+- Les affichages peuvent être réorganisés entre eux et déplacés vers une autre scène.
+- Les effets peuvent être réorganisés entre eux et déplacés vers une autre scène.
+- Déposer un affichage ou un effet sur une scène le déplace dans cette scène.
+
+Les affichages et les effets restent dans leurs sections respectives, car ils jouent des rôles différents dans le pipeline de rendu.
+
+## Redimensionner Calques et Réacteurs
+
+Faites glisser le séparateur horizontal entre Calques et Réacteurs pour donner plus d'espace vertical à l'une ou l'autre liste. C'est utile lorsqu'un projet contient de nombreux calques ou de nombreux réacteurs. Le séparateur modifie uniquement la disposition de l'interface.
+
+<Tip>
+  Nommez les calques selon leur rôle, par exemple « Titre », « Barres de basses » ou « Bloom final », pour qu'une composition volumineuse reste facile à parcourir.
+</Tip>
+
+Consultez [Scènes et calques](/docs/fr/scenes-and-layers) pour les types d'affichages, les effets et la structure de la composition.

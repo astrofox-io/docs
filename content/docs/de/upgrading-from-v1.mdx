@@ -1,0 +1,55 @@
+---
+title: Upgrade von 1.x
+description: Öffne ältere Astrofox-Projekte und verstehe die Migration auf 2.0.
+---
+
+Astrofox 2.0 ist eine vollständige Neuentwicklung mit neuem Renderer, neuer Oberfläche, neuer Desktop-Shell, neuer Export-Pipeline und neuem Plugin-System. Es kann `.afx`-Projektdateien öffnen – gzip-komprimierte Dateien aus 1.x oder unkomprimierte Dateien aus 2.0 – und migriert unterstützte Elemente automatisch.
+
+<Warning>
+  Lege von jedem 1.x-Projekt eine unveränderte Sicherung an, bevor du es in Astrofox 2.0 öffnest und erneut speicherst.
+</Warning>
+
+## Ein älteres Projekt öffnen
+
+Wähle in der Aktionsleiste **Open project** aus und wähle die `.afx`-Datei. Astrofox entpackt gzip-komprimierte 1.x-Dateien bei Bedarf, konvertiert unterstützte Elemente und meldet alles, was entfernt wird. Speichere das migrierte Projekt, nachdem du das Ergebnis geprüft hast. Die Datei bleibt ein `.afx`-Projekt.
+
+## Zuordnung der Elemente
+
+| Astrofox 1.x | Migration in Astrofox 2.0 |
+| --- | --- |
+| Glow | Bloom; aus `amount` wird `radius`, aus `intensity` wird `strength` |
+| Bloom | `strength` ist `amount × 3`; `threshold` wird invertiert (`1 − threshold`) |
+| Color Halftone | Aus `scale` wird `radius`; `angle` wird in eine Drehung pro Kanal umgerechnet |
+| Glitch | Aus `amount` wird `strength` |
+| Geometry-Beleuchtung | Lichtintensität, Lichtabstand und Kamerazoom werden zu Einstellungen für Hauptlicht und Kameraabstand bei aktivierter Beleuchtung |
+| Distortion-Modus `Noise` | Distortion-Modus `Simplex Noise` |
+| Perlin-Noise-Effekt aus einer Vorabversion | Distortion-Effekt im Modus `Perlin Noise` |
+
+Elemente, die nicht konvertiert werden können, werden entfernt und nach dem Öffnen des Projekts aufgelistet.
+
+## Projektformat
+
+Projekte verwenden weiterhin die Dateiendung `.afx`. Version 1.x speicherte gzip-komprimiertes JSON; 2.0 schreibt unkomprimiertes JSON. **Open project** lädt beide Kodierungen. Einige frühere 2.x-Builds haben auch `.json`-Dateien gespeichert, die sich weiterhin öffnen lassen.
+
+Lokale Medien müssen nach der Migration eventuell neu verknüpft werden. Prüfe vor dem Export alle Bild-, Video- und Audioquellen.
+
+## Einstellungen und Plugins
+
+- Die Anwendungseinstellungen von Astrofox 1.x in `app.config` werden nicht migriert. Wähle Sprache, Projekteinstellungen und Präferenzen erneut aus.
+- Plugins für Astrofox 1.x sind nicht mit dem Plugin-System von 2.0 kompatibel. Installiere eine 2.0-Version oder baue das Plugin mithilfe des [Leitfadens zur Plugin-Entwicklung](/docs/de/plugin-authoring) neu.
+
+## Checkliste zur Überprüfung
+
+Prüfe nach der Migration:
+
+1. Leinwandformat, Auflösung und Hintergrundfarbe
+2. Reihenfolge von Szenen, Displays und Effekten
+3. Kamera und Beleuchtung von Geometry
+4. Reaktorbindungen und Wertebereiche
+5. Bild- und Videoquellen; lade anschließend das Audio mit **Load audio** neu
+6. Aussehen von Bloom, Distortion, Glitch und Halftone
+7. Einen kurzen Testexport als Bild oder Video
+
+<Info>
+  Desktop-Installationen von Astrofox 2.0 erhalten Updates über veröffentlichte GitHub Releases. Ältere 1.x-Installationen nutzen für den ersten Wechsel auf 2.x den bisherigen Update-Kanal.
+</Info>

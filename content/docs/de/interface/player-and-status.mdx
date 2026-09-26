@@ -1,0 +1,50 @@
+---
+title: Player und Statusleiste
+description: Audio vorhören, Live-Eingaben wählen, Reaktorausgaben prüfen und den Bühnenzoom steuern.
+---
+
+Der untere Bereich ändert sich je nach ausgewähltem Eingabemodus. Mit einer Audiodatei dient er als Zeitleiste und Wiedergabesteuerung. Im Live-Modus wird er zur Eingabeauswahl und zum Signalmonitor. Ein ausgewählter Reaktor fügt über beiden Ansichten seinen ausführlichen Editor hinzu.
+
+## Audiodatei-Modus
+
+Nachdem du eine Audiodatei geladen hast, bietet der Player:
+
+- Eine Wellenform, die den Gesamtverlauf des Tracks zeigt
+- Steuerelemente für Wiedergabe/Pause und Stopp
+- Abhörlautstärke
+- Einen Fortschrittsregler zum Springen im Track
+- Verstrichene und Gesamtzeit
+- Wiederholte Wiedergabe
+- Eine Schaltfläche zum Wechseln zur Live-Eingabe
+
+Springe beim Abstimmen eines Visuals zu einer dichten oder ruhigen Stelle im Track. Wenn du beide Extreme prüfst, verhinderst du, dass ein Reaktor in einem Abschnitt träge und in einem anderen übermächtig wirkt.
+
+## Live-Eingabe-Modus
+
+Im Live-Modus ersetzen Steuerelemente für die ausgewählte Quelle die Zeitleiste:
+
+- **Mikrofon:** Wähle ein verfügbares Gerät aus und überwache sein Live-Signal.
+- **Desktop-Audio:** Starte eine Aufnahme, sofern der aktuelle Browser oder die Desktop-Umgebung System- oder Freigabe-Audio unterstützt.
+- **MIDI:** Wähle einen MIDI-Eingang aus und verbinde ihn als Live-Steuerquelle.
+
+Nutze den Gain-Regler, wenn eine Audioeingabe durchgehend zu schwach oder zu stark ist. Das Oszilloskop zeigt dir sofort, ob eine Quelle aktiv ist. Schließe den Eingabemodus, um zur Dateiwiedergabe zurückzukehren. Die vorherige Audiodatei wird nicht automatisch wiederhergestellt; lade sie erneut, wenn du die Zeitleiste brauchst.
+
+Welche Quellen verfügbar sind, hängt von Plattform, Berechtigungen und angeschlossenen Geräten ab. Unter [Eingabemodus](/docs/de/interface/input-mode) erfährst du, wie du eine Quelle verbindest, und unter [Audio und Live-Eingabe](/docs/de/audio) findest du Hinweise zu Einrichtung und Fehlerbehebung.
+
+## Editor des ausgewählten Reaktors
+
+Wählst du im linken Bedienfeld einen Reaktor aus, öffnet sich oberhalb des Players ein Signal-Editor. Er enthält die Optionen des Reaktors, gegebenenfalls eine Spektrum- oder Timing-Visualisierung sowie eine Ausgangsanzeige. Schließt du diesen Editor, wird die Reaktorauswahl aufgehoben, der Reaktor und seine Bindungen bleiben aber erhalten.
+
+## Statusleiste
+
+Die Statusleiste verläuft am unteren Rand der App:
+
+- Links steht die aktuelle Aktivität, einschließlich des Exportfortschritts und einer Abbrechen-Aktion, während ein Video gerendert wird.
+- In der Mitte stehen die Leinwandabmessungen und die [Steuerelemente für den Bühnenzoom](/docs/de/interface/stage#editoransicht-zoomen).
+- Rechts stehen die gerenderten Frames pro Sekunde und die Astrofox-Version.
+
+Der FPS-Wert zeigt einen Geviertstrich, solange der Renderer im Leerlauf ist. Er ist ein Indikator für die Vorschauleistung, nicht die für einen Export gewählte Bildrate.
+
+<Info>
+  Blendest du den unteren Bereich aus, werden Reaktor-Editor und Player ausgeblendet. Die Statusleiste bleibt für Zoom, Fortschritt, FPS und Versionsinformationen weiterhin verfügbar.
+</Info>

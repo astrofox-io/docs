@@ -1,0 +1,50 @@
+---
+title: Kamerasteuerung
+description: Lass die virtuelle Kamera von 3D-Displays direkt auf der Bühne kreisen und zoome sie.
+---
+
+In 3D gerenderte Displays besitzen eine virtuelle Kamera. Ist die Kamerasteuerung aktiviert, wird die Bühne zum Sucher dieser Kamera: Kreise um die Szene, passe den Abstand an und wähle den Bildausschnitt genau so, wie er exportiert werden soll.
+
+## Welche Displays eine Kamera haben
+
+Drei integrierte Displays bieten eine Kamera und erscheinen im Menü „Add display“ in der Kategorie **3D**:
+
+- Geometry
+- Tunnel
+- Mesh grid
+
+Auch installierte Plugins können eine Kamera deklarieren; nach der Registrierung erscheinen sie neben den integrierten Displays.
+
+## Kamerasteuerung verwenden
+
+1. Wähle im Ebenen-Bedienfeld ein 3D-Display aus.
+2. Wähle oberhalb der Leinwand **Camera control** aus.
+3. Interagiere mit der Bühne:
+
+| Geste | Aktion |
+| --- | --- |
+| Nach links/rechts ziehen | Um die Szene drehen (**Azimuth**) |
+| Nach oben/unten ziehen | Bis zur oberen oder unteren Grenze neigen (**Polar**) |
+| Mausrad | Näher heran- oder weiter wegfahren (**Distance**) |
+
+Solange der Modus aktiv ist, wird der Mauszeiger über der Leinwand zur Greifhand. Integrierte 3D-Displays zeigen zusätzlich eine kleine Achsenhilfe an; Plugins mit Kamera kreisen ohne dieses Gizmo.
+
+`Esc` beendet den Kameramodus immer. Er endet auch, wenn du eine Szene, einen Effekt, eine deaktivierte Ebene oder ein Display ohne Kamera auswählst. Wählst du ein anderes aktiviertes Display mit Kamera aus, bleibt das Werkzeug aktiv. Das Aktivieren der [Ebenentransformation](/docs/de/interface/layer-transform) schaltet den Kameramodus aus – die beiden Werkzeuge zur direkten Bearbeitung laufen nie gleichzeitig.
+
+## Kamerawerte in Controls
+
+Jede Anpassung wird in die Eigenschaften des Displays zurückgeschrieben. Das [Steuerungs-Bedienfeld](/docs/de/interface/controls-panel) zeigt sie in der Gruppe **Camera** an:
+
+| Steuerelement | Bereich | Standard |
+| --- | --- | --- |
+| Azimuth | −π bis π Radiant | π/4 |
+| Polar | knapp unter ±π/2 Radiant | π/6 |
+| Distance | 0 – 5000 | Automatisch |
+
+Das Steuerungs-Bedienfeld zeigt diese Werte in Radiant an, nicht in Grad. Polar endet kurz vor der Ansicht senkrecht von oben bzw. unten, damit die Ansicht nie über die Pole kippt. Ein Abstand von null bedeutet automatische Bildausschnittwahl: Die Kamera erfasst anhand ihres Sichtfelds die gesamte Bühnenhöhe. Gib einen Wert ein oder ziehe, bis es passt, um die Kamera manuell zu steuern.
+
+Da es sich um gewöhnliche numerische Eigenschaften handelt, lassen sie sich an [Reaktoren](/docs/de/interface/reactors-panel) binden – schwenke den Azimut langsam mit einem tieffrequenten Band, zieh die Kamera bei Lautstärkespitzen heran oder lass MIDI-Noten zwischen Blickwinkeln springen.
+
+## Verwandte Einstellungen
+
+Dieselbe Steuerungskarte gruppiert alles Weitere, was den 3D-Look prägt: ein Drei-Licht-Setup mit Schatten unter **Lighting** und einen Schärfeverlauf unter **Depth of Field**. Beide sind anfangs ausgeschaltet, lassen sich nach dem Aktivieren aber problemlos mit der Kameraführung kombinieren.

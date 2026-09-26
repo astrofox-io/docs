@@ -1,0 +1,50 @@
+---
+title: Commandes de caméra
+description: Faites orbiter et zoomer la caméra virtuelle des affichages 3D directement sur le plateau.
+---
+
+Les affichages rendus en 3D disposent d'une caméra virtuelle. Lorsque la commande de caméra est activée, le plateau devient le viseur de cette caméra : tournez autour de la scène, réglez la distance et cadrez le plan exactement comme vous souhaitez l'exporter.
+
+## Affichages dotés d'une caméra
+
+Trois affichages intégrés proposent une caméra et apparaissent dans la catégorie **3D** du menu d'ajout d'affichage :
+
+- Geometry
+- Tunnel
+- Mesh grid
+
+Les plugins installés peuvent aussi déclarer une caméra ; ils apparaissent aux côtés des affichages intégrés une fois enregistrés.
+
+## Utiliser les commandes de caméra
+
+1. Sélectionnez un affichage 3D dans le panneau Calques.
+2. Sélectionnez **Camera control** au-dessus du canevas.
+3. Interagissez avec le plateau :
+
+| Geste | Action |
+| --- | --- |
+| Glisser vers la gauche ou la droite | Tourner autour de la scène (**Azimuth**) |
+| Glisser vers le haut ou le bas | Incliner vers les limites supérieure ou inférieure (**Polar**) |
+| Molette de la souris | Se rapprocher ou s'éloigner (**Distance**) |
+
+Le curseur prend la forme d'une main de préhension au-dessus du canevas tant que le mode est actif. Les affichages 3D intégrés montrent aussi un petit repère d'axes ; les plugins dotés d'une caméra orbitent sans ce repère.
+
+`Esc` quitte toujours le mode caméra. Sélectionner une scène, un effet, un calque désactivé ou un affichage sans caméra le quitte également. Sélectionner un autre affichage activé doté d'une caméra laisse l'outil actif. Activer la [transformation de calque](/docs/fr/interface/layer-transform) désactive le mode caméra : les deux outils de manipulation directe ne fonctionnent jamais en même temps.
+
+## Valeurs de caméra dans le panneau Commandes
+
+Chaque réglage est reporté dans les propriétés de l'affichage, que le [panneau Commandes](/docs/fr/interface/controls-panel) présente dans le groupe **Camera** :
+
+| Commande | Plage | Valeur par défaut |
+| --- | --- | --- |
+| Azimuth | −π à π radians | π/4 |
+| Polar | juste en deçà de ±π/2 radians | π/6 |
+| Distance | 0 – 5000 | Auto |
+
+Le panneau Commandes affiche ces valeurs en radians, et non en degrés. Polar s'arrête juste avant la verticale, au-dessus comme en dessous, de sorte que la vue ne bascule jamais en passant par les pôles. Une distance nulle correspond au cadrage automatique : la caméra englobe toute la hauteur du plateau en fonction de son champ de vision. Saisissez une valeur ou faites glisser jusqu'à obtenir le résultat souhaité pour passer en contrôle manuel.
+
+Comme il s'agit de propriétés numériques ordinaires, elles peuvent être liées à des [réacteurs](/docs/fr/interface/reactors-panel) : faites tourner lentement l'azimut avec une bande de basses fréquences, rapprochez la caméra lors des pics de volume ou laissez des notes MIDI faire passer d'un angle à l'autre.
+
+## Paramètres associés
+
+La même carte de commandes regroupe tout ce qui façonne le rendu 3D : un éclairage à trois lumières avec ombres sous **Lighting**, et la décroissance de la mise au point sous **Depth of Field**. Ces deux options sont désactivées par défaut, mais se combinent naturellement avec le cadrage de la caméra une fois activées.

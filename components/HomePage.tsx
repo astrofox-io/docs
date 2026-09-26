@@ -29,8 +29,9 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
   return (
     <div className="mx-auto w-160">
       <section className="my-20 flex flex-col gap-10">
-        {/* auto-phrase keeps Japanese words together when the heading wraps. */}
-        <h1 className="text-8xl font-bold [word-break:auto-phrase]">{copy.title}</h1>
+        {/* auto-phrase keeps Japanese words together when the heading wraps;
+            hyphens-auto breaks long German and French words that would overflow. */}
+        <h1 className="text-8xl font-bold hyphens-auto [word-break:auto-phrase]">{copy.title}</h1>
         <img src="/hero.png" alt={copy.heroAlt} />
         <p className="text-foreground/60">{copy.intro}</p>
         <div className="flex gap-4">

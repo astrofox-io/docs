@@ -1,0 +1,57 @@
+---
+title: Créer votre premier visuel
+description: Suivez un exemple de projet, d'un canevas vierge jusqu'à l'exportation d'un visuel réactif au son.
+---
+
+Ce tutoriel crée un visuel de spectre simple à partir d'un fichier audio. Vous pouvez utiliser [Astrofox sur le web](https://app.astrofox.io) ou l'[application de bureau](/docs/fr/desktop-app).
+
+<Steps>
+  <Step title="Démarrer un projet">
+    Ouvrez Astrofox et sélectionnez **New project** (nouveau projet) dans la barre d'actions si un autre projet est déjà ouvert. Un nouveau projet commence avec les calques Image, Bar Spectrum et Text. Sélectionnez le bouton **Project settings** (paramètres du projet, l'icône en forme d'engrenage) dans la barre d'actions, puis définissez un titre, un format de sortie, une taille et une couleur d'arrière-plan.
+
+    <img src="/new-project.png" alt="Nouveau projet" />
+  </Step>
+  <Step title="Charger l'audio">
+    Sélectionnez **Load audio** (charger l'audio) dans la barre d'actions et choisissez un morceau sur votre appareil. Utilisez le lecteur en bas de l'espace de travail pour lire, mettre en pause, arrêter, répéter ou vous déplacer dans la piste.
+
+    <img src="/load-audio.png" alt="Charger l'audio" />
+  </Step>
+  <Step title="Ajouter un affichage">
+    Le nouveau projet comprend déjà un **Bar Spectrum**. Sélectionnez-le, ou ajoutez un **Radial Spectrum** ou un **Wave Spectrum** depuis le panneau Calques. Modifiez ses couleurs, sa taille, sa plage de fréquences, son lissage, sa position et ses autres paramètres dans le panneau Commandes.
+
+    <img src="/add-display.png" alt="Ajouter un affichage" />
+  </Step>
+  <Step title="Faire réagir une autre commande">
+    Ajoutez un réacteur dans le panneau Réacteurs. Sélectionnez la partie du spectre qu'il doit suivre, puis associez ce réacteur à une commande compatible, comme l'échelle, la rotation, l'opacité ou l'intensité d'un effet.
+
+    <img src="/add-reactor.png" alt="Ajouter un réacteur" />
+  </Step>
+  <Step title="Peaufiner le rendu">
+    Utilisez les calques Image et Text déjà présents dans le projet, puis essayez des effets tels que **Bloom**, **Color**, **Film Grain** ou **Vignette**. Réorganisez les calques et les effets jusqu'à obtenir une composition équilibrée.
+  </Step>
+  <Step title="Enregistrer et exporter">
+    Sélectionnez **Save project** (enregistrer le projet) dans la barre d'actions pour conserver un projet `.afx` modifiable. Utilisez **Save image** pour une image fixe ou **Save video** pour une exportation animée.
+  </Step>
+</Steps>
+
+## Une première pile de calques utile
+
+| Calque | Rôle |
+| --- | --- |
+| Text | Nom de l'artiste ou titre du morceau |
+| Bar Spectrum | Mouvement principal réactif au son |
+| Image | Pochette ou logo |
+| Shape | Panneau d'arrière-plan ou élément d'encadrement |
+| Effet Bloom | Halo doux autour des zones lumineuses |
+| Effet Color | Réglage final de la luminosité, du contraste, de la teinte et de la saturation |
+
+<Info>
+  Astrofox enregistre la structure et les paramètres du projet. Il peut être nécessaire de relier à nouveau les calques d'image et de vidéo sur un autre ordinateur, et la piste audio doit être rechargée. Conservez ces fichiers avec votre projet lorsque vous le déplacez.
+</Info>
+
+## Étapes suivantes
+
+- Lisez [Interface](/docs/fr/interface) pour une visite de l'espace de travail.
+- Découvrez comment s'articulent les [scènes, les affichages et les effets](/docs/fr/scenes-and-layers).
+- Affinez le mouvement avec les [réacteurs](/docs/fr/reactors).
+- Choisissez le bon format dans [Exportation](/docs/fr/exporting).

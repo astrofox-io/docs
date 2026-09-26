@@ -1,0 +1,49 @@
+---
+title: Panneau Réacteurs
+description: Créez et gérez les signaux qui font réagir les commandes d'Astrofox.
+---
+
+Le panneau Réacteurs liste les signaux disponibles pour piloter les commandes compatibles. Il occupe la moitié inférieure du panneau gauche et peut être redimensionné en faisant glisser le séparateur qui le sépare du panneau Calques.
+
+## Ajouter et sélectionner un réacteur
+
+Sélectionnez le **+** à côté de **Reactors** pour créer un réacteur. Le nouvel élément apparaît avec un indicateur de sortie en direct et est sélectionné automatiquement.
+
+Sélectionner un réacteur ouvre son éditeur détaillé au-dessus du lecteur. Selon le mode de sortie, l'éditeur peut afficher :
+
+- Des commandes pour le mode de sortie, **Max dB**, le lissage, le temps de maintien, la décroissance, la sensibilité ou la vitesse
+- Un spectre avec une zone de sélection déplaçable
+- Un indicateur vertical de la sortie normalisée du réacteur
+
+L'éditeur n'apparaît que lorsqu'un réacteur est sélectionné. Utilisez son bouton de fermeture pour le masquer sans supprimer ni désactiver le réacteur.
+
+## Gérer la liste
+
+Les lignes de réacteurs se comportent comme les lignes de calques :
+
+- Double-cliquez sur un nom pour le renommer.
+- Sélectionnez la ligne à l'éclair pour ouvrir l'éditeur de ce réacteur.
+- Sélectionnez l'œil pour activer ou désactiver sa sortie.
+- Survolez la ligne et sélectionnez l'icône de corbeille pour le supprimer.
+
+La fine jauge sous chaque ligne permet de comparer l'activité des réacteurs sans ouvrir chaque éditeur.
+
+## Utiliser un réacteur
+
+Créer un réacteur ne modifie pas la composition à lui seul. Pour utiliser sa sortie :
+
+<Steps>
+  <Step title="Régler le signal">
+    Lancez la lecture audio ou activez l'entrée en direct, puis ajustez le réacteur jusqu'à ce que son indicateur de sortie suive le son ou le rythme souhaité.
+  </Step>
+  <Step title="Sélectionner un élément visuel">
+    Sélectionnez un affichage ou un effet dans le panneau Calques et repérez une commande compatible avec les réacteurs dans le panneau Commandes.
+  </Step>
+  <Step title="Lier la commande">
+    Choisissez le réacteur. Sa sortie est répartie entre le minimum et le maximum de cette commande.
+  </Step>
+</Steps>
+
+Un même réacteur peut piloter plusieurs commandes. Le désactiver suspend toutes ses liaisons tout en conservant leur configuration dans le projet.
+
+Consultez [Réacteurs](/docs/fr/reactors) pour les modes de sortie, le réglage du signal et des exemples concrets de liaisons.

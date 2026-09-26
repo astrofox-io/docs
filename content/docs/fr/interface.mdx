@@ -1,0 +1,55 @@
+---
+title: Interface
+description: Repérez chaque partie de l'espace de travail d'Astrofox et découvrez comment les panneaux fonctionnent ensemble.
+---
+
+Astrofox regroupe la structure du projet et les actions courantes à gauche, le plateau rendu au centre, les commandes des éléments à droite et la lecture audio en bas. Sélectionner un élément dans une zone met à jour les autres : vous passez ainsi de l'organisation à l'aperçu puis au réglage fin sans changer de vue.
+
+<img
+  src="/screenshot.png"
+  alt="Espace de travail d'Astrofox avec les panneaux Calques et Réacteurs à gauche, le plateau au centre, le panneau Commandes à droite et le lecteur en bas"
+/>
+
+## Plan de l'espace de travail
+
+| Zone | Emplacement | Rôle |
+| --- | --- | --- |
+| [Barre d'application et actions](/docs/fr/interface/app-bar-and-actions) | En haut et à l'extrême gauche | Ouvre, enregistre et exporte les projets ; ouvre les paramètres ; affiche ou masque les panneaux |
+| [Panneau Calques](/docs/fr/interface/layers-panel) | En haut à gauche | Organise les scènes, les affichages et les effets |
+| [Panneau Réacteurs](/docs/fr/interface/reactors-panel) | En bas à gauche | Crée des signaux capables de piloter les commandes compatibles |
+| [Plateau](/docs/fr/interface/stage) | Au centre | Affiche l'aperçu de la composition et fournit des outils directs de transformation et de caméra |
+| [Panneau Commandes](/docs/fr/interface/controls-panel) | À droite | Modifie la scène, l'affichage ou l'effet sélectionné |
+| [Lecteur et barre d'état](/docs/fr/interface/player-and-status) | En bas | Lit l'audio et l'entrée en direct ; la barre d'état située dessous indique le zoom, la progression, les FPS et la version |
+
+## Comment les zones fonctionnent ensemble
+
+Les panneaux **Layers** (Calques) et **Controls** (Commandes) partagent la même sélection. Sélectionnez une scène, un affichage ou un effet à gauche : sa carte de commandes devient active à droite. Lorsque le panneau Commandes affiche tous les calques, sélectionner un calque fait aussi défiler sa carte jusqu'à la rendre visible.
+
+La liste **Reactors** (Réacteurs) possède sa propre sélection. Sélectionner un réacteur ouvre son éditeur de signal détaillé au-dessus du lecteur. Vous pouvez ensuite lier ce signal depuis une commande numérique compatible du panneau Commandes.
+
+Le **plateau** reflète immédiatement ces deux types de modifications. Les modifications de calques changent ce qui est dessiné ; les modifications des réacteurs et du lecteur changent la façon dont la composition s'anime.
+
+## Une boucle d'édition pratique
+
+<Steps>
+  <Step title="Construire la structure">
+    Ajoutez des scènes, des affichages et des effets dans le panneau Calques, puis faites-les glisser dans l'ordre souhaité.
+  </Step>
+  <Step title="Ajuster l'apparence">
+    Sélectionnez un calque et modifiez ses valeurs dans le panneau Commandes. Utilisez l'outil de transformation du plateau lorsque la manipulation directe est plus rapide.
+  </Step>
+  <Step title="Ajouter du mouvement">
+    Chargez un fichier audio ou activez l'entrée en direct, créez un réacteur et liez-le à des commandes comme l'échelle, la rotation, l'opacité ou l'intensité d'un effet.
+  </Step>
+  <Step title="Prévisualiser et affiner">
+    Lisez la piste ou déplacez-vous dedans tout en observant le plateau. Réglez le réacteur et la plage de la commande jusqu'à ce que la réaction corresponde au son.
+  </Step>
+</Steps>
+
+## Gagner de la place
+
+Utilisez les trois boutons de panneau de la barre d'application pour afficher ou masquer les zones gauche, inférieure ou droite. Cela modifie uniquement la disposition de l'espace de travail : aucun calque n'est supprimé, la taille du canevas ne change pas et l'exportation n'est pas affectée.
+
+<Tip>
+  Survolez une icône lorsque son rôle n'est pas clair. Les boutons d'action, du plateau, du lecteur et des panneaux affichent leur libellé dans une infobulle.
+</Tip>

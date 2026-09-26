@@ -1,0 +1,79 @@
+---
+title: Développement
+description: Exécutez, compilez et empaquetez Astrofox à partir du code source.
+---
+
+Astrofox est une application Next.js côté client, construite avec React et Three.js. Le développement local ne nécessite ni backend ni service d'authentification.
+
+## Prérequis
+
+- Une version de Node.js compatible avec celle déclarée par les dépendances du projet
+- pnpm
+- Git
+
+Clonez le dépôt et installez les dépendances :
+
+```bash
+git clone https://github.com/astrofox-io/astrofox.git
+cd astrofox
+pnpm install
+```
+
+## Exécuter l'application web
+
+```bash
+pnpm dev
+```
+
+Créez un build de production avec :
+
+```bash
+pnpm build
+```
+
+Le processus de build standard est utilisé pour le déploiement web. Les projets et les médias restent sur l'appareil de l'utilisateur ; aucun service d'API local n'est nécessaire.
+
+## Exécuter l'application de bureau
+
+La commande de développement pour le bureau démarre l'environnement de développement Next.js et le shell Electron :
+
+```bash
+pnpm dev:desktop
+```
+
+Pour un paquet de bureau de production :
+
+```bash
+pnpm install-ffmpeg
+pnpm build:desktop
+```
+
+Des commandes propres à chaque plateforme sont également disponibles :
+
+```bash
+pnpm dist:win
+pnpm dist:mac
+pnpm dist:linux
+```
+
+`BUILD_TARGET=desktop` produit un export Next.js statique dans `out/`, qui est ensuite empaqueté avec le processus principal Electron et le pont de préchargement.
+
+## Développer des plugins
+
+Lancez le serveur d'exemples de plugins :
+
+```bash
+pnpm dev:plugins
+```
+
+Il trouve un port disponible, sert les répertoires des exemples de plugins avec CORS et affiche les URL des manifestes à installer dans Astrofox. Consultez [Création de plugins](/docs/fr/plugin-authoring) pour le processus complet.
+
+## Notes d'architecture
+
+- Les builds web et de bureau partagent une même application et un même format de projet.
+- Les API File System Access sont privilégiées pour les entrées/sorties courantes des projets et des médias.
+- Le pont Electron se limite à l'habillage de la fenêtre, à ffmpeg, aux fichiers temporaires et à l'intégration au système d'exploitation après l'exportation.
+- La vidéo sur le web utilise `MediaRecorder` ; l'exportation hors ligne sur le bureau effectue le rendu des images et les transmet au binaire ffmpeg fourni.
+- Les plugins JavaScript externes s'exécutent dans des workers isolés, soumis à une Content Security Policy restrictive.
+
+Le code source et l'activité de contribution se trouvent dans le [dépôt GitHub d'Astrofox](https://github.com/astrofox-io/astrofox).

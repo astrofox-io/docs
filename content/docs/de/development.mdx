@@ -1,0 +1,89 @@
+---
+title: Entwicklung
+description: Astrofox aus dem Quellcode ausführen, bauen und paketieren.
+---
+
+Astrofox ist eine clientseitige Next.js-Anwendung mit React und Three.js. Für die lokale
+Entwicklung ist weder ein Backend noch ein Authentifizierungsdienst erforderlich.
+
+## Voraussetzungen
+
+- Node.js in einer Version, die zu den Abhängigkeiten des Projekts passt
+- pnpm
+- Git
+
+Klonen und installieren:
+
+```bash
+git clone https://github.com/astrofox-io/astrofox.git
+cd astrofox
+pnpm install
+```
+
+## Web-App ausführen
+
+```bash
+pnpm dev
+```
+
+Einen Produktions-Build erstellst du mit:
+
+```bash
+pnpm build
+```
+
+Der reguläre Build-Weg wird für das Web-Deployment verwendet. Projekte und Medien bleiben auf
+dem Gerät des Nutzers; ein lokaler API-Dienst ist nicht erforderlich.
+
+## Desktop-App ausführen
+
+Der Entwicklungsbefehl für den Desktop startet die Next.js-Entwicklungsumgebung und
+die Electron-Shell:
+
+```bash
+pnpm dev:desktop
+```
+
+Für ein Desktop-Paket in Produktionsqualität:
+
+```bash
+pnpm install-ffmpeg
+pnpm build:desktop
+```
+
+Es gibt auch plattformspezifische Befehle:
+
+```bash
+pnpm dist:win
+pnpm dist:mac
+pnpm dist:linux
+```
+
+`BUILD_TARGET=desktop` erzeugt einen statischen Next.js-Export in `out/`, der
+anschließend zusammen mit dem Electron-Hauptprozess und der Preload-Brücke paketiert wird.
+
+## Plugins entwickeln
+
+Starte den Server für die Beispiel-Plugins:
+
+```bash
+pnpm dev:plugins
+```
+
+Er sucht einen freien Port, stellt die Verzeichnisse der Beispiel-Plugins mit CORS bereit
+und gibt Manifest-URLs aus, die du in Astrofox installieren kannst. Den vollständigen Ablauf findest du unter
+[Plugins entwickeln](/docs/de/plugin-authoring).
+
+## Hinweise zur Architektur
+
+- Web- und Desktop-Builds teilen sich eine Anwendung und ein Projektformat.
+- Für die normale Ein- und Ausgabe von Projekten und Medien werden die File System Access APIs bevorzugt.
+- Die Electron-Brücke ist auf Fensterrahmen, ffmpeg, temporäre Dateien
+  und die Integration ins Betriebssystem nach dem Export beschränkt.
+- Web-Video verwendet `MediaRecorder`; der Offline-Export auf dem Desktop rendert Frames und
+  leitet sie durch die mitgelieferte ffmpeg-Binärdatei.
+- Externe JavaScript-Plugins laufen in Workern in einer Sandbox mit einer restriktiven
+  Content Security Policy.
+
+Quellcode und Beiträge findest du im
+[Astrofox-GitHub-Repository](https://github.com/astrofox-io/astrofox).

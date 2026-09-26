@@ -1,0 +1,160 @@
+---
+title: Environnements d'exécution des plugins
+description: Implémentez des plugins Astrofox de type shader, worker canevas et Three.js.
+---
+
+L'environnement d'exécution détermine la façon dont un plugin effectue son rendu et les champs du manifeste qu'il utilise.
+
+## Affichage shader
+
+Un affichage shader produit un nouveau calque à partir d'un fragment shader. Il reçoit la taille du plateau, un temps déterministe, le niveau audio et les éventuelles données FFT demandées.
+
+```jsonc
+{
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag"
+}
+```
+
+Les entrées GLSL disponibles sont notamment :
+
+```glsl
+varying vec2 vUv;
+uniform vec2 resolution; // pass size in pixels
+uniform float time;      // deterministic seconds
+uniform float delta;     // milliseconds since the previous frame
+uniform float volume;    // overall level from 0 to 1
+uniform float fft[64];   // present when audio.fft requests 64 bins
+```
+
+Écrivez la couleur finale dans `gl_FragColor`. La transparence (canal alpha) est respectée lorsqu'Astrofox compose l'affichage.
+
+## Effet shader
+
+Un effet shader reçoit dans `inputTexture` la composition rendue jusque-là, ainsi que le temps, le delta et le volume. Il ne reçoit ni données FFT ni données temporelles :
+
+```jsonc
+{
+  "type": "effect",
+  "runtime": "shader",
+  "shader": "./effect.frag"
+}
+```
+
+```glsl
+uniform sampler2D inputTexture;
+varying vec2 vUv;
+
+void main() {
+  vec4 source = texture2D(inputTexture, vUv);
+  gl_FragColor = source;
+}
+```
+
+Associez les propriétés du manifeste à des uniforms personnalisés avec l'objet `uniforms`. Les types valides sont `float`, `int`, `vec2`, `vec3`, `vec4` et `color`.
+
+## Affichage worker
+
+Un affichage worker exporte par défaut une fonction de fabrique. Il s'exécute sans DOM dans un Web Worker dédié et dessine généralement dans un `OffscreenCanvas`.
+
+```js
+export default function createPlugin({ properties, seed, size }) {
+  let props = { ...properties };
+  let canvas;
+  let context;
+
+  return {
+    init({ canvas: nextCanvas }) {
+      canvas = nextCanvas;
+      context = canvas.getContext('2d');
+    },
+    update(next) {
+      props = { ...props, ...next };
+    },
+    render(frame) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw using frame.time, frame.fft, frame.td, and props.
+      return { width: canvas.width, height: canvas.height };
+    },
+    resize(nextSize) {},
+    dispose() {},
+  };
+}
+```
+
+Respectez les règles suivantes :
+
+- Dérivez l'animation de `frame.time` et `frame.delta`, jamais de l'heure système.
+- Initialisez l'aléatoire à partir de `frame.seed`, qui reste stable pour l'instance du plugin.
+- Redessinez l'intégralité du canevas à chaque image. Le transfert du bitmap vers l'hôte efface le canevas sous-jacent du worker.
+- Libérez les ressources que vous possédez dans `dispose()`.
+- Veillez à ce que les images restent réactives. Un rendu qui prend plus d'environ 3 secondes en aperçu, ou 5 secondes pendant l'exportation, est interrompu et l'instance est marquée comme ne répondant plus.
+
+## Affichage worker Three.js
+
+Demandez la copie de Three.js fournie par Astrofox au lieu de la télécharger ou de l'intégrer à votre bundle :
+
+```jsonc
+{
+  "type": "display",
+  "runtime": "worker",
+  "entry": "./index.js",
+  "libraries": ["three"]
+}
+```
+
+La fabrique reçoit `libraries.three` ainsi qu'un `renderer` partagé, configuré par l'hôte. Créez vos propres scène, caméra, géométrie, matériaux et lumières ; utilisez le moteur de rendu emprunté pour la sortie.
+
+```js
+export default function createPlugin({ properties, libraries, renderer }) {
+  const THREE = libraries.three;
+  let props = { ...properties };
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+
+  return {
+    init() {
+      camera.position.z = 5;
+      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    },
+    update(next) {
+      props = { ...props, ...next };
+    },
+    render() {
+      const width = props.width;
+      const height = props.height;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+      return { width, height };
+    },
+    dispose() {},
+  };
+}
+```
+
+Le moteur de rendu est partagé. Ne le libérez pas et ne modifiez pas de façon permanente sa couleur d'effacement, son espace colorimétrique, son tone mapping, ses ombres, sa cible de rendu, son état de scissor ou ses autres paramètres globaux. Réinitialisez tout état modifié temporairement avant de quitter `render()`.
+
+## Commandes de caméra de l'hôte
+
+Définissez `"camera": true` sur un affichage worker Three.js pour ajouter les propriétés `cameraAzimuth`, `cameraPolar` et `cameraDistance` et activer l'outil de caméra orbite et travelling du plateau.
+
+```js
+const cosPolar = Math.cos(props.cameraPolar);
+const distance = props.cameraDistance || automaticDistance;
+
+camera.position.set(
+  Math.sin(props.cameraAzimuth) * cosPolar * distance,
+  Math.sin(props.cameraPolar) * distance,
+  Math.cos(props.cameraAzimuth) * cosPolar * distance,
+);
+camera.lookAt(0, 0, 0);
+```
+
+Le plugin reste maître de la caméra et de l'éclairage. Astrofox fournit uniquement l'interaction utilisateur et les valeurs de propriétés persistantes.
+
+<Warning>
+  Les plugins worker ne peuvent pas accéder au réseau, sauf si le manifeste demande l'autorisation `network`. Même avec cette autorisation, les imports de code exécutable distant restent bloqués ; intégrez dans votre bundle le code exécuté par votre plugin.
+</Warning>

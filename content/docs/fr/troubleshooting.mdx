@@ -1,0 +1,71 @@
+---
+title: Dépannage
+description: Résolvez les problèmes courants d'Astrofox liés à l'audio, aux médias, aux plugins, aux affichages et aux exportations.
+---
+
+## Le visuel ne réagit pas à l'audio
+
+1. Vérifiez qu'un fichier audio ou une entrée en direct est connecté et actif.
+2. Appuyez sur Play pour une source fichier, ou démarrez l'entrée en direct sélectionnée.
+3. Testez un affichage de spectre intégré pour vérifier qu'Astrofox reçoit bien l'audio.
+4. Ouvrez le réacteur et vérifiez que son indicateur de sortie bouge.
+5. Élargissez la sélection du spectre ou baissez **Max dB** si le signal est trop faible.
+6. Vérifiez que la commande cible est liée au bon réacteur et que sa plage de valeurs n'est pas nulle.
+
+Si le mouvement est retardé, diminuez le lissage du réacteur. S'il est trop saccadé, augmentez le lissage. Dans les modes spectre, une décroissance plus élevée fait aussi retomber le signal plus lentement.
+
+## Un microphone ou un périphérique MIDI est introuvable
+
+- Accordez l'autorisation d'accès au microphone ou au MIDI lorsque le navigateur la demande.
+- Vérifiez que le périphérique est connecté et disponible pour les autres applications.
+- Actualisez la liste des entrées disponibles après avoir connecté un nouveau périphérique.
+- Fermez toute autre application qui aurait le contrôle exclusif du périphérique.
+- Sur l'application de bureau macOS, vérifiez les autorisations d'Astrofox dans les Réglages Système.
+
+La disponibilité de l'audio du bureau dépend de la source de partage d'écran sélectionnée et du système d'exploitation. Certains navigateurs donnent accès à l'audio d'un onglet, mais pas à celui de l'ensemble du système.
+
+## Un projet s'ouvre avec des médias manquants
+
+Les fichiers image et vidéo locaux ne peuvent pas toujours être rouverts automatiquement, en particulier après le déplacement d'un projet vers un autre ordinateur. Utilisez **Relink Media** pour sélectionner l'image ou la vidéo correspondante pour chaque calque non résolu.
+
+L'audio n'est pas stocké dans le fichier de projet. Rechargez la piste avec **Load audio** après avoir ouvert le projet.
+
+Conservez les médias à côté du fichier de projet lorsque vous archivez ou transférez votre travail.
+
+## Un calque de plugin ne s'affiche pas
+
+1. Sélectionnez **Manage plugins** dans la barre d'actions et vérifiez que le plugin requis est installé.
+2. S'il s'agit d'un plugin en développement, rechargez-le après avoir modifié ses fichiers.
+3. Vérifiez que son manifeste et les fichiers référencés sont accessibles et servis avec CORS activé.
+4. Utilisez HTTPS pour les plugins publiés ; HTTP n'est accepté que sur localhost.
+5. Recherchez les erreurs de compilation de shader ou de worker dans la console de développement du navigateur.
+6. Assurez-vous que l'animation utilise `frame.time` plutôt que des minuteurs basés sur l'horloge système.
+
+Un worker qui met plus d'environ 3 secondes à effectuer le rendu d'une image d'aperçu, ou 5 secondes pendant une exportation, est arrêté et marqué comme ne répondant pas, afin que le reste d'Astrofox puisse continuer.
+
+## Save video ne démarre pas
+
+**Save video** ouvre toujours la boîte de dialogue d'exportation. Le bouton de confirmation reste désactivé tant que l'exportation ne dispose pas de :
+
+- Un fichier audio d'au moins cinq secondes
+- Un temps de début antérieur au temps de fin
+- Une plage sélectionnée d'au moins cinq secondes
+- Un emplacement d'enregistrement, lorsque la plateforme permet d'en choisir un à l'avance
+
+L'entrée en direct seule ne définit pas de timeline pour une exportation hors ligne. Choisissez un fichier audio dans la boîte de dialogue Save Video.
+
+## Le format d'exportation n'est pas celui attendu
+
+L'exportation web utilise les formats pris en charge par le `MediaRecorder` du navigateur actuel. Utilisez l'application de bureau avec ffmpeg intégré lorsque vous avez besoin d'un encodeur MP4 ou WebM précis. Si l'application de bureau ne trouve pas ffmpeg, elle se rabat sur la méthode compatible avec le navigateur.
+
+## L'application de bureau ne capture pas l'audio
+
+L'entrée microphone nécessite l'autorisation d'accès au microphone. L'audio du bureau peut aussi nécessiter l'autorisation d'enregistrement de l'écran et une source de capture qui comporte réellement une piste audio. Redémarrez Astrofox après avoir modifié les autorisations du système d'exploitation.
+
+## Des éléments d'un ancien projet ont disparu
+
+Astrofox migre automatiquement les éléments de projet 1.x pris en charge. Les éléments non pris en charge ou non convertibles sont supprimés et signalés à l'ouverture du projet. Conservez une sauvegarde du fichier `.afx` d'origine et consultez [Mise à niveau depuis la version 1.x](/docs/fr/upgrading-from-v1) pour la correspondance des éléments.
+
+## Signaler un bogue
+
+Recherchez ou ouvrez un ticket dans le [gestionnaire de tickets d'Astrofox](https://github.com/astrofox-io/astrofox/issues). Indiquez la version d'Astrofox, la plateforme (web ou bureau), le système d'exploitation et le navigateur, les étapes permettant de reproduire le problème, ainsi qu'un projet minimal lorsqu'il peut être partagé sans risque.

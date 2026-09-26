@@ -1,0 +1,81 @@
+---
+title: Reaktoren
+description: Verknüpfe Audio, Beats oder generierte Bewegung mit Astrofox-Steuerelementen.
+---
+
+Ein Reaktor wandelt ein Quellsignal in eine normalisierte Ausgabe um, die ein oder
+mehrere kompatible Steuerelemente antreiben kann. So lässt du die Skalierung mit dem Bass pulsieren,
+die Drehung den Höhen folgen oder einen Effekt bei jedem Beat erscheinen.
+
+## Reaktor erstellen
+
+<Steps>
+  <Step title="Reaktor hinzufügen">
+    Wähle im Reaktoren-Bedienfeld **Add reactor** (Reaktor hinzufügen). Wähle den neuen Reaktor aus, um
+    oberhalb des Players seine detaillierten Steuerelemente und Live-Pegelanzeigen zu öffnen.
+  </Step>
+  <Step title="Ausgabemodus wählen">
+    Wähle je nach gewünschter Bewegung einen Audio-, Beat- oder statischen Modus.
+  </Step>
+  <Step title="Quelle abstimmen">
+    Ziehe bei Spektrum-Modi die Auswahl über den Frequenz- und Pegelbereich, dem
+    der Reaktor folgen soll. Passe Max dB, Glättung, Haltezeit und Abklingen an, während das Audio
+    läuft.
+  </Step>
+  <Step title="Steuerelement verknüpfen">
+    Wähle ein Display oder einen Effekt aus. Wähle bei einem kompatiblen numerischen Steuerelement den
+    Reaktor. Die Ausgabe 0 entspricht dem Minimum dieses Steuerelements, die Ausgabe 1 seinem Maximum.
+  </Step>
+</Steps>
+
+<img src="/reactor-panel.png" alt="Reaktoren-Bedienfeld" />
+
+## Ausgabemodi
+
+| Familie | Modi | Einsatzzweck |
+| --- | --- | --- |
+| Spektrum | Add, Subtract, Forward, Reverse, Cycle | Kontinuierliche Bewegung, gesteuert durch das ausgewählte Audioband |
+| Beat | Beat Trigger, Beat Envelope | Einzelne Impulse oder ein Puls, der nach jedem erkannten Beat abklingt |
+| Statisch | Static Forward, Static Reverse, Static Cycle | Zeitbasierte Bewegung, die kein Audio benötigt |
+
+**Add** folgt der Energie des Bands (leise → 0, laut → 1). **Subtract** kehrt diese
+Energie um. **Forward**, **Reverse** und **Cycle** summieren die Energie über die Zeit auf, sodass
+die Ausgabe den Bereich 0–1 durchläuft, statt in jedem Frame dem Pegel zu folgen. Statische
+Modi nutzen denselben Verlauf mit einer einstellbaren Geschwindigkeit (**Speed**), ganz ohne Audio.
+
+## Reaktion abstimmen
+
+- Die **Spektrumauswahl** isoliert tiefe, mittlere oder hohe Frequenzen sowie einen
+  Amplitudenbereich. Der Bass liegt am tiefen Ende; Gesang und Melodie
+  liegen meist in der Mitte; Becken und „Luft“ liegen höher.
+- **Max dB** legt fest, welcher Pegel als volle Ausgabe gilt. Schiebe den Wert bei
+  lauten Quellen in Richtung null und senke ihn bei leisen Quellen.
+- **Smoothing** beruhigt zittrige Bewegungen, reagiert dafür aber langsamer.
+- **Hold Time** (Spektrum-Modi und Beat Trigger) hält eine Spitze oder einen Puls, bevor
+  der Wert abfällt. Der Wert wird in Analyse-Frames angegeben, nicht in Sekunden.
+- **Decay** (Spektrum-Modi und Beat Envelope) bestimmt, wie schnell der Wert nach
+  einer Spitze zurückgeht. Beat Trigger fällt nach der Haltezeit stattdessen auf null.
+- **Sensitivity** bestimmt, wie leicht Beat-Modi auslösen.
+- **Speed** steuert die Geschwindigkeit der statischen Modi.
+
+## Praktische Muster
+
+<CardGroup cols={2}>
+  <Card title="Bass-Puls" icon="audio-waveform">
+    Wähle das tiefe Ende des Spektrums und verknüpfe die Add-Ausgabe mit der Skalierung oder der Bloom-Stärke.
+  </Card>
+  <Card title="Snare-Blitz" icon="zap">
+    Verwende Beat Trigger oder Beat Envelope für Deckkraft, Helligkeit oder einen stilisierenden Effekt.
+  </Card>
+  <Card title="Langsame Drehung" icon="rotate-cw">
+    Verwende Static Forward oder Static Cycle für die Drehung, damit die Bewegung auch in Stille weiterläuft.
+  </Card>
+  <Card title="Schimmer in den Höhen" icon="sparkles">
+    Wähle das obere Spektrum und nutze einen kleinen Bereich für RGB Shift, Film Grain oder Verschiebung.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Ein Reaktor kann mehrere Steuerelemente antreiben. Verwende separate Reaktoren, wenn Elemente
+  unterschiedliche Frequenzbänder, Glättung, Beat-Empfindlichkeit oder unterschiedliches Timing brauchen.
+</Tip>

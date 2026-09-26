@@ -1,0 +1,44 @@
+---
+title: Transformation de calque
+description: Déplacez et redimensionnez les affichages 2D en les faisant glisser directement sur le plateau.
+---
+
+La transformation de calque place un cadre de manipulation autour de l'affichage sélectionné afin que vous puissiez l'organiser visuellement plutôt qu'en saisissant des nombres. Le cadre lit et écrit les mêmes propriétés que le [panneau Commandes](/docs/fr/interface/controls-panel) (position X/Y, rotation, taille), si bien que les deux vues restent synchronisées.
+
+## Lancer une transformation
+
+1. Sélectionnez un affichage dans le [panneau Calques](/docs/fr/interface/layers-panel).
+2. Sélectionnez **Layer transform** au-dessus du canevas.
+3. Faites glisser les poignées sur le plateau.
+
+L'outil ne fonctionne qu'avec les affichages rendus sous forme de calques plats : texte, formes, images, vidéos, spectres, anneaux de forme d'onde et ondes sonores. Il reste désactivé pour les scènes, les effets et tout affichage doté d'une [caméra 3D](/docs/fr/interface/camera-controls).
+
+Appuyez sur `Esc` pour quitter le mode. Sélectionner une scène, un effet, un calque désactivé ou un affichage incompatible le quitte également. Sélectionner un autre affichage 2D activé laisse l'outil actif.
+
+## Interactions
+
+| Geste | Résultat |
+| --- | --- |
+| Glisser à l'intérieur du cadre | Déplace le calque (met à jour **X** et **Y**) |
+| Glisser une poignée de bord ou d'angle | Redimensionne selon le type de calque ci-dessous |
+
+Les zones des poignées débordent légèrement du contour dessiné : il suffit donc de saisir près d'un bord. Le curseur indique le geste associé à chaque zone.
+
+## Effet du redimensionnement selon le calque
+
+- **Text :** toutes les poignées modifient la taille de la police.
+- **Radial spectrum :** toutes les poignées modifient ensemble le rayon intérieur et le rayon extérieur.
+- **Waveform ring :** toutes les poignées modifient ensemble le rayon, l'amplitude de l'onde et l'épaisseur du trait.
+- **Bar spectrum, wave spectrum et sound wave :** les bords modifient une seule dimension ; les angles modifient la largeur et la hauteur indépendamment. Les glissements verticaux sur un bar spectrum modifient aussi la hauteur du reflet.
+- **Image et video :** redimensionnement en conservant le rapport largeur/hauteur du média.
+- **Shape :** les formes autres que les rectangles conservent leurs proportions ; les rectangles se redimensionnent librement.
+
+La rotation fait partie du même ensemble de propriétés (les cadres pivotés tournent correctement autour de leur axe pendant le glissement), mais il n'existe pas de poignée de rotation. Réglez la rotation avec la commande **Rotation** du calque.
+
+<Info>
+  Les modifications sont validées en une seule fois lorsque vous relâchez le pointeur. Même avec le zoom du plateau actif, les poignées suivent votre curseur à l'échelle 1:1 ; le curseur de zoom modifie uniquement la taille d'affichage.
+</Info>
+
+## Travailler pendant la lecture
+
+Lorsque vous ne faites pas glisser, le cadre suit les valeurs animées à chaque image rendue : vous pouvez ainsi affiner le placement pendant que les réacteurs sont actifs, puis relâcher sans perdre la position.

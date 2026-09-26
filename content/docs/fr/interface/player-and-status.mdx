@@ -1,0 +1,50 @@
+---
+title: Lecteur et barre d'état
+description: Prévisualisez l'audio, choisissez les entrées en direct, examinez la sortie des réacteurs et contrôlez le zoom du plateau.
+---
+
+Le panneau inférieur change selon le mode d'entrée sélectionné. Avec un fichier audio, il sert de timeline et de transport. En mode en direct, il devient un sélecteur d'entrée et un moniteur de signal. Un réacteur sélectionné ajoute son éditeur détaillé au-dessus de l'une ou l'autre vue.
+
+## Mode fichier audio
+
+Une fois un fichier audio chargé, le lecteur propose :
+
+- Une forme d'onde pour visualiser l'allure générale de la piste
+- Des commandes de lecture ou de pause et d'arrêt
+- Le volume d'écoute
+- Une commande de progression pour se déplacer dans la piste
+- Le temps écoulé et la durée totale
+- La lecture en boucle
+- Un bouton pour passer à l'entrée en direct
+
+Placez-vous sur un passage chargé ou calme de la piste lorsque vous réglez un visuel. Vérifier les deux extrêmes évite qu'un réacteur semble inerte dans une section et excessif dans une autre.
+
+## Mode entrée en direct
+
+Le mode en direct remplace la timeline par les commandes de la source sélectionnée :
+
+- **Microphone :** choisissez un périphérique disponible et surveillez son signal en direct.
+- **Desktop audio :** lancez une capture lorsque le navigateur actuel ou l'environnement de bureau prend en charge l'audio du système ou du contenu partagé.
+- **MIDI :** choisissez une entrée MIDI et connectez-la comme source de contrôle en direct.
+
+Utilisez la commande de gain lorsqu'une entrée audio est systématiquement trop faible ou trop forte. L'oscilloscope confirme immédiatement qu'une source est active. Fermez le mode d'entrée pour revenir au transport du fichier. Le fichier audio précédent n'est pas rétabli automatiquement ; chargez-le de nouveau si vous avez besoin de la timeline.
+
+La disponibilité des sources dépend de la plateforme, des autorisations et des périphériques connectés. Consultez [Mode d'entrée](/docs/fr/interface/input-mode) pour connecter une source et [Audio et entrée en direct](/docs/fr/audio) pour la configuration et le dépannage.
+
+## Éditeur du réacteur sélectionné
+
+Sélectionner un réacteur dans le panneau gauche ouvre un éditeur de signal au-dessus du lecteur. Il comprend les options du réacteur, une visualisation du spectre ou du rythme le cas échéant, ainsi qu'un indicateur de sortie. Fermer cet éditeur annule la sélection du réacteur, mais conserve le réacteur et ses liaisons.
+
+## Barre d'état
+
+La barre d'état s'étend le long du bord inférieur de l'application :
+
+- La partie gauche indique l'activité en cours, notamment la progression de l'exportation et une action d'annulation pendant le rendu d'une vidéo.
+- La partie centrale indique les dimensions du canevas et les [commandes de zoom du plateau](/docs/fr/interface/stage#zoomer-la-vue-de-léditeur).
+- La partie droite indique le nombre d'images par seconde du rendu et la version d'Astrofox.
+
+La valeur FPS affiche un tiret cadratin lorsque le moteur de rendu est inactif. Il s'agit d'un indicateur de performances de l'aperçu, et non de la fréquence d'images choisie pour une exportation.
+
+<Info>
+  Masquer le panneau inférieur masque l'éditeur de réacteur et le lecteur, mais la barre d'état reste disponible pour le zoom, la progression, les FPS et la version.
+</Info>

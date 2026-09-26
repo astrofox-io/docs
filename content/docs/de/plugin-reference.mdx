@@ -1,0 +1,173 @@
+---
+title: Plugin-Referenz
+description: Referenz für Astrofox-Plugin-Manifeste, Steuerelemente, Audiodaten, Uniforms und Frames.
+---
+
+Jedes Plugin beginnt mit einem `astrofox.plugin.json`-Manifest.
+
+## Manifest-Felder
+
+| Feld | Typ | Beschreibung |
+| --- | --- | --- |
+| `api` | number | Version der Plugin-Spezifikation. Verwende `1`. |
+| `name` | string | Erforderliche ID mit Namespace, etwa `@author/plugin-name`. |
+| `version` | string | Release-Version des Plugins. |
+| `label` | string | Name, der in Menüs und im Ebenen-Bedienfeld angezeigt wird. |
+| `description` | string | Kurze Erklärung, die bei der Installation angezeigt wird. |
+| `author` | string | Autor oder Organisation des Plugins. |
+| `type` | string | `display` oder `effect`. |
+| `runtime` | string | `shader` oder `worker`. Displays können beides verwenden; Effekte erfordern `shader`. |
+| `shader` | string | Pfad zum Fragment-Shader für die Shader-Laufzeitumgebung. |
+| `entry` | string | Pfad zum ES-Modul für die Worker-Laufzeitumgebung. |
+| `icon` | string | Optionaler Pfad zu einem Symbol, das in Menüs angezeigt wird. |
+| `permissions` | string[] | Angeforderte Fähigkeiten, derzeit unter anderem `network`. |
+| `libraries` | string[] | Von einem Worker angeforderte Host-Bibliotheken; derzeit `three`. |
+| `camera` | boolean | Fügt einem Worker-Display die Kamerasteuerung des Hosts hinzu. |
+| `audio` | object | Vom Plugin angeforderte FFT- und Zeitbereichsdaten. |
+| `defaultProperties` | object | Anfangswerte der Eigenschaften für jede neue Instanz. |
+| `controls` | object | Deklaratives Schema für das Steuerungs-Bedienfeld. |
+| `uniforms` | object | Zuordnung von Eigenschaften zu Uniforms für Shader-Laufzeitumgebungen. |
+
+Pfade werden relativ zur Manifest-URL aufgelöst. Veröffentlichte Dateien müssen
+HTTPS verwenden; `http://localhost` ist für die Entwicklung erlaubt.
+
+## Audiodaten
+
+Deklariere nur die Audiodaten, die das Plugin benötigt:
+
+```jsonc
+"audio": {
+  "fft": {
+    "bins": 64,
+    "minFrequency": 0,
+    "maxFrequency": 6000,
+    "smoothing": 0.5,
+    "minDecibels": -100,
+    "maxDecibels": -12
+  },
+  "td": {
+    "samples": 256
+  }
+}
+```
+
+| Wert | Bereich und Bedeutung |
+| --- | --- |
+| `fft.bins` | 1–512 normalisierte Frequenzwerte |
+| `fft.minFrequency` / `maxFrequency` | Frequenzfenster in Hertz |
+| `fft.smoothing` | Exponentielle Glättung von 0–0,99 |
+| `fft.minDecibels` / `maxDecibels` | Grenzen für die Normalisierung des Eingangspegels |
+| `td.samples` | Anzahl der Samples der Zeitbereichs-Wellenform |
+
+FFT-Werte liegen zwischen 0 und 1. Zeitbereichswerte liegen ebenfalls zwischen 0 und 1,
+wobei Stille bei 0,5 zentriert ist. Worker-Displays können sowohl FFT- als auch
+Zeitbereichsdaten anfordern. Shader-Displays erhalten nur FFT und Lautstärke. Shader-Effekte
+erhalten Lautstärke, Zeit, Delta und `inputTexture` – keine FFT- oder Zeitbereichs-Arrays.
+Bei der Wiedergabe und beim Videoexport wird derselbe Analyseweg verwendet.
+
+## Steuerelemente
+
+Unterstützte Steuerelementtypen sind `text`, `number`, `toggle`, `checkbox`, `color`,
+`colorrange`, `range`, `select` und `time`.
+
+Häufige Felder sind:
+
+| Feld | Zweck |
+| --- | --- |
+| `label` | Lesbarer Name des Steuerelements |
+| `type` | Zu rendernde Eingabekomponente |
+| `min`, `max`, `step` | Numerische Grenzen und Genauigkeit |
+| `withRange` | Zeigt einen Schieberegler für eine numerische Eingabe an |
+| `withReactor` | Erlaubt einem Reaktor, diese Eigenschaft zu steuern |
+| `items` | Verfügbare Werte für eine Auswahleingabe |
+| `hidden` | Blendet die Eingabe bedingt oder dauerhaft aus |
+
+Da ein Manifest aus JSON besteht, verwenden dynamische Werte Verweise:
+
+```jsonc
+{
+  "width": {
+    "label": "Width",
+    "type": "number",
+    "min": 16,
+    "max": { "$stage": "width" },
+    "withRange": true
+  },
+  "detail": {
+    "label": "Detail",
+    "type": "number",
+    "min": { "$prop": "minimumDetail" },
+    "max": 64
+  },
+  "manualSize": {
+    "label": "Manual size",
+    "type": "number",
+    "hidden": { "$prop": "autoSize" }
+  }
+}
+```
+
+Verweise auf die Bühne können `scale` enthalten; zum Beispiel wird
+`{ "$stage": "width", "scale": -1 }` zur negativen Bühnenbreite aufgelöst.
+
+## Uniform-Zuordnung
+
+Shader-Laufzeitumgebungen ordnen Eigenschaften GLSL-Uniforms zu:
+
+```jsonc
+"uniforms": {
+  "amount": { "type": "float", "from": "amount" },
+  "tint": { "type": "color", "from": "color" },
+  "center": { "type": "vec2", "from": ["x", "y"] }
+}
+```
+
+`color` wandelt eine hexadezimale Farbe in einen Vektor mit drei Komponenten um. Vektor-Zuordnungen
+lesen ihre Komponenten aus den aufgeführten Eigenschaften.
+
+## Eingaben der Worker-Factory
+
+Je nach Manifest erhält eine Worker-Factory:
+
+| Eingabe | Beschreibung |
+| --- | --- |
+| `properties` | Anfängliche Eigenschaftswerte aus Manifest und Instanz |
+| `seed` | Stabiler Zufalls-Seed pro Instanz |
+| `size` | Aktuelle Abmessungen der Bühne |
+| `libraries` | Namespaces der angeforderten Host-Bibliotheken |
+| `renderer` | Gemeinsam genutzter Three.js-Renderer, wenn `three` angefordert wird |
+
+## Frame-Daten
+
+`render(frame)` erhält:
+
+| Feld | Beschreibung |
+| --- | --- |
+| `id` | Frame-Kennung |
+| `time` | Deterministische Zeit in Sekunden |
+| `delta` | Zeit seit dem vorherigen Frame in Millisekunden |
+| `playing` | Ob die Zeitleiste oder die Live-Eingabe aktiv ist |
+| `exporting` | Ob gerade ein Offline-Export gerendert wird |
+| `volume` | Normalisierter Gesamtpegel des Audios |
+| `seed` | Stabiler Seed der Plugin-Instanz |
+| `fft` | Angefordertes FFT-Array, sofern konfiguriert |
+| `td` | Angefordertes Zeitbereichs-Array, sofern konfiguriert |
+
+Während des Exports ist `delta` fest auf `1000 / fps` gesetzt. Verwende `time`, `delta` und
+`seed` für reproduzierbare Animationen.
+
+## Render-Ergebnis
+
+Eine Worker-Methode `render()` kann Folgendes zurückgeben:
+
+```js
+return {
+  width,
+  height,
+  originX,
+  originY,
+};
+```
+
+Breite und Höhe legen die Grenzen der Ebene fest. Die optionalen Ursprungswerte legen ihren
+Transformationsursprung fest.

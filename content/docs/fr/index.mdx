@@ -1,0 +1,57 @@
+---
+title: Introduction
+description: Ouvrez Astrofox, découvrez l'espace de travail et commencez à créer des visuels réactifs au son.
+---
+
+## Qu'est-ce qu'Astrofox ?
+
+Astrofox est une application de création d'animations graphiques qui réagissent au son. Vous construisez une composition sur un canevas à partir de calques tels que des affichages de spectre, des images, du texte, de la vidéo, des formes et de la géométrie 3D, puis vous appliquez des effets. Le son peut provenir d'un fichier audio ou d'une source en direct : un microphone, l'audio du bureau ou un contrôleur MIDI. L'application analyse ce signal d'entrée et peut s'en servir pour modifier les propriétés des calques pendant la lecture. Vous pouvez enregistrer l'image courante sous forme d'image fixe, ou exporter une vidéo en utilisant un fichier audio chargé comme ligne temporelle.
+
+<CardGroup cols={2}>
+  <Card title="Utiliser l'application web" icon="globe-2" href="https://app.astrofox.io" cta="Ouvrir Astrofox">
+    Commencez immédiatement dans un navigateur compatible, sans rien installer.
+  </Card>
+  <Card title="Utiliser l'application de bureau" icon="monitor-down" href="/fr/download" cta="Voir les téléchargements">
+    Travaillez hors ligne avec un accès natif aux fichiers et l'exportation vidéo de bureau.
+  </Card>
+</CardGroup>
+
+Les deux versions utilisent le même format de projet et la même interface d'édition, et aucune ne nécessite de compte.
+
+<img src="/screenshot.png" />
+
+## Organisation d'Astrofox
+
+Un projet contient une ou plusieurs **scènes**. Chaque scène contient des **affichages**, qui dessinent le contenu visuel, et des **effets**, qui traitent la scène. Les **réacteurs** transforment l'audio ou un signal généré en valeurs capables de piloter les commandes compatibles.
+
+Les zones principales restent à la même place pendant que vous travaillez :
+
+- Les panneaux **Calques** et **Réacteurs**, à gauche, organisent la composition et ses signaux.
+- Le **plateau**, au centre, affiche un aperçu du résultat courant.
+- Le panneau **Commandes**, à droite, permet de modifier la scène, l'affichage ou l'effet sélectionné.
+- Le **lecteur**, en bas, gère la lecture audio et l'entrée en direct.
+
+Consultez la [présentation de l'interface](/docs/fr/interface) pour une visite guidée de chaque panneau et de chaque outil.
+
+## Ce que vous pouvez créer
+
+- Des visualiseurs musicaux pour YouTube, les réseaux sociaux et les performances en direct
+- Des animations de pochettes, des clips de paroles et des arrière-plans en boucle
+- Des compositions à base de spectres, de formes d'onde, de géométrie, d'images, de texte et de vidéo
+- Des images fixes et des exportations vidéo synchronisées avec l'audio
+- Des affichages et des effets personnalisés réactifs au son grâce aux plugins
+
+<CardGroup cols={2}>
+  <Card title="Créer votre premier visuel" icon="sparkles" href="/docs/fr/first-project">
+    Chargez un morceau, réglez un spectre, ajoutez un réacteur et exportez le résultat.
+  </Card>
+  <Card title="Découvrir l'espace de travail" icon="panels-top-left" href="/docs/fr/interface">
+    Trouvez les scènes, les calques, les commandes, la lecture et les outils du plateau.
+  </Card>
+  <Card title="Créer avec des plugins" icon="plug" href="/docs/fr/plugin-authoring">
+    Ajoutez des affichages et des effets à base de shaders ou de JavaScript isolé dans un bac à sable.
+  </Card>
+  <Card title="Voir le code source" icon="code" href="https://github.com/astrofox-io/astrofox">
+    Lisez le code, signalez un bogue ou contribuez sur GitHub.
+  </Card>
+</CardGroup>

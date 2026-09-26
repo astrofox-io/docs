@@ -1,0 +1,49 @@
+---
+title: Audio et entrée en direct
+description: Pilotez Astrofox avec un morceau, un microphone, l'audio du bureau ou le MIDI.
+---
+
+Astrofox peut analyser un fichier audio enregistré pour obtenir une ligne temporelle reproductible, ou réagir à une source en direct pour la performance et l'expérimentation.
+
+## Charger un fichier audio
+
+Sélectionnez **Load audio** (charger l'audio) dans la barre d'actions et choisissez une piste. La forme d'onde et les commandes de progression apparaissent dans le lecteur. Vous pouvez lire, mettre en pause, arrêter, vous déplacer dans la piste, régler le volume d'écoute et activer la répétition.
+
+Utilisez un fichier lorsque vous avez besoin :
+
+- D'un défilement précis et d'un minutage reproductible
+- D'une plage de début et de fin définie pour l'exportation
+- D'inclure l'audio dans la vidéo finale
+- De résultats identiques à chaque rendu du projet
+
+<img src="/load-audio.png" alt="Charger l'audio" />
+
+## Utiliser l'entrée en direct
+
+Passez en [mode d'entrée](/docs/fr/interface/input-mode) dans le lecteur, puis choisissez une entrée. Les sources disponibles dépendent du navigateur, du système d'exploitation et des autorisations.
+
+### Microphone
+
+Choisissez **Microphone** en mode d'entrée, sélectionnez un périphérique et autorisez l'accès au microphone. Ajustez le gain d'entrée si le signal est trop faible ou sature trop souvent.
+
+### Audio du bureau
+
+Choisissez **Desktop Audio** en mode d'entrée, puis sélectionnez un écran, une fenêtre ou un onglet qui fournit une piste audio. Les règles de partage d'écran du navigateur déterminent quelles sources peuvent exposer de l'audio.
+
+### MIDI
+
+Choisissez **MIDI**, sélectionnez une entrée et accordez l'autorisation MIDI lorsqu'elle vous est demandée. Le MIDI fournit un signal de commande en direct, sans forme d'onde audio.
+
+<Info>
+  L'entrée en direct est conçue pour les visuels en temps réel. Le processus **Save video** utilise un fichier audio afin qu'Astrofox puisse effectuer le rendu d'une plage temporelle déterministe et multiplexer l'audio sélectionné dans le résultat.
+</Info>
+
+## Résoudre un problème de signal faible
+
+1. Vérifiez que le bon microphone, la bonne source de partage ou le bon périphérique MIDI est sélectionné.
+2. Augmentez progressivement le gain de l'entrée en direct.
+3. Dans le réacteur, baissez **Max dB** ou élargissez la zone de spectre sélectionnée.
+4. Baissez **Smoothing** pour une réponse plus rapide ou augmentez-le pour un mouvement plus stable.
+5. Faites un test avec un affichage directement réactif au son, comme Bar Spectrum, avant de déboguer l'association d'un réacteur.
+
+Consultez [Réacteurs](/docs/fr/reactors) pour transformer le signal analysé en mouvement.

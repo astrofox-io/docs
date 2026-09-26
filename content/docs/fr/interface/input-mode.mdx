@@ -1,0 +1,55 @@
+---
+title: Mode d'entrée
+description: Pilotez les visuels depuis un microphone, l'audio du bureau ou un contrôleur MIDI plutôt qu'à partir d'un fichier audio chargé.
+---
+
+Le mode d'entrée remplace le transport du fichier par une entrée en direct. Les visuels réagissent alors en temps réel à tout ce qui passe par le périphérique sélectionné : votre voix, l'audio du système ou d'un onglet, ou les données de notes et de contrôle d'un instrument MIDI.
+
+## Activer le mode d'entrée
+
+Dans le transport du fichier, sélectionnez **Enable input mode** (le bouton microphone à l'extrémité droite du lecteur). Le lecteur bascule vers le panneau en direct.
+
+Pour quitter le mode en direct, sélectionnez **Close input mode** (le X sur l'oscilloscope) ou chargez un fichier audio. Quitter le mode en direct ne rétablit pas la piste précédente ; chargez de nouveau le fichier si vous avez besoin de la timeline. Le dernier type d'entrée utilisé est mémorisé.
+
+## Choisir une entrée
+
+Une liste déroulante à gauche du panneau en direct permet de sélectionner le type d'entrée. Les commandes situées à sa droite changent selon la sélection :
+
+| Entrée | Commandes | Remarques |
+| --- | --- | --- |
+| Microphone | Sélecteur de périphérique et bouton rond de démarrage/arrêt | Le navigateur demande l'autorisation la première fois. Les périphériques sont listés automatiquement à mesure qu'ils sont connectés ou retirés. |
+| Desktop Audio | Bouton **Capture Desktop Audio** | Ouvre la boîte de dialogue de partage d'écran. Choisissez ce que vous partagez et activez le partage de son audio. |
+| MIDI | Sélecteur de périphérique et bouton **Connect** | Nécessite la prise en charge de Web MIDI, fournie par la plupart des navigateurs basés sur Chromium et par l'application de bureau. |
+
+### Audio du bureau
+
+Pour capturer autre chose qu'un onglet de navigateur, choisissez un écran entier et activez l'audio du système dans la boîte de dialogue de partage. Le partage d'une seule fenêtre ne fournit souvent aucun son ; si Astrofox ne reçoit aucune piste audio, il vous avertit et reste déconnecté.
+
+Arrêter la capture depuis la barre de partage du navigateur met automatiquement fin à l'entrée en direct : les visuels se figent proprement au lieu de réagir au silence.
+
+### Démarrer et arrêter
+
+Le microphone et l'audio du bureau utilisent le bouton rond situé à côté de la commande de gain :
+
+- Tant qu'aucune connexion n'existe, il connecte le périphérique choisi (**Start microphone input** ou **Capture Desktop Audio**).
+- Une bordure lumineuse indique que l'entrée est active ; l'oscilloscope au-dessus affiche le signal entrant.
+- Arrêter un microphone met l'entrée en pause, mais reste en mode en direct.
+- Arrêter l'audio du bureau ferme la capture et quitte le mode en direct.
+
+Le MIDI n'a ni bouton rond de démarrage/arrêt ni gain. Utilisez **Connect** après avoir choisi un périphérique.
+
+La ligne d'état en bas à gauche reflète l'état actuel, par exemple `Live: USB Microphone` ou `Live MIDI: Launchpad`. Avant la connexion d'un périphérique, elle indique le type d'entrée sélectionné.
+
+<Info>
+  Charger un fichier audio quitte toujours le mode d'entrée. Revenez-y avec **Enable input mode** : votre dernier type d'entrée est mémorisé, mais pas le fichier audio précédent.
+</Info>
+
+## Gain
+
+Pour le microphone et l'audio du bureau, réglez le gain d'entrée entre 0 % et 300 % lorsqu'une source est systématiquement trop faible ou trop forte. Le gain s'applique avant l'analyse : une fois le niveau équilibré, les réacteurs liés à des plages de volume ou de spectre réagissent de façon plus prévisible. L'oscilloscope offre un retour immédiat pendant le réglage. Le MIDI n'a pas de commande de gain.
+
+## Réagir à l'entrée en direct
+
+Tout le reste de la chaîne se comporte exactement comme avec un fichier : les [réacteurs](/docs/fr/reactors) échantillonnent le spectre et le volume à chaque image, ce qui vous permet de lier le niveau du micro à l'échelle d'un calque ou de piloter des effets à partir de bandes de fréquences précises. L'entrée en direct n'a pas de timeline dans laquelle se déplacer, et [Save video](/docs/fr/exporting) nécessite toujours un fichier audio afin qu'Astrofox puisse effectuer le rendu d'une plage définie.
+
+Pour les problèmes de configuration (autorisations manquantes, captures silencieuses ou périphériques qui n'apparaissent pas), consultez [Audio et entrée en direct](/docs/fr/audio) et [Dépannage](/docs/fr/troubleshooting).

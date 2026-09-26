@@ -1,0 +1,59 @@
+---
+title: Scènes et calques
+description: Construisez des compositions Astrofox à partir de scènes, d'affichages et d'effets.
+---
+
+Le panneau Calques constitue la structure de votre composition. Un projet contient des scènes ; chaque scène contient des calques d'affichage et une chaîne d'effets.
+
+## Scènes
+
+Une scène regroupe du contenu visuel et des effets en une seule unité composée. Ajoutez des scènes lorsque vous souhaitez des rendus indépendants que vous pouvez masquer, fusionner ou empiler, ou une hiérarchie de calques plus claire. Vous pouvez renommer, masquer, réorganiser ou supprimer une scène comme n'importe quel autre calque.
+
+## Affichages
+
+Les affichages produisent des pixels. Astrofox regroupe ses affichages intégrés selon la façon dont ils sont contrôlés :
+
+| Groupe | Affichages |
+| --- | --- |
+| 2D | Image, Video, Text, Shape, Bar Spectrum, Radial Spectrum, Wave Spectrum, Waveform Ring, Sound Wave |
+| 3D | Geometry, Mesh Grid, Tunnel |
+
+Les affichages de spectre et de forme d'onde analysent directement l'audio. Les affichages d'image, de vidéo, de texte, de forme et 3D peuvent eux aussi réagir au son lorsque vous associez des commandes compatibles à un réacteur.
+
+<img src="/add-display.png" alt="Ajouter un affichage" />
+
+## Effets
+
+Les effets traitent la scène au lieu de dessiner un objet autonome. Les effets intégrés sont organisés dans les groupes suivants :
+
+- **Couleur :** Color, Color Depth
+- **Flou et mise au point :** Bloom, Blur, Tilt Shift
+- **Distorsion :** Distortion, Glitch, Kaleidoscope, Lens Warp, Mirror, RGB Shift, Shockwave, VHS
+- **Motif :** ASCII, Color Halftone, Dot Screen, LED, Pixelate, Scanline
+- **Stylisation :** Edge Detection, Feedback Echo, Film Grain, Vignette
+
+L'effet **Color** comprend la luminosité, le contraste, la teinte, la saturation et le sépia. **Color Depth** est un effet distinct qui réduit la profondeur de couleur.
+
+## Sélectionner et modifier un calque
+
+Sélectionnez une ligne dans le panneau Calques pour afficher les paramètres de cet élément dans le panneau Commandes. Vous pouvez également :
+
+- Cliquer sur sa commande de visibilité pour l'activer ou le désactiver
+- Le renommer pour décrire son rôle dans la composition
+- Le faire glisser pour réorganiser les calques compatibles ou le déplacer vers une autre scène
+- Utiliser les commandes haut et bas pour une réorganisation précise
+- Le supprimer lorsqu'il n'est plus utile
+
+Les affichages peuvent être déplacés entre les sections d'affichages des scènes, les effets entre les sections d'effets des scènes, et les scènes peuvent être réorganisées entre elles.
+
+<img src="/add-effect.png" alt="Ajouter un effet" />
+
+## Transformer un affichage sur le plateau
+
+Sélectionnez un affichage 2D compatible et activez l'outil de [transformation de calque](/docs/fr/interface/layer-transform). Faites glisser le calque pour le déplacer et utilisez ses poignées pour le redimensionner. Définissez la rotation à l'aide de la commande **Rotation** du calque. Ces modifications mettent à jour les mêmes valeurs que celles affichées dans le panneau Commandes.
+
+Pour un affichage 3D compatible, utilisez les [commandes de caméra](/docs/fr/interface/camera-controls) pour tourner autour de la scène et la molette de la souris pour modifier la distance de la caméra. Geometry, Mesh Grid, Tunnel et les plugins dotés d'une caméra proposent ce fonctionnement.
+
+<Tip>
+  Les effets sont évalués sous forme de chaîne. Si deux effets interagissent, changez leur ordre et comparez le résultat : par exemple, Bloom avant Pixelate ne donne pas le même rendu que Pixelate avant Bloom.
+</Tip>

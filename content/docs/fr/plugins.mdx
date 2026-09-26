@@ -1,0 +1,45 @@
+---
+title: Installer et gérer des plugins
+description: Ajoutez à Astrofox des affichages et des effets tiers à partir de l'URL d'un manifeste.
+---
+
+Les plugins enrichissent Astrofox d'affichages et d'effets. Un plugin s'installe à partir de l'URL d'un manifeste `astrofox.plugin.json` et apparaît aux côtés des éléments intégrés dans le menu d'ajout.
+
+## Installer un plugin
+
+<Steps>
+  <Step title="Copier l'URL du manifeste">
+    Obtenez auprès de l'auteur du plugin l'URL HTTPS directe du fichier `astrofox.plugin.json`. Les URL de développement local peuvent utiliser HTTP sur `localhost`.
+  </Step>
+  <Step title="Ouvrir le gestionnaire de plugins">
+    Sélectionnez **Manage plugins** (gérer les plugins) dans la barre d'actions, puis choisissez l'action permettant d'ajouter un plugin à partir d'une URL.
+  </Step>
+  <Step title="Examiner le plugin">
+    Vérifiez son nom, son auteur, sa source, son environnement d'exécution, les bibliothèques de l'hôte qu'il demande et ses autorisations. Un plugin qui demande un accès au réseau peut établir des connexions sortantes depuis son worker.
+  </Step>
+  <Step title="L'installer et l'ajouter">
+    Confirmez l'installation. Le plugin devient disponible dans le menu d'ajout Display ou Effect, selon le type défini dans son manifeste.
+  </Step>
+</Steps>
+
+## Modèle de sécurité
+
+Astrofox met en cache localement les fichiers des plugins installés et les verrouille à l'aide d'empreintes d'intégrité SHA-384. L'URL source n'est recontactée que lorsque vous mettez explicitement à jour le plugin. Les installations de développement sur localhost sont marquées comme plugins de développement et ne font pas l'objet d'un verrouillage d'intégrité, afin de pouvoir être rechargées pendant que vous travaillez.
+
+Les plugins JavaScript s'exécutent dans un Web Worker dédié soumis à une Content Security Policy. Ils n'ont pas accès au DOM, ne peuvent pas importer de code distant arbitraire et ne peuvent pas utiliser le réseau, sauf si le manifeste demande l'autorisation `network`.
+
+<Warning>
+  Le verrouillage d'intégrité empêche une version installée de changer à votre insu ; il ne rend pas pour autant fiable un code inconnu. Examinez la source et les autorisations demandées avant d'installer un plugin.
+</Warning>
+
+## Mettre à jour, recharger ou supprimer
+
+- **Update** récupère à nouveau le manifeste et les fichiers, puis présente la nouvelle version pour examen.
+- **Reload** actualise un plugin de développement après la modification de ses fichiers locaux.
+- **Remove** désinscrit le plugin d'Astrofox. Les éléments de projet existants qui en dépendent ne peuvent plus s'afficher tant qu'il n'est pas réinstallé.
+
+## Plugins manquants dans un projet
+
+Les projets stockent l'identifiant avec espace de noms, l'URL source et la version de chaque plugin. Lorsqu'un projet fait référence à un plugin manquant, Astrofox liste ce qui est requis et propose de l'installer. Rouvrez le projet après l'installation pour que ses éléments soient créés normalement.
+
+Vous souhaitez créer le vôtre ? Commencez par [Création de plugins](/docs/fr/plugin-authoring).

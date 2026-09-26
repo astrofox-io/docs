@@ -1,0 +1,60 @@
+---
+title: Exportation
+description: Enregistrez une composition Astrofox sous forme d'image fixe ou de vidéo encodée.
+---
+
+Astrofox exporte le canevas à la résolution choisie dans **Project settings**. Le zoom du plateau et la disposition des panneaux de l'éditeur n'ont aucune incidence sur le résultat.
+
+## Enregistrer une image
+
+Placez la lecture sur l'image souhaitée, puis sélectionnez **Save image** (enregistrer l'image) dans la barre d'actions. Astrofox effectue le rendu du plateau et vous demande où enregistrer l'image fixe, en utilisant le meilleur processus d'enregistrement disponible dans votre navigateur ou votre environnement de bureau.
+
+## Enregistrer une vidéo
+
+Sélectionnez **Save video** (enregistrer la vidéo) dans la barre d'actions. La boîte de dialogue d'exportation vous permet de :
+
+- Choisir ou confirmer la source audio
+- Choisir un emplacement d'enregistrement lorsque la plateforme le permet
+- Définir les heures de début et de fin à l'aide de champs, d'une forme d'onde ou de poignées de plage
+- Inclure ou non l'audio dans le fichier final
+- Sélectionner 30 ou 60 images par seconde
+- Choisir une qualité Low, Medium ou High
+- Sur l'application de bureau, sélectionner l'encodage x264, x265, NVEnc ou WebM
+
+<img src="/save-video.png" alt="Enregistrer la vidéo" />
+
+<Steps>
+  <Step title="Choisir l'audio">
+    Sélectionnez un fichier audio d'au moins cinq secondes. Cette source définit la ligne temporelle disponible pour l'exportation, même si le projet utilisait une entrée en direct.
+  </Step>
+  <Step title="Définir la plage">
+    Définissez une heure de début et une heure de fin située au moins cinq secondes plus tard. Utilisez le segment de forme d'onde mis en évidence pour vérifier la sélection.
+  </Step>
+  <Step title="Choisir la qualité et la fréquence d'images">
+    Commencez avec Medium à 30 i/s. Utilisez 60 i/s pour les mouvements rapides ou des clips plus fluides pour les réseaux sociaux, et la qualité High pour un master final lorsque le temps de rendu importe moins.
+  </Step>
+  <Step title="Lancer l'exportation">
+    Choisissez **Save video**. Astrofox effectue le rendu de la plage sélectionnée. Le bouton Stop annule une exportation en cours.
+  </Step>
+</Steps>
+
+## Exportation dans le navigateur et sur le bureau
+
+| Plateforme | Méthode d'exportation | Sortie habituelle |
+| --- | --- | --- |
+| Web | Prise en charge de `MediaRecorder` par le navigateur | WebM, ou MP4 si le navigateur le prend en charge |
+| Bureau avec ffmpeg | Rendu hors ligne des images suivi d'un encodage ffmpeg | MP4 en H.264/AAC par défaut ; d'autres encodeurs de bureau peuvent être sélectionnés |
+| Bureau sans ffmpeg | Solution de repli compatible avec le navigateur | Le format pris en charge par le navigateur intégré |
+
+Le rendu hors ligne sur le bureau utilise un minutage d'images fixe, de sorte que l'animation et l'analyse audio restent déterministes. Pour la même raison, l'animation des plugins doit utiliser le temps d'image fourni par Astrofox.
+
+## Choisir un encodeur
+
+- **x264** est le choix MP4 polyvalent le plus sûr.
+- **x265** produit une vidéo HEVC qui peut être plus légère, mais sa prise en charge à la lecture est moins universelle.
+- **NVEnc** utilise le matériel NVIDIA compatible pour un encodage H.264 plus rapide.
+- **WebM** est utile pour la diffusion sur le web et les processus qui privilégient le conteneur ouvert WebM.
+
+<Warning>
+  Une fréquence d'images, une résolution et une qualité plus élevées augmentent toutes le temps de rendu et la taille du fichier. Testez un court segment avant de vous lancer dans une longue exportation finale.
+</Warning>

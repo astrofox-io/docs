@@ -1,0 +1,48 @@
+---
+title: Panneau Commandes
+description: Modifiez les scènes, les affichages, les effets, les transformations, les médias et les liaisons de réacteurs.
+---
+
+Le panneau Commandes présente des cartes de commandes modifiables pour la composition. L'en-tête d'une carte indique le type d'élément à gauche et le nom du calque à droite. Sélectionner l'une ou l'autre partie sélectionne aussi l'élément correspondant dans le panneau Calques.
+
+## Calque actif et tous les calques
+
+Utilisez les deux boutons de l'en-tête du panneau Commandes pour choisir la part du projet affichée :
+
+- **Show active layer only** affiche uniquement la carte de la scène, de l'affichage ou de l'effet sélectionné. Utilisez ce mode pour un espace de travail épuré.
+- **Show all layers** affiche les cartes de toute la composition. Sélectionner une ligne dans le panneau Calques fait défiler sa carte jusqu'à la rendre visible.
+
+Changer de mode n'active, ne désactive ni ne modifie aucun calque.
+
+## Types de commandes
+
+Les commandes varient selon l'élément et peuvent inclure :
+
+- Des champs numériques et des curseurs pour modifier une valeur avec précision ou rapidement
+- Des commandes de plage pour les valeurs minimale et maximale
+- Des sélecteurs de couleur et des plages de couleurs
+- Des interrupteurs, des cases à cocher et des listes déroulantes
+- Des champs de texte, d'image et de vidéo
+- Des groupes repliables comme **Appearance** et **Position**
+
+L'application applique les modifications immédiatement : vous pouvez donc observer le plateau pendant que vous réglez une valeur. Les groupes Appearance et Position sont placés en bas des cartes afin que les paramètres propres à chaque élément restent faciles à trouver en premier.
+
+## Liaisons de réacteurs
+
+Les commandes compatibles affichent un bouton de liaison de réacteur. Tant qu'un réacteur est lié, il pilote la propriété entre le minimum et le maximum de cette commande. La valeur non liée n'est pas utilisée tant que vous ne supprimez pas la liaison.
+
+Pour créer une liaison utile :
+
+1. Choisissez une commande dont le minimum et le maximum décrivent déjà le mouvement souhaité.
+2. Liez un réacteur et lancez la lecture audio.
+3. Si le mouvement est trop brusque, ajustez le lissage ou la décroissance du réacteur.
+
+Supprimer la liaison rétablit la dernière valeur non liée.
+
+## Commandes et manipulation directe
+
+Pour les affichages 2D pris en charge, faire glisser la superposition de [transformation de calque](/docs/fr/interface/layer-transform) modifie les mêmes valeurs Position et Appearance que celles présentées ici. Pour les affichages 3D, la [commande de caméra](/docs/fr/interface/camera-controls) met à jour les valeurs de caméra correspondantes. Utilisez l'interaction la plus pratique : les deux modifient les données du projet.
+
+<Tip>
+  Utilisez **Show active layer only** sur les petits écrans. Utilisez **Show all layers** pour comparer un même paramètre entre plusieurs affichages ou effets.
+</Tip>

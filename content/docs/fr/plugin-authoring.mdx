@@ -1,0 +1,115 @@
+---
+title: Création de plugins
+description: Créez et servez un plugin externe d'affichage ou d'effet pour Astrofox.
+---
+
+Un plugin externe est un petit répertoire contenant un manifeste `astrofox.plugin.json` ainsi qu'un fragment shader ou un module JavaScript. Astrofox prend en charge trois combinaisons :
+
+| Type | Environnement d'exécution | Rôle |
+| --- | --- | --- |
+| Affichage | Shader | Calque 2D génératif à base de fragment shader |
+| Effet | Shader | Passe de post-traitement sur la scène courante |
+| Affichage | Worker | Calque canevas JavaScript ou Three.js isolé dans un bac à sable |
+
+Les plugins d'effet ne prennent en charge que l'environnement d'exécution shader. Un effet de type worker est refusé.
+
+## Partir d'un exemple
+
+Le dépôt Astrofox comprend des exemples complets dans [`examples/plugins`](https://github.com/astrofox-io/astrofox/tree/main/examples/plugins) :
+
+| Exemple | Illustre |
+| --- | --- |
+| `bass-glow` | Effet shader avec des uniforms liés aux propriétés |
+| `plasma` | Affichage shader utilisant des données FFT |
+| `pulse-bars` | Dessin sur canevas 2D dans un worker isolé |
+| `audio-orb` | Three.js via la bibliothèque et le moteur de rendu fournis par l'hôte |
+| `cubes` | Instanciation Three.js avec des commandes de caméra pilotées par l'hôte |
+
+Copiez l'exemple le plus proche de votre besoin, modifiez son identifiant avec espace de noms, son libellé et son implémentation, puis exécutez-le localement.
+
+## Affichage shader minimal
+
+Créez cette structure :
+
+```text
+my-plugin/
+├── astrofox.plugin.json
+└── display.frag
+```
+
+```jsonc title="astrofox.plugin.json"
+{
+  "api": 1,
+  "name": "@your-name/my-plugin",
+  "version": "1.0.0",
+  "label": "My Plugin",
+  "description": "A generative color field.",
+  "author": "Your Name",
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag",
+  "defaultProperties": {
+    "width": 1280,
+    "height": 720,
+    "speed": 1
+  },
+  "controls": {
+    "speed": {
+      "label": "Speed",
+      "type": "number",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "withRange": true,
+      "withReactor": true
+    }
+  },
+  "uniforms": {
+    "speed": { "type": "float", "from": "speed" }
+  }
+}
+```
+
+```glsl title="display.frag"
+precision highp float;
+
+varying vec2 vUv;
+uniform float time;
+uniform float speed;
+
+void main() {
+  vec3 color = 0.5 + 0.5 * cos(time * speed + vUv.xyx * 6.2831);
+  gl_FragColor = vec4(color, 1.0);
+}
+```
+
+Astrofox ajoute automatiquement la position, la rotation, l'échelle, l'opacité et la prise en charge des réacteurs aux affichages externes. Les affichages sans caméra bénéficient également de la superposition de transformation sur le plateau. Les affichages worker dotés d'une caméra utilisent plutôt les [commandes de caméra](/docs/fr/interface/camera-controls).
+
+## Développer localement
+
+<Steps>
+  <Step title="Installer les dépendances du code source d'Astrofox">
+    Clonez le dépôt Astrofox et exécutez `pnpm install` une seule fois.
+  </Step>
+  <Step title="Démarrer le serveur de plugins">
+    Exécutez `pnpm dev:plugins` depuis le dépôt Astrofox. Il sert chaque exemple de plugin avec CORS activé sur un port local disponible et affiche les URL des manifestes.
+  </Step>
+  <Step title="Installer le manifeste local">
+    Dans Astrofox, sélectionnez **Manage plugins** dans la barre d'actions et installez l'URL `http://localhost:…/astrofox.plugin.json` affichée.
+  </Step>
+  <Step title="Itérer">
+    Modifiez les fichiers du plugin, puis utilisez **Reload** dans Manage Plugins. Les plugins sur localhost sont marqués comme installations de développement.
+  </Step>
+</Steps>
+
+## Publier
+
+Hébergez le manifeste et tous les fichiers qu'il référence sur la même origine accessible en HTTPS. Les références de fichiers relatives sont résolues à partir de l'URL du manifeste. Le serveur doit autoriser Astrofox à récupérer les fichiers via CORS.
+
+Incrémentez la `version` du manifeste lorsque vous publiez des modifications. Les versions installées sont mises en cache et verrouillées par intégrité : ce sont donc les utilisateurs qui choisissent quand effectuer la mise à jour.
+
+<Tip>
+  Gardez des URL de plugin stables et appliquez le versionnage sémantique au manifeste. Les projets conservent l'URL source et la version du plugin, ce qui permet de comprendre plus tard les dépendances manquantes.
+</Tip>
+
+Poursuivez avec [Environnements d'exécution des plugins](/docs/fr/plugin-runtimes) ou consultez la [référence du manifeste](/docs/fr/plugin-reference).

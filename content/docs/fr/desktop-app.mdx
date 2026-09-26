@@ -1,0 +1,39 @@
+---
+title: Application de bureau
+description: Utilisez Astrofox hors ligne avec l'exportation vidéo native et l'intégration au bureau.
+---
+
+L'application de bureau Astrofox embarque dans Electron la même interface React que l'application web. Les projets passent de l'application web à l'application de bureau sans conversion.
+
+Téléchargez les derniers programmes d'installation depuis la [page de téléchargement](/fr/download). Chaque lien pointe vers la dernière version publiée sur GitHub.
+
+## Pourquoi utiliser l'application de bureau
+
+- Travailler sans connexion réseau après l'installation
+- Effectuer le rendu hors ligne de vidéos MP4 grâce au binaire ffmpeg fourni
+- Choisir les encodeurs x264, x265, NVEnc ou WebM
+- Choisir un emplacement d'exportation absolu et afficher le résultat dans son dossier
+- Capturer l'audio du bureau lorsque le système d'exploitation le permet
+- Recevoir les mises à jour de l'application à partir des versions publiées sur GitHub
+
+## Paquets par plateforme
+
+Les builds d'Astrofox sont disponibles pour Windows x64, macOS Intel et Apple Silicon, ainsi que Linux x64. Une version peut inclure des programmes d'installation Windows, des fichiers DMG ou ZIP pour macOS et une AppImage pour Linux.
+
+## Accès aux fichiers et autorisations
+
+Astrofox utilise des sélecteurs de fichiers de type navigateur pour les projets, l'audio, les images et la vidéo. Les boîtes de dialogue natives sont réservées aux processus qui nécessitent un chemin réel, comme la sortie ffmpeg.
+
+macOS peut demander l'accès au microphone et à l'enregistrement de l'écran pour l'entrée en direct et la capture de l'audio du bureau. N'accordez que les autorisations nécessaires à votre utilisation.
+
+## Solution de repli sans ffmpeg
+
+Les paquets de bureau incluent normalement ffmpeg. S'il est absent ou indisponible, Astrofox se replie sur l'exportation `MediaRecorder` du navigateur. Le format disponible dépend alors du navigateur intégré plutôt que de la liste des encodeurs de bureau.
+
+## Mettre à jour l'application
+
+Ouvrez **Settings** (paramètres) en bas de la barre d'actions pour rechercher des mises à jour. Lorsqu'une mise à jour a été téléchargée, un bouton de redémarrage apparaît dans la barre d'application. L'application l'installe une fois la version publiée sur GitHub.
+
+<Info>
+  Le moteur de rendu de l'application de bureau est volontairement isolé du système d'exploitation. Il utilise un pont de préchargement restreint pour les commandes de fenêtre, ffmpeg, les fichiers temporaires et l'intégration après exportation.
+</Info>

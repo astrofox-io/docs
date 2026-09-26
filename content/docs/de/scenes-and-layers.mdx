@@ -1,0 +1,77 @@
+---
+title: Szenen und Ebenen
+description: Baue Astrofox-Kompositionen aus Szenen, Displays und Effekten auf.
+---
+
+Das Ebenen-Bedienfeld bildet die Struktur deiner Komposition. Ein Projekt enthält
+Szenen; jede Szene enthält Display-Ebenen und eine Effektkette.
+
+## Szenen
+
+Eine Szene fasst visuelle Inhalte und Effekte zu einer zusammengesetzten Einheit zusammen. Füge Szenen hinzu,
+wenn du unabhängige Looks möchtest, die du ausblenden, überblenden oder stapeln kannst, oder eine übersichtlichere
+Ebenenhierarchie. Du kannst eine Szene wie andere Ebenen umbenennen, ausblenden, neu anordnen oder löschen.
+
+## Displays
+
+Displays erzeugen Pixel. Astrofox gruppiert seine integrierten Displays danach, wie sie
+gesteuert werden:
+
+| Gruppe | Displays |
+| --- | --- |
+| 2D | Image, Video, Text, Shape, Bar Spectrum, Radial Spectrum, Wave Spectrum, Waveform Ring, Sound Wave |
+| 3D | Geometry, Mesh Grid, Tunnel |
+
+Spektrum- und Wellenform-Displays analysieren Audio direkt. Bild-, Video-, Text-,
+Form- und 3D-Displays können trotzdem auf Audio reagieren, wenn du kompatible
+Steuerelemente mit einem Reaktor verknüpfst.
+
+<img src="/add-display.png" alt="Display hinzufügen" />
+
+## Effekte
+
+Effekte bearbeiten die Szene, statt ein eigenständiges Objekt zu zeichnen. Die integrierten
+Effekte sind in diese Gruppen eingeteilt:
+
+- **Farbe:** Color, Color Depth
+- **Unschärfe & Fokus:** Bloom, Blur, Tilt Shift
+- **Verzerrung:** Distortion, Glitch, Kaleidoscope, Lens Warp, Mirror, RGB
+  Shift, Shockwave, VHS
+- **Muster:** ASCII, Color Halftone, Dot Screen, LED, Pixelate, Scanline
+- **Stilisieren:** Edge Detection, Feedback Echo, Film Grain, Vignette
+
+Der Effekt **Color** umfasst Helligkeit, Kontrast, Farbton, Sättigung und
+Sepia. **Color Depth** ist ein separater Effekt, der die Bittiefe reduziert.
+
+## Ebene auswählen und bearbeiten
+
+Wähle eine Zeile im Ebenen-Bedienfeld aus, um die Einstellungen dieses Elements in der Steuerung anzuzeigen.
+Außerdem kannst du:
+
+- Auf den Sichtbarkeitsschalter klicken, um das Element zu aktivieren oder zu deaktivieren
+- Es umbenennen, um seine Rolle in der Komposition zu beschreiben
+- Es ziehen, um kompatible Ebenen neu anzuordnen oder es in eine andere Szene zu verschieben
+- Die Pfeile nach oben und unten für eine präzise Anordnung verwenden
+- Es löschen, wenn du es nicht mehr brauchst
+
+Displays lassen sich zwischen den Display-Bereichen der Szenen verschieben, Effekte zwischen den
+Effektbereichen der Szenen, und Szenen können untereinander neu angeordnet werden.
+
+<img src="/add-effect.png" alt="Effekt hinzufügen" />
+
+## Display auf der Bühne transformieren
+
+Wähle ein unterstütztes 2D-Display aus und aktiviere das Werkzeug [Ebenentransformation](/docs/de/interface/layer-transform).
+Ziehe die Ebene, um sie zu verschieben, und nutze ihre Anfasser, um die Größe zu ändern. Die Drehung stellst du
+über das Steuerelement **Rotation** der Ebene ein. Diese Änderungen aktualisieren dieselben Werte,
+die in der Steuerung angezeigt werden.
+
+Bei einem unterstützten 3D-Display verwendest du die [Kamerasteuerung](/docs/de/interface/camera-controls),
+um die Szene zu umkreisen, und das Mausrad, um den Kameraabstand zu ändern.
+Geometry, Mesh Grid, Tunnel und Plugins mit Kameraunterstützung bieten diesen Ablauf.
+
+<Tip>
+  Effekte werden als Kette ausgewertet. Wenn sich zwei Effekte gegenseitig beeinflussen, ordne sie um und
+  vergleiche das Ergebnis – zum Beispiel sieht Bloom vor Pixelate anders aus als
+  Pixelate vor Bloom.
+</Tip>
