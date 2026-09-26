@@ -1,0 +1,115 @@
+---
+title: 外掛程式開發
+description: 建置並提供外部 Astrofox 顯示元件或效果外掛程式。
+---
+
+外部外掛程式是一個小型目錄，包含一個 `astrofox.plugin.json` 資訊清單，以及一個片段著色器或 JavaScript 模組。Astrofox 支援三種組合：
+
+| 類型 | 執行環境 | 用途 |
+| --- | --- | --- |
+| Display | Shader | 生成式 2D 片段著色器圖層 |
+| Effect | Shader | 對目前場景進行後製處理的渲染階段 |
+| Display | Worker | 沙箱化的 JavaScript 畫布或 Three.js 圖層 |
+
+效果外掛程式僅支援 shader 執行環境。worker 效果會被拒絕。
+
+## 從範例開始
+
+Astrofox 儲存庫的 [`examples/plugins`](https://github.com/astrofox-io/astrofox/tree/main/examples/plugins) 下提供了完整範例：
+
+| 範例 | 示範內容 |
+| --- | --- |
+| `bass-glow` | 使用屬性 uniform 的著色器效果 |
+| `plasma` | 使用 FFT 資料的著色器顯示元件 |
+| `pulse-bars` | 在沙箱化 worker 中進行 2D 畫布繪製 |
+| `audio-orb` | 透過主程式提供的程式庫與渲染器使用 Three.js |
+| `cubes` | 搭配主程式驅動之攝影機控制的 Three.js 實例化 |
+
+複製最接近需求的範例，修改其具命名空間的 ID、標籤與實作，然後在本機執行。
+
+## 最精簡的著色器顯示元件
+
+建立以下結構：
+
+```text
+my-plugin/
+├── astrofox.plugin.json
+└── display.frag
+```
+
+```jsonc title="astrofox.plugin.json"
+{
+  "api": 1,
+  "name": "@your-name/my-plugin",
+  "version": "1.0.0",
+  "label": "My Plugin",
+  "description": "A generative color field.",
+  "author": "Your Name",
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag",
+  "defaultProperties": {
+    "width": 1280,
+    "height": 720,
+    "speed": 1
+  },
+  "controls": {
+    "speed": {
+      "label": "Speed",
+      "type": "number",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "withRange": true,
+      "withReactor": true
+    }
+  },
+  "uniforms": {
+    "speed": { "type": "float", "from": "speed" }
+  }
+}
+```
+
+```glsl title="display.frag"
+precision highp float;
+
+varying vec2 vUv;
+uniform float time;
+uniform float speed;
+
+void main() {
+  vec3 color = 0.5 + 0.5 * cos(time * speed + vUv.xyx * 6.2831);
+  gl_FragColor = vec4(color, 1.0);
+}
+```
+
+Astrofox 會自動為外部顯示元件加入位置、旋轉、縮放、不透明度與反應器支援。沒有攝影機的顯示元件也會取得舞台變形覆蓋層。支援攝影機的 worker 顯示元件則改用[攝影機控制](/docs/zh-Hant/interface/camera-controls)。
+
+## 在本機開發
+
+<Steps>
+  <Step title="安裝 Astrofox 原始碼的相依套件">
+    複製 Astrofox 儲存庫，並執行一次 `pnpm install`。
+  </Step>
+  <Step title="啟動外掛程式伺服器">
+    在 Astrofox 儲存庫中執行 `pnpm dev:plugins`。它會在可用的本機連接埠上以啟用 CORS 的方式提供所有範例外掛程式，並印出資訊清單 URL。
+  </Step>
+  <Step title="安裝本機資訊清單">
+    在 Astrofox 中，選擇動作列中的 **Manage plugins**，然後安裝印出的 `http://localhost:…/astrofox.plugin.json` URL。
+  </Step>
+  <Step title="反覆調整">
+    編輯外掛程式檔案，然後在 Manage Plugins 中使用 **Reload**。localhost 外掛程式會被標示為開發安裝。
+  </Step>
+</Steps>
+
+## 發布
+
+將資訊清單與所有參照的檔案放在同一個可透過 HTTPS 存取的來源（origin）上。相對檔案參照會以資訊清單 URL 為基準解析。伺服器必須允許 Astrofox 透過 CORS 擷取這些檔案。
+
+發布變更時，請提高資訊清單的 `version`。已安裝的版本會被快取並鎖定完整性，因此使用者可以自行決定何時更新。
+
+<Tip>
+  請保持外掛程式 URL 穩定，並以語意化版本管理資訊清單。專案會保留外掛程式的來源 URL 與版本，日後遇到缺少的相依項目時會更容易理解。
+</Tip>
+
+接著請閱讀[外掛程式執行環境](/docs/zh-Hant/plugin-runtimes)，或參考[資訊清單參考資料](/docs/zh-Hant/plugin-reference)。

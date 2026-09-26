@@ -1,0 +1,163 @@
+---
+title: 外掛程式參考資料
+description: Astrofox 外掛程式資訊清單、控制項、音訊資料、uniform 與影格的參考資料。
+---
+
+每個外掛程式都從一個 `astrofox.plugin.json` 資訊清單開始。
+
+## 資訊清單欄位
+
+| 欄位 | 類型 | 說明 |
+| --- | --- | --- |
+| `api` | number | 外掛程式規格版本。請使用 `1`。 |
+| `name` | string | 必填的命名空間 ID，例如 `@author/plugin-name`。 |
+| `version` | string | 外掛程式發行版本。 |
+| `label` | string | 顯示在選單與圖層面板中的名稱。 |
+| `description` | string | 安裝期間顯示的簡短說明。 |
+| `author` | string | 外掛程式作者或組織。 |
+| `type` | string | `display` 或 `effect`。 |
+| `runtime` | string | `shader` 或 `worker`。顯示元件可使用任一種；效果必須使用 `shader`。 |
+| `shader` | string | shader 執行環境使用的片段著色器路徑。 |
+| `entry` | string | worker 執行環境使用的 ES 模組路徑。 |
+| `icon` | string | 選用，顯示在選單中的圖示路徑。 |
+| `permissions` | string[] | 要求的功能，目前包括 `network`。 |
+| `libraries` | string[] | worker 要求的主程式程式庫；目前為 `three`。 |
+| `camera` | boolean | 為 worker 顯示元件加入主程式攝影機控制。 |
+| `audio` | object | 外掛程式要求的 FFT 與時域資料。 |
+| `defaultProperties` | object | 每個新實例的初始屬性值。 |
+| `controls` | object | 宣告式的控制面板結構描述。 |
+| `uniforms` | object | shader 執行環境中屬性到 uniform 的對應。 |
+
+路徑會以資訊清單 URL 為基準進行解析。已發布的檔案必須使用 HTTPS；開發時允許使用 `http://localhost`。
+
+## 音訊資料
+
+只宣告外掛程式需要的音訊資料：
+
+```jsonc
+"audio": {
+  "fft": {
+    "bins": 64,
+    "minFrequency": 0,
+    "maxFrequency": 6000,
+    "smoothing": 0.5,
+    "minDecibels": -100,
+    "maxDecibels": -12
+  },
+  "td": {
+    "samples": 256
+  }
+}
+```
+
+| 值 | 範圍與意義 |
+| --- | --- |
+| `fft.bins` | 1–512 個標準化的頻率值 |
+| `fft.minFrequency` / `maxFrequency` | 以赫茲為單位的頻率範圍 |
+| `fft.smoothing` | 0–0.99 的指數平滑 |
+| `fft.minDecibels` / `maxDecibels` | 輸入音量標準化的上下限 |
+| `td.samples` | 時域波形取樣數 |
+
+FFT 值的範圍為 0 到 1。時域值的範圍同樣為 0 到 1，靜音位於中心的 0.5。Worker 顯示元件可以同時要求 FFT 與時域資料。著色器顯示元件只會接收 FFT 與 volume。著色器效果會接收 volume、time、delta 與 `inputTexture`，但不會接收 FFT 或時域陣列。播放與影片匯出期間使用相同的分析流程。
+
+## 控制項
+
+支援的控制項類型有 `text`、`number`、`toggle`、`checkbox`、`color`、`colorrange`、`range`、`select` 與 `time`。
+
+常用欄位包括：
+
+| 欄位 | 用途 |
+| --- | --- |
+| `label` | 供人閱讀的控制項名稱 |
+| `type` | 要渲染的輸入元件 |
+| `min`、`max`、`step` | 數值上下限與精確度 |
+| `withRange` | 為數值輸入顯示滑桿 |
+| `withReactor` | 允許反應器驅動此屬性 |
+| `items` | 下拉選單輸入的可用值 |
+| `hidden` | 有條件或永久隱藏此輸入 |
+
+由於資訊清單是 JSON，動態值需使用參照：
+
+```jsonc
+{
+  "width": {
+    "label": "Width",
+    "type": "number",
+    "min": 16,
+    "max": { "$stage": "width" },
+    "withRange": true
+  },
+  "detail": {
+    "label": "Detail",
+    "type": "number",
+    "min": { "$prop": "minimumDetail" },
+    "max": 64
+  },
+  "manualSize": {
+    "label": "Manual size",
+    "type": "number",
+    "hidden": { "$prop": "autoSize" }
+  }
+}
+```
+
+舞台參照可以包含 `scale`；例如，`{ "$stage": "width", "scale": -1 }` 會解析為負的舞台寬度。
+
+## Uniform 對應
+
+shader 執行環境會將屬性對應到 GLSL uniform：
+
+```jsonc
+"uniforms": {
+  "amount": { "type": "float", "from": "amount" },
+  "tint": { "type": "color", "from": "color" },
+  "center": { "type": "vec2", "from": ["x", "y"] }
+}
+```
+
+`color` 會將十六進位顏色轉換成三分量向量。向量對應會從列出的屬性讀取各個分量。
+
+## Worker 工廠函式輸入
+
+依照資訊清單的內容，worker 工廠函式會收到：
+
+| 輸入 | 說明 |
+| --- | --- |
+| `properties` | 資訊清單與實例的初始屬性值 |
+| `seed` | 每個實例穩定的隨機種子 |
+| `size` | 目前的舞台尺寸 |
+| `libraries` | 要求的主程式程式庫命名空間 |
+| `renderer` | 要求 `three` 時提供的共用 Three.js renderer |
+
+## 影格資料
+
+`render(frame)` 會收到：
+
+| 欄位 | 說明 |
+| --- | --- |
+| `id` | 影格識別碼 |
+| `time` | 以秒為單位的確定性時間 |
+| `delta` | 距離上一個影格的時間，以毫秒為單位 |
+| `playing` | 時間軸或即時輸入是否正在進行 |
+| `exporting` | 是否正在渲染離線匯出 |
+| `volume` | 整體標準化音訊音量 |
+| `seed` | 穩定的外掛程式實例種子 |
+| `fft` | 已設定時，所要求的 FFT 陣列 |
+| `td` | 已設定時，所要求的時域陣列 |
+
+匯出期間，`delta` 固定為 `1000 / fps`。請使用 `time`、`delta` 與 `seed` 來製作可重現的動畫。
+
+## 渲染結果
+
+worker 的 `render()` 方法可以回傳：
+
+```js
+return {
+  width,
+  height,
+  originX,
+  originY,
+};
+```
+
+寬度與高度設定圖層的邊界。選用的 origin 值則設定其變形原點。

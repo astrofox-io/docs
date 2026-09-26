@@ -1,0 +1,57 @@
+---
+title: 建立你的第一個視覺作品
+description: 跟著範例專案，從全新畫布一路完成並匯出隨音訊反應的視覺作品。
+---
+
+本逐步教學會用一個音訊檔案建立簡單的頻譜視覺作品。你可以使用[網頁版 Astrofox](https://app.astrofox.io) 或[桌面應用程式](/docs/zh-Hant/desktop-app)。
+
+<Steps>
+  <Step title="開始一個專案">
+    開啟 Astrofox，如果已經有其他專案開啟，請在動作列中選擇 **New project**（新增專案）。新專案一開始就會包含 Image、Bar Spectrum 與 Text 圖層。選擇動作列中的 **Project settings**（專案設定）按鈕（設定圖示），然後設定標題、輸出格式、尺寸與背景顏色。
+
+    <img src="/new-project.png" alt="New project" />
+  </Step>
+  <Step title="載入音訊">
+    在動作列中選擇 **Load audio**（載入音訊），並從你的裝置選擇一首歌曲。使用工作區底部的播放器來播放、暫停、停止、重複播放或在曲目中移動。
+
+    <img src="/load-audio.png" alt="Load audio" />
+  </Step>
+  <Step title="加入顯示元件">
+    新專案已經包含一個 **Bar Spectrum**。選取它，或從圖層面板加入 **Radial Spectrum** 或 **Wave Spectrum**。在控制面板中編輯它的顏色、尺寸、頻率範圍、平滑度、位置與其他設定。
+
+    <img src="/add-display.png" alt="Add display" />
+  </Step>
+  <Step title="讓其他控制項產生反應">
+    在反應器面板中加入一個反應器。選擇它要追蹤的頻譜區段，然後將該反應器連結到相容的控制項，例如縮放、旋轉、不透明度或效果強度。
+
+    <img src="/add-reactor.png" alt="Add reactor" />
+  </Step>
+  <Step title="加強修飾">
+    使用專案中已有的 Image 與 Text 圖層，然後試試 **Bloom**、**Color**、**Film Grain** 或 **Vignette** 等效果。調整圖層與效果的順序，直到合成看起來平衡為止。
+  </Step>
+  <Step title="儲存與匯出">
+    在動作列中選擇 **Save project** 以保留可編輯的 `.afx` 專案。使用 **Save image** 儲存靜態影格，或使用 **Save video** 匯出動畫。
+  </Step>
+</Steps>
+
+## 實用的第一組圖層堆疊
+
+| 圖層 | 用途 |
+| --- | --- |
+| Text | 藝人名稱或曲目標題 |
+| Bar Spectrum | 主要的音訊反應動態 |
+| Image | 封面或標誌 |
+| Shape | 背景面板或框線元素 |
+| Bloom 效果 | 在明亮區域周圍產生柔和光暈 |
+| Color 效果 | 最終的亮度、對比、色相與飽和度調整 |
+
+<Info>
+  Astrofox 會儲存專案結構與設定。在另一台電腦上，圖片與影片圖層可能需要重新連結，音訊曲目也必須重新載入。移動專案時，請將這些檔案與專案放在一起。
+</Info>
+
+## 後續步驟
+
+- 閱讀[介面](/docs/zh-Hant/interface)，導覽整個工作區。
+- 了解[場景、顯示元件與效果](/docs/zh-Hant/scenes-and-layers)如何搭配運作。
+- 使用[反應器](/docs/zh-Hant/reactors)微調動態。
+- 在[匯出](/docs/zh-Hant/exporting)中選擇合適的格式。

@@ -1,0 +1,79 @@
+---
+title: 開発
+description: ソースコードから Astrofox を実行、ビルド、パッケージ化します。
+---
+
+Astrofox は、React と Three.js を使用したクライアントサイドの Next.js アプリケーションです。ローカル開発にバックエンドや認証サービスは必要ありません。
+
+## 必要なもの
+
+- プロジェクトの依存関係で宣言されているバージョンと互換性のある Node.js
+- pnpm
+- Git
+
+クローンしてインストールします。
+
+```bash
+git clone https://github.com/astrofox-io/astrofox.git
+cd astrofox
+pnpm install
+```
+
+## Webアプリを実行する
+
+```bash
+pnpm dev
+```
+
+本番ビルドを作成するには、次のコマンドを実行します。
+
+```bash
+pnpm build
+```
+
+Web へのデプロイには通常のビルド手順を使用します。プロジェクトとメディアはユーザーのデバイス上に保存され、ローカルの API サービスは必要ありません。
+
+## デスクトップアプリを実行する
+
+デスクトップ開発用のコマンドは、Next.js の開発環境と Electron シェルを起動します。
+
+```bash
+pnpm dev:desktop
+```
+
+本番用のデスクトップパッケージを作成するには、次のコマンドを実行します。
+
+```bash
+pnpm install-ffmpeg
+pnpm build:desktop
+```
+
+プラットフォーム別のコマンドも用意されています。
+
+```bash
+pnpm dist:win
+pnpm dist:mac
+pnpm dist:linux
+```
+
+`BUILD_TARGET=desktop` を指定すると、`out/` に静的な Next.js エクスポートが生成され、それが Electron のメインプロセスとプリロードブリッジとともにパッケージ化されます。
+
+## プラグインを開発する
+
+サンプルプラグインのサーバーを実行します。
+
+```bash
+pnpm dev:plugins
+```
+
+空いているポートを見つけ、CORS を有効にしてサンプルプラグインのディレクトリを配信し、Astrofox にインストールするためのマニフェスト URL を出力します。ワークフロー全体については、[プラグインの作成](/docs/ja/plugin-authoring)を参照してください。
+
+## アーキテクチャに関する注意事項
+
+- Web とデスクトップのビルドは、1 つのアプリケーションとプロジェクト形式を共有しています。
+- 通常のプロジェクトやメディアの入出力には、File System Access API が優先的に使用されます。
+- Electron ブリッジの用途は、ウィンドウのクローム、ffmpeg、一時ファイル、書き出し後のオペレーティングシステムとの連携に限定されています。
+- Web の動画は `MediaRecorder` を使用します。デスクトップのオフライン書き出しでは、フレームをレンダリングして同梱の ffmpeg バイナリに渡します。
+- 外部の JavaScript プラグインは、制限の厳しい Content Security Policy が適用されたサンドボックス化されたワーカー内で実行されます。
+
+ソースコードと開発への貢献状況は、[Astrofox の GitHub リポジトリ](https://github.com/astrofox-io/astrofox)で確認できます。

@@ -1,0 +1,163 @@
+---
+title: プラグインリファレンス
+description: Astrofox プラグインのマニフェスト、コントロール、オーディオデータ、uniform、フレームのリファレンスです。
+---
+
+すべてのプラグインは `astrofox.plugin.json` マニフェストから始まります。
+
+## マニフェストのフィールド
+
+| フィールド | 型 | 説明 |
+| --- | --- | --- |
+| `api` | number | プラグイン仕様のバージョン。`1` を使用します。 |
+| `name` | string | `@author/plugin-name` のような名前空間付き ID（必須）。 |
+| `version` | string | プラグインのリリースバージョン。 |
+| `label` | string | メニューとレイヤーパネルに表示される名前。 |
+| `description` | string | インストール時に表示される短い説明。 |
+| `author` | string | プラグインの作者または組織。 |
+| `type` | string | `display` または `effect`。 |
+| `runtime` | string | `shader` または `worker`。ディスプレイはどちらも使用できますが、エフェクトは `shader` が必須です。 |
+| `shader` | string | シェーダーランタイム用のフラグメントシェーダーのパス。 |
+| `entry` | string | ワーカーランタイム用の ES モジュールのパス。 |
+| `icon` | string | メニューに表示されるアイコンのパス（任意）。 |
+| `permissions` | string[] | 要求する機能。現在は `network` などがあります。 |
+| `libraries` | string[] | ワーカーが要求するホストライブラリ。現在は `three` のみです。 |
+| `camera` | boolean | ワーカーディスプレイにホストのカメラコントロールを追加します。 |
+| `audio` | object | プラグインが要求する FFT データと時間領域データ。 |
+| `defaultProperties` | object | 新しいインスタンスごとのプロパティの初期値。 |
+| `controls` | object | 宣言的なコントロールパネルのスキーマ。 |
+| `uniforms` | object | シェーダーランタイム用の、プロパティから uniform への対応付け。 |
+
+パスはマニフェストの URL を基準とした相対パスとして解決されます。公開するファイルには HTTPS を使用する必要があります。開発時は `http://localhost` も使用できます。
+
+## オーディオデータ
+
+プラグインが必要とするオーディオデータのみを宣言します。
+
+```jsonc
+"audio": {
+  "fft": {
+    "bins": 64,
+    "minFrequency": 0,
+    "maxFrequency": 6000,
+    "smoothing": 0.5,
+    "minDecibels": -100,
+    "maxDecibels": -12
+  },
+  "td": {
+    "samples": 256
+  }
+}
+```
+
+| 値 | 範囲と意味 |
+| --- | --- |
+| `fft.bins` | 1〜512 個の正規化された周波数値 |
+| `fft.minFrequency` / `maxFrequency` | ヘルツ単位の周波数範囲 |
+| `fft.smoothing` | 0〜0.99 の指数スムージング |
+| `fft.minDecibels` / `maxDecibels` | 入力レベルの正規化の上下限 |
+| `td.samples` | 時間領域の波形サンプル数 |
+
+FFT の値は 0〜1 の範囲で渡されます。時間領域の値も 0〜1 の範囲で、無音は 0.5 を中心とします。ワーカーディスプレイは FFT データと時間領域データの両方を要求できます。シェーダーディスプレイが受け取るのは FFT と volume のみです。シェーダーエフェクトが受け取るのは volume、time、delta、`inputTexture` で、FFT や時間領域の配列は受け取りません。再生中と動画の書き出し中には同じ解析処理が使用されます。
+
+## コントロール
+
+対応しているコントロールの種類は、`text`、`number`、`toggle`、`checkbox`、`color`、`colorrange`、`range`、`select`、`time` です。
+
+主なフィールドは次のとおりです。
+
+| フィールド | 用途 |
+| --- | --- |
+| `label` | 人が読めるコントロール名 |
+| `type` | レンダリングする入力コンポーネント |
+| `min`、`max`、`step` | 数値の範囲と精度 |
+| `withRange` | 数値入力にスライダーを表示する |
+| `withReactor` | リアクターでこのプロパティを動かせるようにする |
+| `items` | select 入力で選択できる値 |
+| `hidden` | 条件付きまたは常に入力を非表示にする |
+
+マニフェストは JSON であるため、動的な値には参照を使用します。
+
+```jsonc
+{
+  "width": {
+    "label": "Width",
+    "type": "number",
+    "min": 16,
+    "max": { "$stage": "width" },
+    "withRange": true
+  },
+  "detail": {
+    "label": "Detail",
+    "type": "number",
+    "min": { "$prop": "minimumDetail" },
+    "max": 64
+  },
+  "manualSize": {
+    "label": "Manual size",
+    "type": "number",
+    "hidden": { "$prop": "autoSize" }
+  }
+}
+```
+
+ステージの参照には `scale` を含めることができます。たとえば、`{ "$stage": "width", "scale": -1 }` はステージの幅を負にした値に解決されます。
+
+## uniform の対応付け
+
+シェーダーランタイムは、プロパティを GLSL の uniform に対応付けます。
+
+```jsonc
+"uniforms": {
+  "amount": { "type": "float", "from": "amount" },
+  "tint": { "type": "color", "from": "color" },
+  "center": { "type": "vec2", "from": ["x", "y"] }
+}
+```
+
+`color` は 16 進数の色を 3 成分のベクトルに変換します。ベクトルの対応付けでは、列挙したプロパティから各成分を読み取ります。
+
+## ワーカーファクトリーの入力
+
+マニフェストの内容に応じて、ワーカーファクトリーは次のものを受け取ります。
+
+| 入力 | 説明 |
+| --- | --- |
+| `properties` | マニフェストとインスタンスのプロパティの初期値 |
+| `seed` | インスタンスごとに固定される乱数シード |
+| `size` | 現在のステージの寸法 |
+| `libraries` | 要求したホストライブラリの名前空間 |
+| `renderer` | `three` を要求した場合の共有 Three.js レンダラー |
+
+## フレームデータ
+
+`render(frame)` は次のデータを受け取ります。
+
+| フィールド | 説明 |
+| --- | --- |
+| `id` | フレームの識別子 |
+| `time` | 秒単位の確定的な時間 |
+| `delta` | 前のフレームからの経過時間（ミリ秒） |
+| `playing` | タイムラインまたはライブ入力がアクティブかどうか |
+| `exporting` | オフラインの書き出しがレンダリング中かどうか |
+| `volume` | 正規化された全体のオーディオレベル |
+| `seed` | プラグインインスタンスごとに固定されるシード |
+| `fft` | 設定されている場合、要求した FFT 配列 |
+| `td` | 設定されている場合、要求した時間領域の配列 |
+
+書き出し中、`delta` は `1000 / fps` に固定されます。再現性のあるアニメーションにするには、`time`、`delta`、`seed` を使用してください。
+
+## レンダリング結果
+
+ワーカーの `render()` メソッドは次の値を返すことができます。
+
+```js
+return {
+  width,
+  height,
+  originX,
+  originY,
+};
+```
+
+幅と高さはレイヤーの境界を設定します。任意の origin 値は、トランスフォームの原点を設定します。

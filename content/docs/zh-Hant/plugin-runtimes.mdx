@@ -1,0 +1,160 @@
+---
+title: 外掛程式執行環境
+description: 實作 Astrofox 的著色器、畫布 worker 與 Three.js 外掛程式。
+---
+
+執行環境決定了外掛程式的渲染方式，以及它會使用哪些資訊清單欄位。
+
+## 著色器顯示元件
+
+著色器顯示元件會透過片段著色器寫出一個新圖層。它會接收舞台尺寸、確定性時間、音訊音量，以及任何要求的 FFT 資料。
+
+```jsonc
+{
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag"
+}
+```
+
+可用的 GLSL 輸入包括：
+
+```glsl
+varying vec2 vUv;
+uniform vec2 resolution; // pass size in pixels
+uniform float time;      // deterministic seconds
+uniform float delta;     // milliseconds since the previous frame
+uniform float volume;    // overall level from 0 to 1
+uniform float fft[64];   // present when audio.fft requests 64 bins
+```
+
+將最終顏色寫入 `gl_FragColor`。Astrofox 合成顯示元件時會採用 alpha 值。
+
+## 著色器效果
+
+著色器效果會在 `inputTexture` 中接收目前為止已渲染的合成，以及 time、delta 與 volume。它不會接收 FFT 或時域資料：
+
+```jsonc
+{
+  "type": "effect",
+  "runtime": "shader",
+  "shader": "./effect.frag"
+}
+```
+
+```glsl
+uniform sampler2D inputTexture;
+varying vec2 vUv;
+
+void main() {
+  vec4 source = texture2D(inputTexture, vUv);
+  gl_FragColor = source;
+}
+```
+
+使用 `uniforms` 物件將資訊清單屬性對應到自訂 uniform。有效的類型為 `float`、`int`、`vec2`、`vec3`、`vec4` 與 `color`。
+
+## Worker 顯示元件
+
+Worker 顯示元件會以 default export 匯出一個工廠函式。它在專用的 Web Worker 中執行，沒有 DOM，通常會繪製到 `OffscreenCanvas`。
+
+```js
+export default function createPlugin({ properties, seed, size }) {
+  let props = { ...properties };
+  let canvas;
+  let context;
+
+  return {
+    init({ canvas: nextCanvas }) {
+      canvas = nextCanvas;
+      context = canvas.getContext('2d');
+    },
+    update(next) {
+      props = { ...props, ...next };
+    },
+    render(frame) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw using frame.time, frame.fft, frame.td, and props.
+      return { width: canvas.width, height: canvas.height };
+    },
+    resize(nextSize) {},
+    dispose() {},
+  };
+}
+```
+
+請遵守以下規則：
+
+- 以 `frame.time` 與 `frame.delta` 推導動畫，切勿使用實際時鐘時間。
+- 以 `frame.seed` 作為隨機數種子，它在外掛程式實例中保持穩定。
+- 每個影格都重新繪製完整的畫布。將點陣圖傳送給主程式時，會清除 worker 的底層畫布。
+- 在 `dispose()` 中釋放自己擁有的資源。
+- 讓每個影格保持即時回應。在預覽中渲染超過約 3 秒，或在匯出時超過 5 秒，渲染就會被停止，且該實例會被標記為無回應。
+
+## Three.js worker 顯示元件
+
+請要求使用 Astrofox 提供的 Three.js，而不是自行下載或打包：
+
+```jsonc
+{
+  "type": "display",
+  "runtime": "worker",
+  "entry": "./index.js",
+  "libraries": ["three"]
+}
+```
+
+工廠函式會收到 `libraries.three` 以及一個由主程式設定、共用的 `renderer`。請自行建立場景、攝影機、幾何、材質與光源，並使用借來的 renderer 進行輸出。
+
+```js
+export default function createPlugin({ properties, libraries, renderer }) {
+  const THREE = libraries.three;
+  let props = { ...properties };
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+
+  return {
+    init() {
+      camera.position.z = 5;
+      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    },
+    update(next) {
+      props = { ...props, ...next };
+    },
+    render() {
+      const width = props.width;
+      const height = props.height;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+      return { width, height };
+    },
+    dispose() {},
+  };
+}
+```
+
+renderer 是共用的。請勿釋放它，也不要永久變更它的清除顏色、色彩空間、色調對應、陰影、渲染目標、剪裁狀態或其他全域設定。任何暫時變更的狀態，都請在從 `render()` 返回前重設。
+
+## 主程式攝影機控制
+
+在 Three.js worker 顯示元件上設定 `"camera": true`，即可加入 `cameraAzimuth`、`cameraPolar` 與 `cameraDistance` 屬性，並啟用舞台的環繞與推拉攝影機工具。
+
+```js
+const cosPolar = Math.cos(props.cameraPolar);
+const distance = props.cameraDistance || automaticDistance;
+
+camera.position.set(
+  Math.sin(props.cameraAzimuth) * cosPolar * distance,
+  Math.sin(props.cameraPolar) * distance,
+  Math.cos(props.cameraAzimuth) * cosPolar * distance,
+);
+camera.lookAt(0, 0, 0);
+```
+
+實際的攝影機與光源仍由外掛程式負責。Astrofox 只提供使用者互動與保存的屬性值。
+
+<Warning>
+  除非資訊清單要求 `network` 權限，否則 worker 外掛程式無法存取網路。即使擁有該權限，匯入遠端可執行程式碼仍會被封鎖；請將外掛程式執行的程式碼打包在一起。
+</Warning>

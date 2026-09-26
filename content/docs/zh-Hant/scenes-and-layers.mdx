@@ -1,0 +1,59 @@
+---
+title: 場景與圖層
+description: 使用場景、顯示元件與效果建立 Astrofox 合成。
+---
+
+圖層面板就是你的合成結構。一個專案包含多個場景；每個場景包含顯示元件圖層與一條效果鏈。
+
+## 場景
+
+場景會將視覺內容與效果組合成一個合成單位。當你想要可獨立隱藏、混合或堆疊的不同外觀，或想讓圖層階層更清楚時，就可以加入場景。你可以像操作其他圖層一樣，重新命名、隱藏、重新排序或刪除場景。
+
+## 顯示元件
+
+顯示元件負責產生像素。Astrofox 依照控制方式將內建顯示元件分組：
+
+| 群組 | 顯示元件 |
+| --- | --- |
+| 2D | Image、Video、Text、Shape、Bar Spectrum、Radial Spectrum、Wave Spectrum、Waveform Ring、Sound Wave |
+| 3D | Geometry、Mesh Grid、Tunnel |
+
+頻譜與波形顯示元件會直接分析音訊。只要將相容的控制項連結到反應器，圖片、影片、文字、形狀與 3D 顯示元件也能隨音訊反應。
+
+<img src="/add-display.png" alt="Add display" />
+
+## 效果
+
+效果會處理整個場景，而不是繪製獨立的物件。內建效果分為以下群組：
+
+- **色彩：** Color、Color Depth
+- **模糊與焦點：** Bloom、Blur、Tilt Shift
+- **變形：** Distortion、Glitch、Kaleidoscope、Lens Warp、Mirror、RGB Shift、Shockwave、VHS
+- **圖樣：** ASCII、Color Halftone、Dot Screen、LED、Pixelate、Scanline
+- **風格化：** Edge Detection、Feedback Echo、Film Grain、Vignette
+
+**Color** 效果包含亮度、對比、色相、飽和度與懷舊色調。**Color Depth** 是另一個用來降低位元深度的獨立效果。
+
+## 選取並編輯圖層
+
+在圖層面板中選取一列，即可在控制面板中顯示該元素的設定。你也可以：
+
+- 點選它的顯示控制項來啟用或停用它
+- 重新命名，以描述它在合成中的角色
+- 拖曳它來重新排序相容的圖層，或將它移到另一個場景
+- 使用上移與下移控制項進行精確排序
+- 不再需要時將它刪除
+
+顯示元件可以在各場景的顯示元件區段之間移動，效果可以在各場景的效果區段之間移動，場景也可以與其他場景一起重新排序。
+
+<img src="/add-effect.png" alt="Add effect" />
+
+## 在舞台上變形顯示元件
+
+選取一個支援的 2D 顯示元件，並啟用[圖層變形](/docs/zh-Hant/interface/layer-transform)工具。拖曳圖層即可移動，使用控點即可調整大小。旋轉角度請透過圖層的 **Rotation** 控制項設定。這些變更會更新控制面板中顯示的相同數值。
+
+對於支援的 3D 顯示元件，請使用[攝影機控制](/docs/zh-Hant/interface/camera-controls)繞著場景旋轉視角，並用滑鼠滾輪調整攝影機距離。Geometry、Mesh Grid、Tunnel 以及支援攝影機的外掛程式都提供這項操作。
+
+<Tip>
+  效果會以鏈狀順序計算。如果兩個效果會互相影響，請調整它們的順序並比較結果。例如，先 Bloom 再 Pixelate 的外觀，會與先 Pixelate 再 Bloom 不同。
+</Tip>

@@ -20,13 +20,30 @@
     {
       "path": "/hello",
       "page": "hello"
+    },
+    {
+      "path": "/zh-Hant",
+      "page": "zh-Hant/home",
+      "language": "zh-Hant"
+    },
+    {
+      "path": "/zh-Hant/download",
+      "page": "zh-Hant/download",
+      "language": "zh-Hant"
+    },
+    {
+      "path": "/ja",
+      "page": "ja/home",
+      "language": "ja"
+    },
+    {
+      "path": "/ja/download",
+      "page": "ja/download",
+      "language": "ja"
     }
   ],
   "appearance": {
     "default": "dark"
-  },
-  "search": {
-    "prompt": "Search Astrofox docs"
   },
   "contextual": {
     "options": [
@@ -63,83 +80,391 @@
     ]
   },
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "Documentation",
-        "groups": [
+        "language": "en",
+        "default": true,
+        "tabs": [
           {
-            "group": "Getting started",
-            "collapsible": false,
-            "pages": [
+            "tab": "Documentation",
+            "groups": [
               {
-                "page": "index",
-                "title": "Introduction"
+                "group": "Getting started",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "index",
+                    "title": "Introduction"
+                  },
+                  {
+                    "page": "first-project",
+                    "title": "Create your first visual"
+                  }
+                ]
               },
               {
-                "page": "first-project",
-                "title": "Create your first visual"
+                "group": "Interface",
+                "root": "interface",
+                "collapsible": false,
+                "pages": [
+                  "interface/app-bar-and-actions",
+                  "interface/layers-panel",
+                  "interface/reactors-panel",
+                  "interface/stage",
+                  "interface/picture-in-picture",
+                  "interface/layer-transform",
+                  "interface/camera-controls",
+                  "interface/controls-panel",
+                  "interface/player-and-status",
+                  "interface/input-mode"
+                ]
+              },
+              {
+                "group": "Create",
+                "collapsible": false,
+                "pages": [
+                  "projects",
+                  "audio",
+                  "scenes-and-layers",
+                  "reactors"
+                ]
+              },
+              {
+                "group": "Export",
+                "collapsible": false,
+                "pages": [
+                  "exporting",
+                  "desktop-app"
+                ]
+              },
+              {
+                "group": "Plugins",
+                "collapsible": false,
+                "pages": [
+                  "plugins",
+                  "plugin-authoring",
+                  "plugin-runtimes",
+                  "plugin-reference"
+                ]
+              },
+              {
+                "group": "Help",
+                "collapsible": false,
+                "pages": [
+                  "troubleshooting",
+                  "upgrading-from-v1",
+                  "development"
+                ]
               }
             ]
           },
           {
-            "group": "Interface",
-            "root": "interface",
-            "collapsible": false,
-            "pages": [
-              "interface/app-bar-and-actions",
-              "interface/layers-panel",
-              "interface/reactors-panel",
-              "interface/stage",
-              "interface/picture-in-picture",
-              "interface/layer-transform",
-              "interface/camera-controls",
-              "interface/controls-panel",
-              "interface/player-and-status",
-              "interface/input-mode"
-            ]
-          },
-          {
-            "group": "Create",
-            "collapsible": false,
-            "pages": [
-              "projects",
-              "audio",
-              "scenes-and-layers",
-              "reactors"
-            ]
-          },
-          {
-            "group": "Export",
-            "collapsible": false,
-            "pages": [
-              "exporting",
-              "desktop-app"
-            ]
-          },
-          {
-            "group": "Plugins",
-            "collapsible": false,
-            "pages": [
-              "plugins",
-              "plugin-authoring",
-              "plugin-runtimes",
-              "plugin-reference"
-            ]
-          },
-          {
-            "group": "Help",
-            "collapsible": false,
-            "pages": [
-              "troubleshooting",
-              "upgrading-from-v1",
-              "development"
-            ]
+            "tab": "Download",
+            "href": "/download"
           }
         ]
       },
       {
-        "tab": "Download",
-        "href": "/download"
+        "language": "zh-Hant",
+        "tabs": [
+          {
+            "tab": "文件",
+            "groups": [
+              {
+                "group": "入門",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hant/index",
+                    "title": "簡介"
+                  },
+                  {
+                    "page": "zh-Hant/first-project",
+                    "title": "建立你的第一個視覺作品"
+                  }
+                ]
+              },
+              {
+                "group": "介面",
+                "root": "zh-Hant/interface",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hant/interface/app-bar-and-actions",
+                    "title": "應用程式列與動作"
+                  },
+                  {
+                    "page": "zh-Hant/interface/layers-panel",
+                    "title": "圖層面板"
+                  },
+                  {
+                    "page": "zh-Hant/interface/reactors-panel",
+                    "title": "反應器面板"
+                  },
+                  {
+                    "page": "zh-Hant/interface/stage",
+                    "title": "舞台"
+                  },
+                  {
+                    "page": "zh-Hant/interface/picture-in-picture",
+                    "title": "子母畫面"
+                  },
+                  {
+                    "page": "zh-Hant/interface/layer-transform",
+                    "title": "圖層變形"
+                  },
+                  {
+                    "page": "zh-Hant/interface/camera-controls",
+                    "title": "攝影機控制"
+                  },
+                  {
+                    "page": "zh-Hant/interface/controls-panel",
+                    "title": "控制面板"
+                  },
+                  {
+                    "page": "zh-Hant/interface/player-and-status",
+                    "title": "播放器與狀態"
+                  },
+                  {
+                    "page": "zh-Hant/interface/input-mode",
+                    "title": "輸入模式"
+                  }
+                ]
+              },
+              {
+                "group": "建立",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hant/projects",
+                    "title": "專案"
+                  },
+                  {
+                    "page": "zh-Hant/audio",
+                    "title": "音訊與即時輸入"
+                  },
+                  {
+                    "page": "zh-Hant/scenes-and-layers",
+                    "title": "場景與圖層"
+                  },
+                  {
+                    "page": "zh-Hant/reactors",
+                    "title": "反應器"
+                  }
+                ]
+              },
+              {
+                "group": "匯出",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hant/exporting",
+                    "title": "匯出"
+                  },
+                  {
+                    "page": "zh-Hant/desktop-app",
+                    "title": "桌面應用程式"
+                  }
+                ]
+              },
+              {
+                "group": "外掛程式",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hant/plugins",
+                    "title": "安裝與管理外掛程式"
+                  },
+                  {
+                    "page": "zh-Hant/plugin-authoring",
+                    "title": "外掛程式開發"
+                  },
+                  {
+                    "page": "zh-Hant/plugin-runtimes",
+                    "title": "外掛程式執行環境"
+                  },
+                  {
+                    "page": "zh-Hant/plugin-reference",
+                    "title": "外掛程式參考資料"
+                  }
+                ]
+              },
+              {
+                "group": "說明",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "zh-Hant/troubleshooting",
+                    "title": "疑難排解"
+                  },
+                  {
+                    "page": "zh-Hant/upgrading-from-v1",
+                    "title": "從 1.x 升級"
+                  },
+                  {
+                    "page": "zh-Hant/development",
+                    "title": "開發"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "下載",
+            "href": "/zh-Hant/download"
+          }
+        ]
+      },
+      {
+        "language": "ja",
+        "tabs": [
+          {
+            "tab": "ドキュメント",
+            "groups": [
+              {
+                "group": "はじめに",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "ja/index",
+                    "title": "イントロダクション"
+                  },
+                  {
+                    "page": "ja/first-project",
+                    "title": "最初のビジュアルを作成する"
+                  }
+                ]
+              },
+              {
+                "group": "インターフェース",
+                "root": "ja/interface",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "ja/interface/app-bar-and-actions",
+                    "title": "アプリバーとアクション"
+                  },
+                  {
+                    "page": "ja/interface/layers-panel",
+                    "title": "レイヤーパネル"
+                  },
+                  {
+                    "page": "ja/interface/reactors-panel",
+                    "title": "リアクターパネル"
+                  },
+                  {
+                    "page": "ja/interface/stage",
+                    "title": "ステージ"
+                  },
+                  {
+                    "page": "ja/interface/picture-in-picture",
+                    "title": "ピクチャーインピクチャー"
+                  },
+                  {
+                    "page": "ja/interface/layer-transform",
+                    "title": "レイヤートランスフォーム"
+                  },
+                  {
+                    "page": "ja/interface/camera-controls",
+                    "title": "カメラコントロール"
+                  },
+                  {
+                    "page": "ja/interface/controls-panel",
+                    "title": "コントロールパネル"
+                  },
+                  {
+                    "page": "ja/interface/player-and-status",
+                    "title": "プレーヤーとステータス"
+                  },
+                  {
+                    "page": "ja/interface/input-mode",
+                    "title": "入力モード"
+                  }
+                ]
+              },
+              {
+                "group": "作成",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "ja/projects",
+                    "title": "プロジェクト"
+                  },
+                  {
+                    "page": "ja/audio",
+                    "title": "オーディオとライブ入力"
+                  },
+                  {
+                    "page": "ja/scenes-and-layers",
+                    "title": "シーンとレイヤー"
+                  },
+                  {
+                    "page": "ja/reactors",
+                    "title": "リアクター"
+                  }
+                ]
+              },
+              {
+                "group": "書き出し",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "ja/exporting",
+                    "title": "書き出し"
+                  },
+                  {
+                    "page": "ja/desktop-app",
+                    "title": "デスクトップアプリ"
+                  }
+                ]
+              },
+              {
+                "group": "プラグイン",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "ja/plugins",
+                    "title": "プラグインのインストールと管理"
+                  },
+                  {
+                    "page": "ja/plugin-authoring",
+                    "title": "プラグインの作成"
+                  },
+                  {
+                    "page": "ja/plugin-runtimes",
+                    "title": "プラグインのランタイム"
+                  },
+                  {
+                    "page": "ja/plugin-reference",
+                    "title": "プラグインリファレンス"
+                  }
+                ]
+              },
+              {
+                "group": "ヘルプ",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "ja/troubleshooting",
+                    "title": "トラブルシューティング"
+                  },
+                  {
+                    "page": "ja/upgrading-from-v1",
+                    "title": "1.x からのアップグレード"
+                  },
+                  {
+                    "page": "ja/development",
+                    "title": "開発"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "ダウンロード",
+            "href": "/ja/download"
+          }
+        ]
       }
     ]
   }

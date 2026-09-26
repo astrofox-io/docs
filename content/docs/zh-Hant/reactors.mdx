@@ -1,0 +1,66 @@
+---
+title: 反應器
+description: 將音訊、節拍或產生的動態對應到 Astrofox 控制項。
+---
+
+反應器會將來源訊號轉換成標準化的輸出，用來驅動一個或多個相容的控制項。你可以藉此讓縮放隨低音脈動、讓旋轉跟著高音變化，或讓某個效果在每個節拍出現。
+
+## 建立反應器
+
+<Steps>
+  <Step title="加入反應器">
+    在反應器面板中選擇 **Add reactor**（新增反應器）。選取新的反應器，即可在播放器上方開啟它的詳細控制項與即時音量表。
+  </Step>
+  <Step title="選擇輸出模式">
+    依照你想要的動態，選擇音訊、節拍或靜態模式。
+  </Step>
+  <Step title="調整來源">
+    在頻譜模式下，拖曳選取範圍，框住你想追蹤的頻率與音量區域。在音訊播放時調整 Max dB、平滑度、保持與衰減。
+  </Step>
+  <Step title="連結控制項">
+    選取一個顯示元件或效果。在相容的數值控制項上選擇該反應器。輸出 0 對應該控制項的最小值，輸出 1 對應其最大值。
+  </Step>
+</Steps>
+
+<img src="/reactor-panel.png" alt="Reactor panel" />
+
+## 輸出模式
+
+| 類別 | 模式 | 用途 |
+| --- | --- | --- |
+| 頻譜 | Add、Subtract、Forward、Reverse、Cycle | 由所選音訊頻段驅動的連續動態 |
+| 節拍 | Beat Trigger、Beat Envelope | 離散的觸發，或在每次偵測到節拍後衰減的脈衝 |
+| 靜態 | Static Forward、Static Reverse、Static Cycle | 不需要音訊、以時間為基礎的動態 |
+
+**Add** 會跟隨頻段能量（安靜 → 0，大聲 → 1）。**Subtract** 會反轉該能量。**Forward**、**Reverse** 與 **Cycle** 會隨時間累積能量，讓輸出在 0 到 1 之間推進，而不是在每個影格追蹤音量。靜態模式則在沒有音訊的情況下，以可設定的 **Speed** 進行相同的推進。
+
+## 調整反應
+
+- **頻譜選取範圍**可以單獨擷取低、中或高頻，以及特定的振幅範圍。低音位於低頻端；人聲與旋律通常位於中段；鈸與空氣感則位於較高的頻段。
+- **Max dB** 會改變被視為滿輸出的音量。音源較大聲時請將它往零移動，音源較安靜時請調低。
+- **Smoothing** 可以穩定抖動的動態，代價是反應較慢。
+- **Hold Time**（頻譜模式與 Beat Trigger）會在峰值或脈衝下降前維持一段時間。數值單位是分析影格，而非秒。
+- **Decay**（頻譜模式與 Beat Envelope）控制數值在峰值後回落的速度。Beat Trigger 則會在保持時間結束後直接降為零。
+- **Sensitivity** 會改變節拍模式觸發的難易程度。
+- **Speed** 控制靜態模式的速率。
+
+## 實用模式
+
+<CardGroup cols={2}>
+  <Card title="低音脈動" icon="audio-waveform">
+    選取頻譜的低頻端，並將 Add 輸出連結到縮放或 Bloom 強度。
+  </Card>
+  <Card title="小鼓閃光" icon="zap">
+    在不透明度、亮度或風格化效果上使用 Beat Trigger 或 Beat Envelope。
+  </Card>
+  <Card title="緩慢旋轉" icon="rotate-cw">
+    在旋轉上使用 Static Forward 或 Static Cycle，讓動態在無聲時也能持續。
+  </Card>
+  <Card title="高頻閃爍" icon="sparkles">
+    選取頻譜高段，並在 RGB Shift、Film Grain 或位移上使用較小的範圍。
+  </Card>
+</CardGroup>
+
+<Tip>
+  一個反應器可以驅動多個控制項。當元素需要不同的頻段、平滑度、節拍靈敏度或時間點時，請使用不同的反應器。
+</Tip>

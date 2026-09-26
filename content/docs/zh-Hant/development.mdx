@@ -1,0 +1,79 @@
+---
+title: 開發
+description: 從原始碼執行、建置與封裝 Astrofox。
+---
+
+Astrofox 是採用 React 與 Three.js 的用戶端 Next.js 應用程式。本機開發時不需要後端或身分驗證服務。
+
+## 系統需求
+
+- 與專案相依套件所宣告版本相容的 Node.js
+- pnpm
+- Git
+
+複製並安裝：
+
+```bash
+git clone https://github.com/astrofox-io/astrofox.git
+cd astrofox
+pnpm install
+```
+
+## 執行網頁版
+
+```bash
+pnpm dev
+```
+
+建立正式版建置：
+
+```bash
+pnpm build
+```
+
+一般的建置流程用於網頁部署。專案與媒體都保留在使用者的裝置上，不需要本機 API 服務。
+
+## 執行桌面應用程式
+
+桌面開發指令會啟動 Next.js 開發環境與 Electron 外殼：
+
+```bash
+pnpm dev:desktop
+```
+
+建置正式版桌面套件：
+
+```bash
+pnpm install-ffmpeg
+pnpm build:desktop
+```
+
+也提供各平台專用的指令：
+
+```bash
+pnpm dist:win
+pnpm dist:mac
+pnpm dist:linux
+```
+
+`BUILD_TARGET=desktop` 會在 `out/` 中產生靜態的 Next.js 匯出，接著再與 Electron 主程序及 preload 橋接層一起封裝。
+
+## 開發外掛程式
+
+執行範例外掛程式伺服器：
+
+```bash
+pnpm dev:plugins
+```
+
+它會尋找可用的連接埠，以 CORS 提供範例外掛程式資料夾，並印出可在 Astrofox 中安裝的資訊清單 URL。完整流程請參閱[外掛程式開發](/docs/zh-Hant/plugin-authoring)。
+
+## 架構說明
+
+- 網頁版與桌面版建置共用同一個應用程式與專案格式。
+- 一般的專案與媒體 I/O 優先使用 File System Access API。
+- Electron 橋接層僅限用於視窗外框、ffmpeg、暫存檔案，以及匯出後的作業系統整合。
+- 網頁版影片使用 `MediaRecorder`；桌面版離線匯出會渲染影格，並透過內建的 ffmpeg 執行檔處理。
+- 外部 JavaScript 外掛程式會在具有嚴格內容安全政策（Content Security Policy）的沙箱化 worker 中執行。
+
+原始碼與貢獻動態都在 [Astrofox GitHub 儲存庫](https://github.com/astrofox-io/astrofox)中。

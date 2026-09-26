@@ -1,0 +1,160 @@
+---
+title: プラグインのランタイム
+description: Astrofox のシェーダー、キャンバスワーカー、Three.js プラグインを実装します。
+---
+
+ランタイムによって、プラグインのレンダリング方法と使用するマニフェストのフィールドが決まります。
+
+## シェーダーディスプレイ
+
+シェーダーディスプレイは、フラグメントシェーダーから新しいレイヤーを描画します。ステージのサイズ、確定的な時間、オーディオレベル、要求された FFT データを受け取ります。
+
+```jsonc
+{
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag"
+}
+```
+
+利用できる GLSL の入力は次のとおりです。
+
+```glsl
+varying vec2 vUv;
+uniform vec2 resolution; // pass size in pixels
+uniform float time;      // deterministic seconds
+uniform float delta;     // milliseconds since the previous frame
+uniform float volume;    // overall level from 0 to 1
+uniform float fft[64];   // present when audio.fft requests 64 bins
+```
+
+最終的な色は `gl_FragColor` に書き込みます。Astrofox がディスプレイを合成する際、アルファ値が反映されます。
+
+## シェーダーエフェクト
+
+シェーダーエフェクトは、それまでにレンダリングされたコンポジションを `inputTexture` として受け取り、あわせて time、delta、volume も受け取ります。FFT や時間領域のデータは受け取りません。
+
+```jsonc
+{
+  "type": "effect",
+  "runtime": "shader",
+  "shader": "./effect.frag"
+}
+```
+
+```glsl
+uniform sampler2D inputTexture;
+varying vec2 vUv;
+
+void main() {
+  vec4 source = texture2D(inputTexture, vUv);
+  gl_FragColor = source;
+}
+```
+
+マニフェストのプロパティをカスタム uniform に対応付けるには、`uniforms` オブジェクトを使用します。有効な型は `float`、`int`、`vec2`、`vec3`、`vec4`、`color` です。
+
+## ワーカーディスプレイ
+
+ワーカーディスプレイは、ファクトリー関数をデフォルトエクスポートします。専用の Web Worker 内で DOM なしで実行され、通常は `OffscreenCanvas` に描画します。
+
+```js
+export default function createPlugin({ properties, seed, size }) {
+  let props = { ...properties };
+  let canvas;
+  let context;
+
+  return {
+    init({ canvas: nextCanvas }) {
+      canvas = nextCanvas;
+      context = canvas.getContext('2d');
+    },
+    update(next) {
+      props = { ...props, ...next };
+    },
+    render(frame) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw using frame.time, frame.fft, frame.td, and props.
+      return { width: canvas.width, height: canvas.height };
+    },
+    resize(nextSize) {},
+    dispose() {},
+  };
+}
+```
+
+次のルールに従ってください。
+
+- アニメーションは `frame.time` と `frame.delta` から算出し、実時間（壁時計の時刻）は決して使用しないでください。
+- 乱数のシードには、プラグインインスタンスごとに固定される `frame.seed` を使用します。
+- 毎フレーム、キャンバス全体を再描画します。ビットマップをホストに転送すると、ワーカー側のキャンバスはクリアされます。
+- 所有しているリソースは `dispose()` で解放します。
+- フレームの処理は素早く終わらせてください。プレビュー中に約 3 秒、書き出し中に約 5 秒を超えるレンダリングは停止され、そのインスタンスは応答なしとしてマークされます。
+
+## Three.js ワーカーディスプレイ
+
+Three.js をダウンロードしたりバンドルしたりせず、Astrofox が持つ Three.js を要求します。
+
+```jsonc
+{
+  "type": "display",
+  "runtime": "worker",
+  "entry": "./index.js",
+  "libraries": ["three"]
+}
+```
+
+ファクトリーは `libraries.three` と、ホストが設定した共有の `renderer` を受け取ります。シーン、カメラ、ジオメトリ、マテリアル、ライトは自分で作成し、出力には借りたレンダラーを使用します。
+
+```js
+export default function createPlugin({ properties, libraries, renderer }) {
+  const THREE = libraries.three;
+  let props = { ...properties };
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+
+  return {
+    init() {
+      camera.position.z = 5;
+      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    },
+    update(next) {
+      props = { ...props, ...next };
+    },
+    render() {
+      const width = props.width;
+      const height = props.height;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+      return { width, height };
+    },
+    dispose() {},
+  };
+}
+```
+
+レンダラーは共有されています。レンダラーを破棄したり、クリアカラー、カラースペース、トーンマッピング、シャドウ、レンダーターゲット、シザーの状態、その他のグローバル設定を恒久的に変更したりしないでください。一時的に変更した状態は、`render()` から戻る前に元に戻してください。
+
+## ホストのカメラコントロール
+
+Three.js ワーカーディスプレイで `"camera": true` を設定すると、`cameraAzimuth`、`cameraPolar`、`cameraDistance` プロパティが追加され、ステージのオービット＆ドリーのカメラツールが有効になります。
+
+```js
+const cosPolar = Math.cos(props.cameraPolar);
+const distance = props.cameraDistance || automaticDistance;
+
+camera.position.set(
+  Math.sin(props.cameraAzimuth) * cosPolar * distance,
+  Math.sin(props.cameraPolar) * distance,
+  Math.cos(props.cameraAzimuth) * cosPolar * distance,
+);
+camera.lookAt(0, 0, 0);
+```
+
+実際のカメラとライティングは、引き続きプラグインが管理します。Astrofox が提供するのは、ユーザー操作と保存されるプロパティ値だけです。
+
+<Warning>
+  ワーカープラグインは、マニフェストで `network` 権限を要求しない限りネットワークにアクセスできません。この権限がある場合でも、リモートからの実行可能コードのインポートはブロックされたままです。プラグインが実行するコードはバンドルしてください。
+</Warning>

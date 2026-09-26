@@ -1,0 +1,57 @@
+---
+title: 簡介
+description: 開啟 Astrofox，熟悉工作區，開始製作隨音訊律動的視覺作品。
+---
+
+## Astrofox 是什麼？
+
+Astrofox 是一款用來製作隨音訊反應之動態圖像的應用程式。你可以在畫布上以頻譜顯示元件、圖片、文字、影片、形狀與 3D 幾何等圖層組成合成，再套用效果。聲音可以來自音訊檔案，也可以來自即時來源：麥克風、桌面音訊或 MIDI 控制器。應用程式會分析這些輸入，並在聲音播放時用它來改變圖層屬性。你可以將目前的影格儲存為圖片，或以載入的音訊檔案作為時間軸來匯出影片。
+
+<CardGroup cols={2}>
+  <Card title="使用網頁版" icon="globe-2" href="https://app.astrofox.io" cta="開啟 Astrofox">
+    在支援的瀏覽器中立即開始，無需安裝任何東西。
+  </Card>
+  <Card title="使用桌面應用程式" icon="monitor-down" href="/download" cta="查看下載">
+    離線工作，享有原生檔案存取與桌面影片匯出功能。
+  </Card>
+</CardGroup>
+
+兩個版本使用相同的專案格式與編輯介面，而且都不需要帳號。
+
+<img src="/screenshot.png" />
+
+## Astrofox 的組成方式
+
+一個專案包含一個或多個**場景**。每個場景包含負責繪製視覺內容的**顯示元件**，以及負責處理場景畫面的**效果**。**反應器**會將音訊或產生的訊號轉換成數值，用來驅動相容的控制項。
+
+工作時，主要區域的位置都保持不變：
+
+- 左側的**圖層與反應器**用來組織合成及其訊號。
+- 中央的**舞台**會預覽目前的結果。
+- 右側的**控制項**用來編輯所選的場景、顯示元件或效果。
+- 底部的**播放器**負責音訊播放與即時輸入。
+
+請閱讀[介面總覽](/docs/zh-Hant/interface)，逐一了解每個面板與工具。
+
+## 你可以製作什麼
+
+- 用於 YouTube、社群媒體與現場演出的音樂視覺化作品
+- 封面動畫、歌詞片段與循環背景
+- 頻譜、波形、幾何、圖片、文字與影片合成
+- 靜態圖片與和音訊同步的影片匯出
+- 透過外掛程式自訂隨音訊反應的顯示元件與效果
+
+<CardGroup cols={2}>
+  <Card title="建立你的第一個視覺作品" icon="sparkles" href="/docs/zh-Hant/first-project">
+    載入歌曲、調整頻譜、加入反應器，然後匯出成果。
+  </Card>
+  <Card title="認識工作區" icon="panels-top-left" href="/docs/zh-Hant/interface">
+    找到場景、圖層、控制項、播放與舞台工具。
+  </Card>
+  <Card title="使用外掛程式開發" icon="plug" href="/docs/zh-Hant/plugin-authoring">
+    加入著色器或沙箱化 JavaScript 顯示元件與效果。
+  </Card>
+  <Card title="查看原始碼" icon="code" href="https://github.com/astrofox-io/astrofox">
+    在 GitHub 上閱讀程式碼、回報錯誤或參與貢獻。
+  </Card>
+</CardGroup>

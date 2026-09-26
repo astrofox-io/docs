@@ -1,0 +1,55 @@
+---
+title: 從 1.x 升級
+description: 開啟舊版 Astrofox 專案，並了解 2.0 的移轉方式。
+---
+
+Astrofox 2.0 是全面重寫的版本，具備全新的渲染器、介面、桌面外殼、匯出管線與外掛程式系統。它可以開啟 `.afx` 專案檔案——無論是經過 gzip 壓縮的 1.x 檔案或未壓縮的 2.0 檔案——並自動移轉支援的元素。
+
+<Warning>
+  在 Astrofox 2.0 中開啟並重新儲存任何 1.x 專案之前，請先保留一份未經修改的備份。
+</Warning>
+
+## 開啟舊版專案
+
+選取動作列中的 **Open project** 並選擇 `.afx` 檔案。Astrofox 會視需要解壓縮經 gzip 壓縮的 1.x 檔案、轉換支援的元素，並回報移除的項目。檢查結果後，請儲存移轉後的專案。檔案仍然是 `.afx` 專案。
+
+## 元素對應
+
+| Astrofox 1.x | Astrofox 2.0 移轉方式 |
+| --- | --- |
+| Glow | Bloom；`amount` 變為 `radius`，`intensity` 變為 `strength` |
+| Bloom | `strength` 為 `amount × 3`；`threshold` 反轉（`1 − threshold`） |
+| Color Halftone | `scale` 變為 `radius`；`angle` 轉換為各色版的旋轉 |
+| Glitch | `amount` 變為 `strength` |
+| Geometry 光源 | 光源強度、光源距離與攝影機縮放，轉換為主光源與攝影機距離設定，並啟用光源 |
+| Distortion 模式 `Noise` | Distortion 模式 `Simplex Noise` |
+| 預發行版的 Perlin Noise 效果 | 使用 `Perlin Noise` 模式的 Distortion 效果 |
+
+無法轉換的元素會被捨棄，並在專案開啟後列出。
+
+## 專案格式
+
+專案仍使用 `.afx` 副檔名。1.x 版儲存的是經 gzip 壓縮的 JSON；2.0 寫入的是未壓縮的 JSON。**Open project** 可載入任一種編碼。部分早期 2.x 版本也會儲存 `.json` 檔案，這些檔案仍可開啟。
+
+移轉後，本機媒體可能需要重新連結。匯出前，請檢查每個圖片、影片與音訊來源。
+
+## 設定與外掛程式
+
+- `app.config` 中的 Astrofox 1.x 應用程式設定不會移轉。請重新選擇語言、專案設定與偏好設定。
+- Astrofox 1.x 外掛程式與 2.0 外掛程式系統不相容。請安裝 2.0 版本，或依照[撰寫指南](/docs/zh-Hant/plugin-authoring)重新建置外掛程式。
+
+## 檢查清單
+
+移轉後，請檢查：
+
+1. 畫布格式、解析度與背景顏色
+2. 場景、顯示元件與效果的順序
+3. Geometry 攝影機與光源
+4. 反應器綁定與數值範圍
+5. 圖片與影片來源，然後使用 **Load audio** 重新載入音訊
+6. Bloom、distortion、glitch 與 halftone 的外觀
+7. 簡短的圖片或影片測試匯出
+
+<Info>
+  Astrofox 2.0 桌面版安裝會透過已發布的 GitHub Releases 接收更新。舊版 1.x 安裝則使用先前的更新管道，進行初次升級至 2.x。
+</Info>

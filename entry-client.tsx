@@ -11,18 +11,29 @@ if (!element) {
 hydrateRoot(element, <ShisoApp />);
 
 const topLevelTabs = [
-  { href: '/docs', matches: (pathname: string) => pathname === '/docs' || pathname.startsWith('/docs/') },
-  { href: '/download', matches: (pathname: string) => pathname === '/download' },
+  {
+    // Matches the docs tab for every language: /docs, /docs/ja, /docs/zh-Hant.
+    selector: 'header a[href="/docs"], header a[href^="/docs/"]',
+    matches: (pathname: string) => pathname === '/docs' || pathname.startsWith('/docs/'),
+  },
+  {
+    // Matches the download tab for every language: /download, /ja/download, /zh-Hant/download.
+    selector: 'header a[href="/download"], header a[href$="/download"]',
+    matches: (pathname: string) => /^(?:\/[^/]+)?\/download$/.test(pathname),
+  },
 ];
 
 function syncTopLevelTabs() {
   for (const tab of topLevelTabs) {
-    const link = document.querySelector<HTMLAnchorElement>(`header a[href="${tab.href}"]`);
+    const links = document.querySelectorAll<HTMLAnchorElement>(tab.selector);
+    const active = tab.matches(window.location.pathname);
 
-    if (tab.matches(window.location.pathname)) {
-      link?.setAttribute('aria-current', 'page');
-    } else {
-      link?.removeAttribute('aria-current');
+    for (const link of links) {
+      if (active) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
     }
   }
 }

@@ -1,0 +1,115 @@
+---
+title: プラグインの作成
+description: Astrofox の外部ディスプレイプラグインやエフェクトプラグインを作成して配信します。
+---
+
+外部プラグインは、`astrofox.plugin.json` マニフェストと、フラグメントシェーダーまたは JavaScript モジュールを含む小さなディレクトリです。Astrofox は次の 3 つの組み合わせに対応しています。
+
+| 種類 | ランタイム | 用途 |
+| --- | --- | --- |
+| ディスプレイ | シェーダー | ジェネレーティブな 2D フラグメントシェーダーのレイヤー |
+| エフェクト | シェーダー | 現在のシーンに対するポストプロセスパス |
+| ディスプレイ | ワーカー | サンドボックス化された JavaScript キャンバスまたは Three.js のレイヤー |
+
+エフェクトプラグインはシェーダーランタイムのみに対応しています。ワーカーのエフェクトは拒否されます。
+
+## サンプルから始める
+
+Astrofox のリポジトリには、[`examples/plugins`](https://github.com/astrofox-io/astrofox/tree/main/examples/plugins) に完全なサンプルが含まれています。
+
+| サンプル | 内容 |
+| --- | --- |
+| `bass-glow` | プロパティ uniform を使うシェーダーエフェクト |
+| `plasma` | FFT データを使うシェーダーディスプレイ |
+| `pulse-bars` | サンドボックス化されたワーカー内での 2D キャンバス描画 |
+| `audio-orb` | ホストが提供するライブラリとレンダラーを介した Three.js |
+| `cubes` | ホスト主導のカメラコントロールを使った Three.js のインスタンシング |
+
+最も近いサンプルをコピーし、名前空間付き ID、ラベル、実装を変更してから、ローカルで実行します。
+
+## 最小構成のシェーダーディスプレイ
+
+次の構成を作成します。
+
+```text
+my-plugin/
+├── astrofox.plugin.json
+└── display.frag
+```
+
+```jsonc title="astrofox.plugin.json"
+{
+  "api": 1,
+  "name": "@your-name/my-plugin",
+  "version": "1.0.0",
+  "label": "My Plugin",
+  "description": "A generative color field.",
+  "author": "Your Name",
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag",
+  "defaultProperties": {
+    "width": 1280,
+    "height": 720,
+    "speed": 1
+  },
+  "controls": {
+    "speed": {
+      "label": "Speed",
+      "type": "number",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "withRange": true,
+      "withReactor": true
+    }
+  },
+  "uniforms": {
+    "speed": { "type": "float", "from": "speed" }
+  }
+}
+```
+
+```glsl title="display.frag"
+precision highp float;
+
+varying vec2 vUv;
+uniform float time;
+uniform float speed;
+
+void main() {
+  vec3 color = 0.5 + 0.5 * cos(time * speed + vUv.xyx * 6.2831);
+  gl_FragColor = vec4(color, 1.0);
+}
+```
+
+Astrofox は、外部ディスプレイに位置、回転、スケール、不透明度、リアクターのサポートを自動的に追加します。カメラを持たないディスプレイには、ステージのトランスフォームオーバーレイも追加されます。カメラに対応したワーカーディスプレイでは、代わりに[カメラコントロール](/docs/ja/interface/camera-controls)を使用します。
+
+## ローカルで開発する
+
+<Steps>
+  <Step title="Astrofox のソースの依存関係をインストールする">
+    Astrofox のリポジトリをクローンし、`pnpm install` を一度実行します。
+  </Step>
+  <Step title="プラグインサーバーを起動する">
+    Astrofox のリポジトリで `pnpm dev:plugins` を実行します。空いているローカルポートで CORS を有効にしてすべてのサンプルプラグインを配信し、マニフェストの URL を出力します。
+  </Step>
+  <Step title="ローカルのマニフェストをインストールする">
+    Astrofox のアクションレールで **Manage plugins** を選択し、出力された `http://localhost:…/astrofox.plugin.json` の URL をインストールします。
+  </Step>
+  <Step title="反復して改良する">
+    プラグインのファイルを編集し、Manage Plugins の **Reload** を使用します。localhost のプラグインは開発用インストールとして扱われます。
+  </Step>
+</Steps>
+
+## 公開する
+
+マニフェストと参照されるすべてのファイルを、HTTPS でアクセスできる同一のオリジンでホストします。相対的なファイル参照は、マニフェストの URL を基準に解決されます。サーバーは、Astrofox が CORS でファイルを取得できるように許可する必要があります。
+
+変更を公開するときは、マニフェストの `version` を上げてください。インストール済みのリリースはキャッシュされ、整合性が固定されるため、ユーザーはアップデートのタイミングを自分で選べます。
+
+<Tip>
+  プラグインの URL は変えずに維持し、マニフェストにはセマンティックバージョニングを使用してください。プロジェクトはプラグインのソース URL とバージョンを保持するため、後から不足している依存関係を把握しやすくなります。
+</Tip>
+
+続けて[プラグインのランタイム](/docs/ja/plugin-runtimes)を読むか、[マニフェストリファレンス](/docs/ja/plugin-reference)を参照してください。
