@@ -24,6 +24,8 @@ description: 將音訊、節拍或產生的動態對應到 Astrofox 控制項。
 
 <img src="/reactor-panel.png" alt="Reactor panel" />
 
+<img src="/reactor-binding.png" alt="Opacity 旁的反應器綁定選單，顯示 Reactor 1 與 New Reactor" />
+
 ## 輸出模式
 
 | 類別 | 模式 | 用途 |
@@ -33,6 +35,8 @@ description: 將音訊、節拍或產生的動態對應到 Astrofox 控制項。
 | 靜態 | Static Forward、Static Reverse、Static Cycle | 不需要音訊、以時間為基礎的動態 |
 
 **Add** 會跟隨頻段能量（安靜 → 0，大聲 → 1）。**Subtract** 會反轉該能量。**Forward**、**Reverse** 與 **Cycle** 會隨時間累積能量，讓輸出在 0 到 1 之間推進，而不是在每個影格追蹤音量。靜態模式則在沒有音訊的情況下，以可設定的 **Speed** 進行相同的推進。
+
+<img src="/reactor-output-modes.png" alt="Output Mode 選單中的頻譜、節拍與靜態反應器模式" />
 
 ## 調整反應
 

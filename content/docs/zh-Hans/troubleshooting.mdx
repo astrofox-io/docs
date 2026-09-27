@@ -14,6 +14,8 @@ description: 解决 Astrofox 中常见的音频、媒体、插件、显示和导
 
 如果运动有延迟，降低反应器的平滑值。如果抖动过大，提高平滑值。在频谱模式下，较高的衰减值也会让输出下降得更慢。
 
+<img src="/reactor-binding.png" alt="Opacity 旁的反应器绑定菜单，显示 Reactor 1 和 New Reactor" />
+
 ## 找不到麦克风或 MIDI 设备
 
 - 当浏览器请求时，授予麦克风或 MIDI 权限。
@@ -23,6 +25,8 @@ description: 解决 Astrofox 中常见的音频、媒体、插件、显示和导
 - 在 macOS 桌面应用中，请在“系统设置”中检查 Astrofox 的权限。
 
 桌面音频是否可用，取决于所选的屏幕共享源和操作系统。有些浏览器只提供标签页音频，而不提供系统级音频。
+
+<img src="/input-sources.png" alt="输入源菜单中的 Microphone、Desktop Audio 和 MIDI 选项" />
 
 ## 打开项目时缺少媒体
 
@@ -43,6 +47,8 @@ description: 解决 Astrofox 中常见的音频、媒体、插件、显示和导
 
 如果 worker 渲染一个预览帧的时间超过约 3 秒，或在导出期间超过 5 秒，它会被停止并标记为无响应，以便 Astrofox 的其余部分继续运行。
 
+<img src="/manage-plugins.png" alt="管理插件对话框，显示插件清单 URL 输入框和 Add 按钮" />
+
 ## Save video 无法开始
 
 **Save video** 总是会打开导出对话框。在导出满足以下条件之前，确认按钮会保持禁用：
@@ -53,6 +59,8 @@ description: 解决 Astrofox 中常见的音频、媒体、插件、显示和导
 - 当平台可以提前选择保存位置时，已选择保存位置
 
 仅有实时输入无法定义离线导出的时间轴。请在 Save Video 对话框中选择一个音频文件。
+
+<img src="/save-video.png" alt="保存视频" />
 
 ## 导出格式与预期不符
 

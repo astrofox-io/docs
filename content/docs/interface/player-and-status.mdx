@@ -8,6 +8,10 @@ acts as a timeline and transport. In live mode it becomes an input selector
 and signal monitor. A selected reactor adds its detailed editor above either
 view.
 
+
+<img src="/player-transport.png" alt="File transport before loading audio, with playback, volume, timeline, repeat, and live-input controls" />
+
+The file transport before an audio file is loaded.
 ## Audio-file mode
 
 After you load an audio file, the player provides:
@@ -42,12 +46,16 @@ Source availability depends on the platform, permissions, and attached
 devices. See [Input mode](/docs/interface/input-mode) for connecting a source
 and [Audio and live input](/docs/audio) for setup and troubleshooting.
 
+<img src="/input-mode.png" alt="Microphone input mode with a device selector, idle oscilloscope, gain slider, and start button" />
+
 ## Selected reactor editor
 
 Selecting a reactor in the left panel opens a signal editor above the player.
 It includes the reactor's options, spectrum or timing visualization when
 applicable, and an output meter. Closing this editor clears the reactor
 selection but leaves the reactor and its bindings intact.
+
+<img src="/reactor-panel.png" alt="Reactor panel" />
 
 ## Status bar
 
@@ -65,3 +73,5 @@ performance indicator, not the frame rate selected for an export.
   Hiding the bottom panel hides the reactor editor and player, but the status
   bar remains available for zoom, progress, FPS, and version information.
 </Info>
+
+<img src="/stage-zoom.png" alt="Canvas dimensions, zoom out, zoom slider, zoom in, and fit-to-screen percentage" />

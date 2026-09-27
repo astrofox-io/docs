@@ -12,11 +12,17 @@ audio or live input state.
 The buttons above the canvas enable tools only when the environment and current
 selection support them.
 
+<img src="/stage-tools.png" alt="Stage toolbar with picture in picture, layer transform, and camera control buttons" />
+
+From left to right: **Picture in picture**, **Layer transform**, and **Camera control**.
+
 ### Picture in picture
 
 Open the stage in a floating picture-in-picture window when the browser or
 desktop environment supports it. This is useful when adjusting audio in
 another window or keeping the visual visible during a performance.
+
+<img src="/picture-in-picture-button.png" alt="Stage toolbar with picture in picture enabled on the left" />
 
 If the button is disabled, picture in picture is unavailable in the current
 environment.
@@ -30,6 +36,8 @@ Select a supported display in Layers, then enable the transform tool. The
 overlay lets you move and resize the display directly on the canvas. Those
 changes update the same position and size values shown in Controls.
 
+<img src="/layer-transform.png" alt="Selected text on the stage surrounded by the layer transform frame and resize handles" />
+
 The tool is disabled when the selected item cannot be transformed on the
 stage, such as a scene, effect, disabled layer, or a display with a 3D camera.
 
@@ -41,6 +49,8 @@ guide and how each layer type responds to resizing.
 Select a display with a 3D camera, then enable camera control. Drag on the
 stage to orbit and use the mouse wheel to change camera distance. The camera
 values stay synchronized with the display's controls.
+
+<img src="/stage-camera.png" alt="Geometry cube on the stage with the camera axis helper visible" />
 
 See [Camera controls](/docs/interface/camera-controls) for gestures, limits,
 and the reactor-bindable camera properties.
@@ -55,6 +65,8 @@ then the app loads it into the player for playback and analysis.
 
 The center of the status bar shows the canvas size, zoom buttons, a zoom
 slider, and the current percentage.
+
+<img src="/stage-zoom.png" alt="Canvas dimensions, zoom out, zoom slider, zoom in, and fit-to-screen percentage" />
 
 - Select the canvas dimensions to return to 100% zoom.
 - Use **−** and **+** or the slider for a precise view size.

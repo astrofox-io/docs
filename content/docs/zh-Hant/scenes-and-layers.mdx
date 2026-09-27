@@ -5,6 +5,8 @@ description: 使用場景、顯示元件與效果建立 Astrofox 合成。
 
 圖層面板就是你的合成結構。一個專案包含多個場景；每個場景包含顯示元件圖層與一條效果鏈。
 
+
+<img src="/layers-panel.png" alt="圖層面板中選取了 Scene 1 內的 Text 1" />
 ## 場景
 
 場景會將視覺內容與效果組合成一個合成單位。當你想要可獨立隱藏、混合或堆疊的不同外觀，或想讓圖層階層更清楚時，就可以加入場景。你可以像操作其他圖層一樣，重新命名、隱藏、重新排序或刪除場景。
@@ -34,6 +36,8 @@ description: 使用場景、顯示元件與效果建立 Astrofox 合成。
 
 **Color** 效果包含亮度、對比、色相、飽和度與懷舊色調。**Color Depth** 是另一個用來降低位元深度的獨立效果。
 
+<img src="/add-effect.png" alt="Add effect" />
+
 ## 選取並編輯圖層
 
 在圖層面板中選取一列，即可在控制面板中顯示該元素的設定。你也可以：
@@ -46,11 +50,13 @@ description: 使用場景、顯示元件與效果建立 Astrofox 合成。
 
 顯示元件可以在各場景的顯示元件區段之間移動，效果可以在各場景的效果區段之間移動，場景也可以與其他場景一起重新排序。
 
-<img src="/add-effect.png" alt="Add effect" />
+<img src="/controls-panel.png" alt="控制面板顯示目前文字圖層的字型、大小與顏色設定" />
 
 ## 在舞台上變形顯示元件
 
 選取一個支援的 2D 顯示元件，並啟用[圖層變形](/docs/zh-Hant/interface/layer-transform)工具。拖曳圖層即可移動，使用控點即可調整大小。旋轉角度請透過圖層的 **Rotation** 控制項設定。這些變更會更新控制面板中顯示的相同數值。
+
+<img src="/layer-transform.png" alt="舞台上選取的文字周圍顯示變形框與縮放控制點" />
 
 對於支援的 3D 顯示元件，請使用[攝影機控制](/docs/zh-Hant/interface/camera-controls)繞著場景旋轉視角，並用滑鼠滾輪調整攝影機距離。Geometry、Mesh Grid、Tunnel 以及支援攝影機的外掛程式都提供這項操作。
 

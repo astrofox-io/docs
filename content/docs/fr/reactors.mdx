@@ -24,6 +24,8 @@ Un réacteur convertit un signal source en une sortie normalisée capable de pil
 
 <img src="/reactor-panel.png" alt="Panneau Réacteurs" />
 
+<img src="/reactor-binding.png" alt="Menu de liaison à côté d’Opacity proposant Reactor 1 et New Reactor" />
+
 ## Modes de sortie
 
 | Famille | Modes | Utilisation |
@@ -33,6 +35,8 @@ Un réacteur convertit un signal source en une sortie normalisée capable de pil
 | Statique | Static Forward, Static Reverse, Static Cycle | Mouvement basé sur le temps qui ne nécessite pas d'audio |
 
 **Add** suit l'énergie de la bande (silence → 0, fort → 1). **Subtract** inverse cette énergie. **Forward**, **Reverse** et **Cycle** accumulent l'énergie au fil du temps, de sorte que la sortie parcourt l'intervalle 0–1 au lieu de suivre le niveau à chaque image. Les modes statiques utilisent le même parcours à une vitesse (**Speed**) configurable, sans audio.
+
+<img src="/reactor-output-modes.png" alt="Menu Output Mode avec les modes spectre, rythme et statiques" />
 
 ## Régler la réponse
 

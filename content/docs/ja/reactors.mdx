@@ -24,6 +24,8 @@ description: オーディオ、ビート、生成されたモーションを Ast
 
 <img src="/reactor-panel.png" alt="リアクターパネル" />
 
+<img src="/reactor-binding.png" alt="Opacity 横のバインドメニューに表示された Reactor 1 と New Reactor" />
+
 ## 出力モード
 
 | 系統 | モード | 用途 |
@@ -33,6 +35,8 @@ description: オーディオ、ビート、生成されたモーションを Ast
 | Static | Static Forward、Static Reverse、Static Cycle | オーディオを必要としない時間ベースの動き |
 
 **Add** は帯域のエネルギーに追従します（静か → 0、大きい → 1）。**Subtract** はそのエネルギーを反転します。**Forward**、**Reverse**、**Cycle** は時間とともにエネルギーを蓄積するため、出力はフレームごとのレベルを追跡するのではなく、0〜1 の範囲を順に進みます。スタティックモードはオーディオを使わず、設定可能な **Speed** で同じように値を進めます。
+
+<img src="/reactor-output-modes.png" alt="スペクトラム、ビート、静的モードを表示する Output Mode メニュー" />
 
 ## 反応を調整する
 
