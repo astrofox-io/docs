@@ -1,0 +1,174 @@
+---
+title: Referencia de plugins
+description: Referencia de manifiestos, controles, datos de audio, uniforms y fotogramas de plugins de Astrofox.
+---
+
+Todo plugin empieza con un manifiesto `astrofox.plugin.json`.
+
+## Campos del manifiesto
+
+| Campo | Tipo | Descripción |
+| --- | --- | --- |
+| `api` | number | Versión de la especificación de plugins. Usa `1`. |
+| `name` | string | Identificador obligatorio con espacio de nombres, como `@author/plugin-name`. |
+| `version` | string | Versión publicada del plugin. |
+| `label` | string | Nombre que aparece en los menús y en el panel Capas. |
+| `description` | string | Explicación breve que se muestra durante la instalación. |
+| `author` | string | Autor u organización del plugin. |
+| `type` | string | `display` o `effect`. |
+| `runtime` | string | `shader` o `worker`. Los elementos visuales admiten ambos; los efectos requieren `shader`. |
+| `shader` | string | Ruta del shader de fragmentos para el entorno shader. |
+| `entry` | string | Ruta del módulo ES para el entorno worker. |
+| `icon` | string | Ruta opcional del icono que aparece en los menús. |
+| `permissions` | string[] | Capacidades solicitadas, que actualmente incluyen `network`. |
+| `libraries` | string[] | Bibliotecas del anfitrión solicitadas por un worker; actualmente `three`. |
+| `camera` | boolean | Añade controles de cámara del anfitrión a un elemento worker. |
+| `audio` | object | Datos FFT y del dominio temporal solicitados por el plugin. |
+| `defaultProperties` | object | Valores iniciales de las propiedades de cada nueva instancia. |
+| `controls` | object | Esquema declarativo del panel Controles. |
+| `uniforms` | object | Asignación de propiedades a uniforms para entornos shader. |
+
+Las rutas se resuelven con relación a la URL del manifiesto. Los archivos
+publicados deben usar HTTPS; se permite `http://localhost` para desarrollo.
+
+## Datos de audio
+
+Declara únicamente los datos de audio que necesite el plugin:
+
+```jsonc
+"audio": {
+  "fft": {
+    "bins": 64,
+    "minFrequency": 0,
+    "maxFrequency": 6000,
+    "smoothing": 0.5,
+    "minDecibels": -100,
+    "maxDecibels": -12
+  },
+  "td": {
+    "samples": 256
+  }
+}
+```
+
+| Valor | Intervalo y significado |
+| --- | --- |
+| `fft.bins` | Entre 1 y 512 valores normalizados de frecuencia |
+| `fft.minFrequency` / `maxFrequency` | Ventana de frecuencias en hercios |
+| `fft.smoothing` | Suavizado exponencial entre 0 y 0.99 |
+| `fft.minDecibels` / `maxDecibels` | Límites de normalización del nivel de entrada |
+| `td.samples` | Número de muestras de la forma de onda en el dominio temporal |
+
+Los valores FFT llegan entre 0 y 1. Los valores del dominio temporal también
+van de 0 a 1, con el silencio centrado en 0.5. Los elementos worker pueden
+solicitar tanto FFT como datos del dominio temporal. Los elementos shader
+solo reciben FFT y volumen. Los efectos shader reciben volumen, tiempo, delta
+e `inputTexture`, pero no arrays FFT ni del dominio temporal. Se utiliza el
+mismo proceso de análisis durante la reproducción y la exportación de vídeo.
+
+## Controles
+
+Los tipos de control compatibles son `text`, `number`, `toggle`, `checkbox`,
+`color`, `colorrange`, `range`, `select` y `time`.
+
+Los campos habituales incluyen:
+
+| Campo | Función |
+| --- | --- |
+| `label` | Nombre legible del control |
+| `type` | Componente de entrada que se renderiza |
+| `min`, `max`, `step` | Límites numéricos y precisión |
+| `withRange` | Muestra un deslizador para una entrada numérica |
+| `withReactor` | Permite que un reactor controle esta propiedad |
+| `items` | Valores disponibles para una entrada de selección |
+| `hidden` | Oculta la entrada de forma condicional o permanente |
+
+Como el manifiesto es JSON, los valores dinámicos usan referencias:
+
+```jsonc
+{
+  "width": {
+    "label": "Width",
+    "type": "number",
+    "min": 16,
+    "max": { "$stage": "width" },
+    "withRange": true
+  },
+  "detail": {
+    "label": "Detail",
+    "type": "number",
+    "min": { "$prop": "minimumDetail" },
+    "max": 64
+  },
+  "manualSize": {
+    "label": "Manual size",
+    "type": "number",
+    "hidden": { "$prop": "autoSize" }
+  }
+}
+```
+
+Las referencias al escenario pueden incluir `scale`; por ejemplo,
+`{ "$stage": "width", "scale": -1 }` se resuelve como la anchura negativa del escenario.
+
+## Asignación de uniforms
+
+Los entornos shader asignan propiedades a uniforms GLSL:
+
+```jsonc
+"uniforms": {
+  "amount": { "type": "float", "from": "amount" },
+  "tint": { "type": "color", "from": "color" },
+  "center": { "type": "vec2", "from": ["x", "y"] }
+}
+```
+
+`color` convierte un color hexadecimal en un vector de tres componentes.
+Las asignaciones vectoriales leen sus componentes de las propiedades indicadas.
+
+## Entradas de la función de creación del worker
+
+Según su manifiesto, la función de creación de un worker recibe:
+
+| Entrada | Descripción |
+| --- | --- |
+| `properties` | Valores iniciales de propiedades del manifiesto y de la instancia |
+| `seed` | Semilla aleatoria estable por instancia |
+| `size` | Dimensiones actuales del escenario |
+| `libraries` | Espacios de nombres de las bibliotecas del anfitrión solicitadas |
+| `renderer` | Renderizador Three.js compartido cuando se solicita `three` |
+
+## Datos del fotograma
+
+`render(frame)` recibe:
+
+| Campo | Descripción |
+| --- | --- |
+| `id` | Identificador del fotograma |
+| `time` | Tiempo determinista en segundos |
+| `delta` | Tiempo desde el fotograma anterior en milisegundos |
+| `playing` | Indica si la línea de tiempo o la entrada en directo están activas |
+| `exporting` | Indica si se está renderizando una exportación sin conexión |
+| `volume` | Nivel general normalizado de audio |
+| `seed` | Semilla estable de la instancia del plugin |
+| `fft` | Array FFT solicitado, cuando está configurado |
+| `td` | Array del dominio temporal solicitado, cuando está configurado |
+
+Durante la exportación, `delta` se fija en `1000 / fps`. Usa `time`, `delta`
+y `seed` para obtener animaciones reproducibles.
+
+## Resultado del renderizado
+
+El método `render()` de un worker puede devolver:
+
+```js
+return {
+  width,
+  height,
+  originX,
+  originY,
+};
+```
+
+La anchura y la altura establecen los límites de la capa. Los valores
+opcionales de origen establecen su punto de origen para las transformaciones.

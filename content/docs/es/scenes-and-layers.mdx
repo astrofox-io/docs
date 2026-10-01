@@ -1,0 +1,86 @@
+---
+title: Escenas y capas
+description: Crea composiciones de Astrofox con escenas, elementos visuales y efectos.
+---
+
+El panel Capas define la estructura de tu composición. Un proyecto contiene
+escenas; cada escena contiene capas visuales y una cadena de efectos.
+
+<img src="/layers-panel.png" alt="Panel Capas con Text 1 seleccionado dentro de Scene 1" />
+
+## Escenas
+
+Una escena agrupa contenido visual y efectos en una sola unidad de composición.
+Añade escenas cuando quieras aspectos independientes que puedas ocultar,
+mezclar o superponer, o una jerarquía de capas más clara. Puedes cambiar el
+nombre, ocultar, reordenar o eliminar una escena igual que las demás capas.
+
+## Elementos visuales
+
+Los elementos visuales (displays) generan píxeles. Astrofox agrupa sus elementos
+integrados según la forma de controlarlos:
+
+| Grupo | Elementos visuales |
+| --- | --- |
+| 2D | Image, Video, Text, Shape, Bar Spectrum, Radial Spectrum, Wave Spectrum, Waveform Ring, Sound Wave |
+| 3D | Geometry, Mesh Grid, Tunnel |
+
+Los elementos de espectro y forma de onda analizan el audio directamente. Los
+de imagen, vídeo, texto, formas y 3D también pueden reaccionar al audio si
+vinculas sus controles compatibles a un reactor.
+
+<img src="/add-display.png" alt="Añadir un elemento visual" />
+
+## Efectos
+
+Los efectos procesan la escena en lugar de dibujar un objeto independiente.
+Los efectos integrados se organizan en estos grupos:
+
+- **Color:** Color, Color Depth
+- **Blur & Focus:** Bloom, Blur, Tilt Shift
+- **Distortion:** Distortion, Glitch, Kaleidoscope, Lens Warp, Mirror, RGB Shift, Shockwave, VHS
+- **Pattern:** ASCII, Color Halftone, Dot Screen, LED, Pixelate, Scanline
+- **Stylize:** Edge Detection, Feedback Echo, Film Grain, Vignette
+
+El efecto **Color** incluye brillo, contraste, tono, saturación y sepia.
+**Color Depth** es un efecto independiente que reduce la profundidad de bits.
+
+<img src="/add-effect.png" alt="Añadir un efecto" />
+
+## Selecciona y edita una capa
+
+Selecciona una fila del panel Capas para mostrar los ajustes del elemento en
+Controles. También puedes:
+
+- Pulsar su control de visibilidad para activarlo o desactivarlo
+- Cambiar su nombre para describir su función en la composición
+- Arrastrarlo para reordenar capas compatibles o moverlo a otra escena
+- Usar los controles de subir y bajar para reordenarlo con precisión
+- Eliminarlo cuando ya no lo necesites
+
+Los elementos visuales se pueden mover entre las secciones visuales de las
+escenas; los efectos, entre sus secciones de efectos; y las escenas se pueden
+reordenar entre sí.
+
+<img src="/controls-panel.png" alt="Panel Controles con los ajustes de fuente, tamaño y color de la capa de texto activa" />
+
+## Transforma un elemento visual en el escenario
+
+Selecciona un elemento 2D compatible y activa la herramienta de
+[transformación de capas](/docs/es/interface/layer-transform). Arrastra la capa
+para moverla y usa los tiradores para cambiar su tamaño. Ajusta la rotación
+con el control **Rotation** de la capa. Estos cambios actualizan los mismos
+valores que aparecen en Controles.
+
+<img src="/layer-transform.png" alt="Texto seleccionado en el escenario con el marco de transformación y los tiradores de tamaño" />
+
+Para un elemento 3D compatible, usa el [control de cámara](/docs/es/interface/camera-controls)
+para orbitar alrededor de la escena y la rueda del ratón para cambiar la
+distancia. Geometry, Mesh Grid, Tunnel y los plugins con cámara permiten este
+modo de trabajo.
+
+<Tip>
+  Los efectos se evalúan en cadena. Si dos efectos interactúan, cambia su orden
+  y compara el resultado: por ejemplo, Bloom antes de Pixelate tiene un aspecto
+  distinto de Pixelate antes de Bloom.
+</Tip>

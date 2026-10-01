@@ -1,0 +1,73 @@
+---
+title: Proyectos
+description: Configura, guarda, abre, traslada y recupera proyectos de Astrofox.
+---
+
+Un proyecto de Astrofox almacena el lienzo, las escenas, los elementos visuales,
+los efectos, los reactores, las referencias a plugins y sus ajustes. Los proyectos
+se guardan como archivos `.afx` que contienen JSON sin comprimir.
+
+## Configura el lienzo
+
+Selecciona **Project settings** (el icono de ajustes) en la barra de acciones para configurar:
+
+| Ajuste | Opciones |
+| --- | --- |
+| Título del proyecto | Nombre que aparece en Astrofox y se usa como nombre de archivo predeterminado |
+| Formato | Cuadrado, vertical 9:16, horizontal 16:9, vertical 3:4 u horizontal 4:3 |
+| Tamaño | Resolución base de 480p, 720p o 1080p |
+| Color de fondo | Color detrás de todas las escenas |
+
+El diálogo muestra la anchura y la altura exactas de salida antes de guardar.
+
+<img src="/project-settings.png" alt="Ajustes del proyecto" />
+
+## Guarda y abre
+
+- **Save project** guarda el proyecto actual en tu dispositivo.
+- **Open project** abre archivos `.afx`, comprimidos con gzip o sin comprimir, y también acepta archivos `.json` guardados por versiones anteriores de la serie 2.x.
+- **New project** borra la composición actual después de ofrecerte guardar los cambios pendientes.
+
+Estos botones están en la barra de acciones del extremo izquierdo. Pasa el
+puntero sobre un icono para ver su nombre.
+
+En los navegadores compatibles con File System Access API, Astrofox puede
+volver a escribir en el archivo seleccionado. Los demás navegadores usan el
+selector de archivos y el proceso de descarga habituales.
+
+<img src="/action-rail.png" alt="Acciones de proyecto, audio, exportación y ajustes junto al panel Capas" />
+
+## Traslada un proyecto a otro equipo
+
+Los archivos de proyecto almacenan los ajustes de la composición y referencias
+a archivos locales de imagen y vídeo. No incluyen la pista de audio. Cuando
+una imagen o un vídeo no se puede cargar automáticamente, Astrofox abre
+**Relink Media** y enumera los elementos que faltan.
+
+<Steps>
+  <Step title="Mantén los archivos juntos">
+    Coloca el proyecto y sus archivos multimedia de origen en una carpeta antes
+    de copiarlos o archivarlos.
+  </Step>
+  <Step title="Abre el proyecto">
+    Abre el proyecto `.afx` en el equipo de destino.
+  </Step>
+  <Step title="Restaura los archivos multimedia">
+    Elige el archivo local correspondiente a cada imagen o vídeo pendiente.
+    Carga de nuevo la pista con **Load audio** y comprueba la reproducción.
+  </Step>
+</Steps>
+
+## Dependencias de plugins
+
+Los proyectos registran la URL de origen y la versión de cada plugin externo.
+Si falta alguno, Astrofox identifica lo necesario y ofrece instalarlo. Revisa
+el origen y los permisos antes de aceptar. Vuelve a abrir el proyecto tras la
+instalación para que se puedan renderizar sus elementos de plugins.
+
+<img src="/manage-plugins.png" alt="Diálogo Manage Plugins con el campo de URL del manifiesto y el botón Add" />
+
+<Warning>
+  Un proyecto puede depender de plugins de terceros. Instala únicamente plugins
+  de fuentes de confianza, especialmente si solicitan acceso a la red.
+</Warning>

@@ -6,6 +6,7 @@ export default defineConfig({
   // `search.prompt` in docs.json, which would replace it in every language.
   translations: {
     en: { searchPlaceholder: 'Search Astrofox docs' },
+    es: { searchPlaceholder: 'Buscar en la documentación de Astrofox' },
     ja: { searchPlaceholder: 'Astrofox ドキュメントを検索' },
     'zh-Hans': { searchPlaceholder: '搜索 Astrofox 文档' },
     'zh-Hant': { searchPlaceholder: '搜尋 Astrofox 文件' },

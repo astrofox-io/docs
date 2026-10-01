@@ -1,0 +1,58 @@
+---
+title: Aplicación de escritorio
+description: Usa Astrofox sin conexión con exportación de vídeo nativa e integración con el escritorio.
+---
+
+La aplicación de escritorio de Astrofox incluye la misma interfaz React que
+la aplicación web dentro de Electron. Los proyectos se pueden trasladar entre
+la web y el escritorio sin conversión.
+
+Descarga los instaladores actuales desde la [página de descargas](/es/download).
+Cada enlace apunta a la última versión publicada en GitHub.
+
+<img src="/screenshot.png" alt="Espacio de trabajo de Astrofox con Capas y Reactores a la izquierda, escenario en el centro, Controles a la derecha y reproductor en la parte inferior" />
+
+## Por qué usar la aplicación de escritorio
+
+- Trabaja sin conexión a la red después de la instalación
+- Renderiza vídeos MP4 sin conexión con el ejecutable ffmpeg incluido
+- Elige codificadores x264, x265, NVEnc o WebM
+- Elige una ruta absoluta de exportación y muestra el resultado en su carpeta
+- Captura el audio del escritorio cuando el sistema operativo lo permita
+- Recibe actualizaciones de las versiones publicadas en GitHub
+
+## Paquetes por plataforma
+
+Astrofox está disponible para Windows x64, macOS Intel y Apple Silicon, y
+Linux x64. Una versión puede incluir instaladores de Windows, archivos DMG
+o ZIP para macOS y una AppImage para Linux.
+
+## Acceso a archivos y permisos
+
+Astrofox usa selectores de archivos de tipo navegador para proyectos, audio,
+imágenes y vídeo. Los diálogos nativos se reservan para procesos que requieren
+una ruta real, como la salida de ffmpeg.
+
+macOS puede solicitar acceso al micrófono y a la grabación de pantalla para la
+entrada en directo y la captura de audio del escritorio. Concede solo los
+permisos que necesites para trabajar.
+
+## Alternativa cuando ffmpeg no está disponible
+
+Los paquetes de escritorio suelen incluir ffmpeg. Si falta o no está
+disponible, Astrofox recurre a la exportación mediante `MediaRecorder` del
+navegador. El formato disponible depende entonces del navegador integrado,
+en lugar de la lista de codificadores de escritorio.
+
+## Actualiza la aplicación
+
+Abre **Settings** al final de la barra de acciones para buscar actualizaciones.
+Cuando se descarga una actualización, aparece un botón de reinicio en la barra
+de la aplicación. La aplicación la instala después de que la versión se haya
+publicado en GitHub.
+
+<Info>
+  El proceso de renderizado de escritorio está aislado intencionadamente del
+  sistema operativo. Usa un puente de precarga limitado para los controles de
+  ventana, ffmpeg, archivos temporales e integración posterior a la exportación.
+</Info>

@@ -1,0 +1,73 @@
+---
+title: Interfaz
+description: Encuentra cada parte del espacio de trabajo de Astrofox y aprende cómo se relacionan los paneles.
+---
+
+Astrofox sitúa la estructura del proyecto y las acciones habituales a la
+izquierda, el escenario renderizado en el centro, los controles de los
+elementos a la derecha y la reproducción de audio en la parte inferior.
+Seleccionar un elemento en una zona actualiza las demás, por lo que puedes
+alternar entre organizar, previsualizar y ajustar sin cambiar de vista.
+
+<img src="/screenshot.png" alt="Espacio de trabajo de Astrofox con Capas y Reactores a la izquierda, escenario en el centro, Controles a la derecha y reproductor en la parte inferior" />
+
+## Mapa del espacio de trabajo
+
+| Área | Ubicación | Función |
+| --- | --- | --- |
+| [Barra de la aplicación y acciones](/docs/es/interface/app-bar-and-actions) | Arriba y en el extremo izquierdo | Abre, guarda y exporta proyectos; abre los ajustes; muestra u oculta paneles |
+| [Panel Capas](/docs/es/interface/layers-panel) | Arriba a la izquierda | Organiza escenas, elementos visuales y efectos |
+| [Panel Reactores](/docs/es/interface/reactors-panel) | Abajo a la izquierda | Crea señales que pueden controlar ajustes compatibles |
+| [Escenario](/docs/es/interface/stage) | Centro | Previsualiza la composición y ofrece herramientas directas de transformación y cámara |
+| [Panel Controles](/docs/es/interface/controls-panel) | Derecha | Edita la escena, el elemento visual o el efecto seleccionado |
+| [Reproductor y estado](/docs/es/interface/player-and-status) | Abajo | Reproduce audio y entrada en directo; la barra de estado inferior muestra el zoom, el progreso, los FPS y la versión |
+
+## Cómo se relacionan las áreas
+
+Los paneles **Capas** y **Controles** comparten la selección. Selecciona una
+escena, un elemento visual o un efecto a la izquierda y su tarjeta de controles
+se activará a la derecha. Cuando Controles muestra todas las capas, seleccionar
+una también desplaza su tarjeta hasta hacerla visible.
+
+La lista **Reactores** tiene su propia selección. Al seleccionar un reactor se
+abre su editor detallado de señal encima del reproductor. Después puedes
+vincular esa señal desde un control numérico compatible del panel Controles.
+
+El **Escenario** refleja ambos tipos de cambios inmediatamente. Las ediciones
+de capas cambian lo que se dibuja; los cambios en los reactores y el
+reproductor actualizan cómo se mueve la composición.
+
+## Un ciclo práctico de edición
+
+<Steps>
+  <Step title="Construye la estructura">
+    Añade escenas, elementos visuales y efectos en el panel Capas y arrástralos
+    hasta colocarlos en el orden que quieras.
+  </Step>
+  <Step title="Ajusta el aspecto">
+    Selecciona una capa y cambia sus valores en Controles. Usa la herramienta
+    de transformación del escenario cuando la manipulación directa resulte más rápida.
+  </Step>
+  <Step title="Añade movimiento">
+    Carga audio o activa la entrada en directo, crea un reactor y vincúlalo a
+    controles como la escala, la rotación, la opacidad o la intensidad de un efecto.
+  </Step>
+  <Step title="Previsualiza y afina">
+    Reproduce la pista o desplázate por ella mientras observas el escenario.
+    Ajusta el reactor y el intervalo del control hasta que la respuesta encaje con el sonido.
+  </Step>
+</Steps>
+
+## Consigue más espacio
+
+Usa los tres botones de panel de la barra de la aplicación para mostrar u
+ocultar las zonas izquierda, inferior y derecha. Esto solo cambia la
+disposición del espacio de trabajo: no elimina capas, no cambia el tamaño del
+lienzo ni afecta a la exportación.
+
+<img src="/panel-toggles.png" alt="Botones para mostrar u ocultar los paneles izquierdo, inferior y derecho" />
+
+<Tip>
+  Pasa el puntero sobre un icono si no sabes para qué sirve. Los botones de
+  acciones, escenario, reproductor y paneles muestran etiquetas de ayuda.
+</Tip>

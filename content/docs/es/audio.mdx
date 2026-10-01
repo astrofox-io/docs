@@ -1,0 +1,70 @@
+---
+title: Audio y entrada en directo
+description: Controla Astrofox con una canción, un micrófono, el audio del escritorio o MIDI.
+---
+
+Astrofox puede analizar un archivo de audio guardado para obtener una línea de
+tiempo reproducible, o reaccionar a una fuente en directo para actuaciones y
+experimentación.
+
+## Carga un archivo de audio
+
+Selecciona **Load audio** en la barra de acciones y elige una pista. La forma
+de onda y los controles de progreso aparecen en el reproductor. Puedes
+reproducir, pausar, detener, desplazarte, ajustar el volumen de escucha y
+activar la repetición.
+
+Usa un archivo cuando necesites:
+
+- Desplazamiento preciso y tiempos reproducibles
+- Un intervalo de inicio y fin definido para exportar
+- Audio incluido en el vídeo final
+- Resultados idénticos cada vez que se renderiza el proyecto
+
+<img src="/load-audio.png" alt="Cargar audio" />
+
+## Usa entrada en directo
+
+Activa el [modo de entrada](/docs/es/interface/input-mode) en el reproductor y
+elige una entrada. Las fuentes disponibles dependen del navegador, del
+sistema operativo y de los permisos.
+
+<img src="/input-sources.png" alt="Menú de fuentes de entrada con las opciones Microphone, Desktop Audio y MIDI" />
+
+### Micrófono
+
+Elige **Microphone** en el modo de entrada, selecciona un dispositivo y permite
+el acceso al micrófono. Ajusta la ganancia de entrada si la señal es demasiado
+baja o se satura con frecuencia.
+
+<img src="/input-mode.png" alt="Modo de entrada de micrófono con selector de dispositivo, osciloscopio inactivo, control de ganancia y botón de inicio" />
+
+### Audio del escritorio
+
+Elige **Desktop Audio** en el modo de entrada y selecciona una pantalla,
+ventana o pestaña que proporcione una pista de audio. Las reglas del navegador
+para compartir pantalla determinan qué fuentes pueden incluir audio.
+
+### MIDI
+
+Elige **MIDI**, selecciona una entrada y concede el permiso MIDI cuando se
+solicite. MIDI proporciona una señal de control en directo sin forma de onda
+de audio.
+
+<Info>
+  La entrada en directo está pensada para visuales en tiempo real. El proceso
+  de **Save video** usa un archivo de audio para que Astrofox pueda renderizar
+  un intervalo de tiempo determinista y combinar el audio seleccionado con el resultado.
+</Info>
+
+## Soluciona una señal débil
+
+1. Confirma que has seleccionado el micrófono, la fuente compartida o el dispositivo MIDI correcto.
+2. Aumenta gradualmente la ganancia de entrada en directo.
+3. En el reactor, reduce **Max dB** o amplía la región del espectro seleccionada.
+4. Reduce **Smoothing** para una respuesta más rápida o auméntalo para un movimiento más estable.
+5. Prueba un elemento que reaccione directamente al audio, como Bar Spectrum, antes de investigar la vinculación de un reactor.
+
+Consulta [Reactores](/docs/es/reactors) para convertir la señal analizada en movimiento.
+
+<img src="/reactor-panel.png" alt="Panel del reactor" />

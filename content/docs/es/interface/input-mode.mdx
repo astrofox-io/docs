@@ -1,0 +1,92 @@
+---
+title: Modo de entrada
+description: Controla los visuales con un micrófono, el audio del escritorio o un controlador MIDI en lugar de un archivo de audio.
+---
+
+El modo de entrada sustituye los controles de reproducción del archivo por una
+entrada en directo. Los visuales reaccionan en tiempo real a lo que recibe el
+dispositivo seleccionado: tu voz, el audio del sistema o de una pestaña, o los
+datos de notas y controles de un instrumento MIDI.
+
+<img src="/input-mode.png" alt="Modo de entrada de micrófono con selector de dispositivo, osciloscopio inactivo, control de ganancia y botón de inicio" />
+
+## Activa el modo de entrada
+
+En el reproductor de archivos, selecciona **Enable input mode** (el botón de
+micrófono en el extremo derecho). El reproductor cambia al panel de entrada
+en directo.
+
+Para salir, selecciona **Close input mode** (la X del osciloscopio) o carga un
+archivo de audio. Salir no restaura la pista anterior; vuelve a cargar el
+archivo si necesitas la línea de tiempo. Se recuerda el último tipo de entrada.
+
+## Elige una entrada
+
+Un desplegable a la izquierda del panel selecciona el tipo de entrada. Los
+controles a su derecha cambian según la selección:
+
+<img src="/input-sources.png" alt="Menú de fuentes de entrada con las opciones Microphone, Desktop Audio y MIDI" />
+
+| Entrada | Controles | Notas |
+| --- | --- | --- |
+| Microphone | Selector de dispositivo y botón redondo de inicio/parada | El navegador solicita permiso la primera vez. La lista se actualiza automáticamente al conectar o desconectar dispositivos. |
+| Desktop Audio | Botón **Capture Desktop Audio** | Abre el diálogo para compartir pantalla. Elige qué compartir y activa la opción de compartir su sonido. |
+| MIDI | Selector de dispositivo y botón **Connect** | Requiere compatibilidad con Web MIDI, disponible en la mayoría de los navegadores Chromium y en la aplicación de escritorio. |
+
+### Audio del escritorio
+
+Para capturar algo distinto de una pestaña del navegador, elige una pantalla
+completa y activa el audio del sistema en el diálogo. Compartir solo una
+ventana suele no proporcionar sonido; si Astrofox no recibe una pista de
+audio, te avisa y permanece desconectado.
+
+Detener la captura desde la barra de uso compartido del navegador finaliza
+automáticamente la entrada en directo, de modo que los visuales se quedan
+quietos en lugar de reaccionar al silencio.
+
+### Inicia y detén
+
+El micrófono y el audio del escritorio usan el botón redondo junto al control
+de ganancia:
+
+- Si todavía no hay conexión, conecta el dispositivo elegido (**Start microphone input** o **Capture Desktop Audio**).
+- Un borde iluminado indica que la entrada está activa; el osciloscopio superior muestra la señal entrante.
+- Detener un micrófono pausa la entrada, pero mantiene el modo en directo.
+- Detener el audio del escritorio cierra la captura y sale del modo en directo.
+
+MIDI no tiene botón redondo de inicio/parada ni ganancia. Usa **Connect**
+después de elegir un dispositivo.
+
+La línea de estado de la esquina inferior izquierda refleja el estado actual,
+por ejemplo `Live: USB Microphone` o `Live MIDI: Launchpad`. Antes de conectar
+un dispositivo, muestra el tipo de entrada seleccionado.
+
+<Info>
+  Cargar un archivo de audio siempre cierra el modo de entrada. Vuelve a él con
+  **Enable input mode**: se recuerda el último tipo de entrada, pero no el
+  archivo de audio anterior.
+</Info>
+
+## Ganancia
+
+Para el micrófono y el audio del escritorio, ajusta la ganancia entre el 0 % y
+el 300 % cuando una fuente sea constantemente demasiado baja o alta. La
+ganancia se aplica antes del análisis, por lo que los reactores vinculados al
+volumen o a intervalos del espectro responden de forma más predecible después
+de equilibrarla. El osciloscopio muestra el resultado inmediatamente mientras
+ajustas. MIDI no tiene control de ganancia.
+
+## Reacciona a la entrada en directo
+
+El procesamiento posterior funciona igual que con un archivo: los
+[reactores](/docs/es/reactors) muestrean el espectro y el volumen en cada
+fotograma, por lo que puedes vincular el nivel del micrófono a la escala de
+una capa o controlar efectos con bandas de frecuencia concretas. La entrada
+en directo no tiene una línea de tiempo por la que desplazarse, y
+[Save video](/docs/es/exporting) sigue necesitando un archivo de audio para
+renderizar un intervalo definido.
+
+Si tienes problemas de configuración, como permisos pendientes, capturas sin
+sonido o dispositivos que no aparecen, consulta
+[Audio y entrada en directo](/docs/es/audio) y
+[Solución de problemas](/docs/es/troubleshooting).

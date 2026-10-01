@@ -1,0 +1,77 @@
+---
+title: Crea tu primer visual
+description: Sigue un proyecto de ejemplo desde un lienzo nuevo hasta la exportación de un visual que reacciona al audio.
+---
+
+En este tutorial crearás un visual sencillo de espectro a partir de un archivo
+de audio. Puedes usar [Astrofox en la web](https://app.astrofox.io) o la
+[aplicación de escritorio](/docs/es/desktop-app).
+
+<Steps>
+  <Step title="Inicia un proyecto">
+    Abre Astrofox y selecciona **New project** en la barra lateral de acciones si
+    ya hay otro proyecto abierto. Un proyecto nuevo incluye las capas Image,
+    Bar Spectrum y Text. Selecciona **Project settings** (el icono de ajustes)
+    en la barra de acciones y configura el título, el formato de salida, el
+    tamaño y el color de fondo.
+
+    <img src="/new-project.png" alt="Nuevo proyecto" />
+  </Step>
+  <Step title="Carga audio">
+    Selecciona **Load audio** en la barra de acciones y elige una canción de tu
+    dispositivo. Usa el reproductor situado en la parte inferior para reproducir,
+    pausar, detener, repetir o desplazarte por la pista.
+
+    <img src="/load-audio.png" alt="Cargar audio" />
+  </Step>
+  <Step title="Añade un elemento visual">
+    El proyecto nuevo ya incluye **Bar Spectrum**. Selecciónalo o añade
+    **Radial Spectrum** o **Wave Spectrum** desde el panel Capas. Edita sus
+    colores, tamaño, rango de frecuencias, suavizado, posición y otros ajustes
+    en el panel Controles.
+
+    <img src="/add-display.png" alt="Añadir un elemento visual" />
+  </Step>
+  <Step title="Haz que otro control reaccione">
+    Añade un reactor en el panel Reactores. Selecciona la parte del espectro que
+    debe seguir y vincúlalo a un control compatible, como la escala, la rotación,
+    la opacidad o la intensidad de un efecto.
+
+    <img src="/add-reactor.png" alt="Añadir un reactor" />
+  </Step>
+  <Step title="Perfecciona el resultado">
+    Usa las capas Image y Text que ya incluye el proyecto y prueba efectos como
+    **Bloom**, **Color**, **Film Grain** o **Vignette**. Reordena las capas y los
+    efectos hasta equilibrar la composición.
+  </Step>
+  <Step title="Guarda y exporta">
+    Selecciona **Save project** en la barra de acciones para conservar un proyecto
+    `.afx` editable. Usa **Save image** para una imagen fija o **Save video**
+    para una exportación animada.
+  </Step>
+</Steps>
+
+## Una combinación inicial de capas
+
+| Capa | Función |
+| --- | --- |
+| Text | Nombre del artista o título de la pista |
+| Bar Spectrum | Movimiento principal que reacciona al audio |
+| Image | Portada o logotipo |
+| Shape | Panel de fondo o elemento de encuadre |
+| Efecto Bloom | Resplandor suave alrededor de las zonas brillantes |
+| Efecto Color | Ajuste final de brillo, contraste, tono y saturación |
+
+<Info>
+  Astrofox guarda la estructura y los ajustes del proyecto. Las capas de imagen
+  y vídeo pueden necesitar que vuelvas a vincular sus archivos en otro equipo,
+  y tendrás que cargar de nuevo la pista de audio. Mantén esos archivos junto
+  al proyecto cuando lo traslades.
+</Info>
+
+## Siguientes pasos
+
+- Lee [Interfaz](/docs/es/interface) para recorrer el espacio de trabajo.
+- Aprende cómo se relacionan las [escenas, los elementos visuales y los efectos](/docs/es/scenes-and-layers).
+- Afina el movimiento con [reactores](/docs/es/reactors).
+- Elige el formato adecuado en [Exportación](/docs/es/exporting).

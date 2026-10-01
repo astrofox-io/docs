@@ -1,0 +1,64 @@
+---
+title: Instalar y gestionar plugins
+description: Añade elementos visuales y efectos de terceros a Astrofox desde la URL de un manifiesto.
+---
+
+Los plugins amplían Astrofox con elementos visuales y efectos. Un plugin se
+instala desde la URL de un manifiesto `astrofox.plugin.json` y aparece junto a
+los elementos integrados en el menú para añadir contenido.
+
+## Instala un plugin
+
+<Steps>
+  <Step title="Copia la URL del manifiesto">
+    Obtén del autor del plugin la URL HTTPS directa de `astrofox.plugin.json`.
+    Las URL de desarrollo local pueden usar HTTP en `localhost`.
+  </Step>
+  <Step title="Abre el gestor de plugins">
+    Selecciona **Manage plugins** en la barra de acciones y elige la acción
+    para añadir un plugin desde una URL.
+    <img src="/manage-plugins.png" alt="Diálogo Manage Plugins con el campo de URL del manifiesto y el botón Add" />
+  </Step>
+  <Step title="Revisa el plugin">
+    Comprueba su nombre, autor, origen, entorno de ejecución, bibliotecas del
+    anfitrión solicitadas y permisos. Un plugin que solicita acceso a la red
+    puede realizar conexiones salientes desde su worker.
+  </Step>
+  <Step title="Instálalo y añádelo">
+    Confirma la instalación. El plugin queda disponible en el menú para añadir
+    elementos Display o Effect, según el tipo de su manifiesto.
+  </Step>
+</Steps>
+
+## Modelo de seguridad
+
+Astrofox guarda localmente en caché los archivos de los plugins instalados y
+fija su integridad mediante hashes SHA-384. Solo vuelve a contactar con la URL
+de origen cuando actualizas el plugin explícitamente. Las instalaciones de
+localhost se marcan como plugins de desarrollo y omiten la fijación de
+integridad para poder recargarse mientras trabajas.
+
+Los plugins JavaScript se ejecutan en un Web Worker dedicado con una política
+Content Security Policy. No tienen acceso al DOM, no pueden importar código
+remoto arbitrario ni usar la red a menos que el manifiesto solicite el permiso `network`.
+
+<Warning>
+  Fijar la integridad evita que una versión instalada cambie sin aviso; no
+  convierte el código desconocido en fiable. Revisa el código fuente y los
+  permisos solicitados antes de instalar un plugin.
+</Warning>
+
+## Actualiza, recarga o elimina
+
+- **Update** vuelve a obtener el manifiesto y los archivos y presenta la nueva versión para su revisión.
+- **Reload** actualiza un plugin de desarrollo después de cambiar sus archivos locales.
+- **Remove** elimina el registro del plugin en Astrofox. Los elementos del proyecto que dependan de él no podrán renderizarse hasta que se vuelva a instalar.
+
+## Plugins que faltan en un proyecto
+
+Los proyectos almacenan el identificador con espacio de nombres, la URL de
+origen y la versión de cada plugin. Cuando un proyecto hace referencia a un
+plugin que falta, Astrofox enumera lo necesario y ofrece instalarlo. Vuelve a
+abrir el proyecto tras la instalación para que sus elementos se creen normalmente.
+
+¿Quieres crear uno propio? Empieza por [Creación de plugins](/docs/es/plugin-authoring).

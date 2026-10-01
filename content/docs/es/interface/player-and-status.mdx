@@ -1,0 +1,78 @@
+---
+title: Reproductor y estado
+description: Previsualiza audio, elige entradas en directo, examina la salida de reactores y controla el zoom del escenario.
+---
+
+El panel inferior cambia según el modo de entrada seleccionado. Con un archivo
+de audio, funciona como línea de tiempo y controles de reproducción. En modo
+en directo, se convierte en un selector de entrada y monitor de señal.
+Seleccionar un reactor añade su editor detallado encima de cualquiera de las vistas.
+
+<img src="/player-transport.png" alt="Reproductor antes de cargar audio, con controles de reproducción, volumen, línea de tiempo, repetición y entrada en directo" />
+
+El reproductor antes de cargar un archivo de audio.
+
+## Modo de archivo de audio
+
+Después de cargar un archivo de audio, el reproductor ofrece:
+
+- Una forma de onda para ver la estructura general de la pista
+- Controles de reproducción o pausa y de parada
+- Volumen de escucha
+- Un control de progreso para desplazarse por la pista
+- Tiempo transcurrido y total
+- Reproducción en bucle
+- Un botón para cambiar a entrada en directo
+
+Desplázate a una parte intensa o suave de la pista al ajustar un visual.
+Comprobar ambos extremos ayuda a evitar que un reactor parezca inactivo en
+una sección y excesivo en otra.
+
+## Modo de entrada en directo
+
+El modo en directo sustituye la línea de tiempo por los controles de la fuente seleccionada:
+
+- **Microphone:** elige un dispositivo disponible y observa su señal en directo.
+- **Desktop audio:** inicia una captura cuando el navegador o entorno de escritorio admita audio del sistema o del contenido compartido.
+- **MIDI:** elige una entrada MIDI y conéctala como fuente de control en directo.
+
+Usa el control de ganancia cuando una entrada de audio sea constantemente
+demasiado débil o fuerte. El osciloscopio confirma de inmediato que la fuente
+está activa. Cierra el modo de entrada para volver al reproductor de archivos.
+El archivo de audio anterior no se restaura automáticamente; vuelve a
+cargarlo si necesitas la línea de tiempo.
+
+La disponibilidad de las fuentes depende de la plataforma, los permisos y los
+dispositivos conectados. Consulta [Modo de entrada](/docs/es/interface/input-mode)
+para conectar una fuente y [Audio y entrada en directo](/docs/es/audio) para
+configurarla y resolver problemas.
+
+<img src="/input-mode.png" alt="Modo de entrada de micrófono con selector de dispositivo, osciloscopio inactivo, control de ganancia y botón de inicio" />
+
+## Editor del reactor seleccionado
+
+Seleccionar un reactor en el panel izquierdo abre un editor de señal encima
+del reproductor. Incluye las opciones del reactor, una visualización del
+espectro o de los tiempos cuando corresponde, y un medidor de salida. Cerrar
+este editor borra la selección, pero conserva el reactor y sus vinculaciones.
+
+<img src="/reactor-panel.png" alt="Panel del reactor" />
+
+## Barra de estado
+
+La barra de estado recorre el borde inferior de la aplicación:
+
+- A la izquierda muestra la actividad actual, incluido el progreso de exportación y una acción de cancelación mientras se renderiza vídeo.
+- En el centro muestra las dimensiones del lienzo y los [controles de zoom del escenario](/docs/es/interface/stage#ajusta-el-zoom-de-la-vista-del-editor).
+- A la derecha muestra los fotogramas renderizados por segundo y la versión de Astrofox.
+
+El valor FPS muestra una raya cuando el renderizador está inactivo. Es un
+indicador de rendimiento de la vista previa, no la frecuencia de fotogramas
+seleccionada para exportar.
+
+<Info>
+  Ocultar el panel inferior oculta el editor del reactor y el reproductor, pero
+  la barra de estado sigue disponible con el zoom, el progreso, los FPS y la versión.
+</Info>
+
+<img src="/stage-zoom.png" alt="Dimensiones del lienzo, botones de zoom, deslizador y porcentaje para ajustar a la pantalla" />

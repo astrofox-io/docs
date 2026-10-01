@@ -1,0 +1,44 @@
+---
+title: Imagen en imagen
+description: Muestra la salida del escenario en una ventana siempre visible mientras trabajas en otro lugar.
+---
+
+Imagen en imagen abre una pequeña ventana flotante que refleja el escenario.
+Permanece sobre las demás aplicaciones, lo que resulta útil al ajustar audio
+o notas en otro programa durante una actuación, o si quieres mantener los
+visuales en una segunda pantalla sin reorganizar los paneles.
+
+## Abre y cierra la ventana
+
+Selecciona **Open picture in picture** en la fila de herramientas sobre el
+lienzo. El botón permanece resaltado mientras la ventana está abierta;
+selecciona **Close picture in picture** o cierra la propia ventana flotante
+para dejar de duplicar la imagen.
+
+<img src="/picture-in-picture-button.png" alt="Barra de herramientas del escenario con imagen en imagen activada a la izquierda" />
+
+La ventana solo muestra el renderizado del escenario. No contiene controles
+de reproducción ni audio; reproduce y mezcla la pista desde la ventana principal.
+
+<Info>
+  La ventana flotante es una copia en directo del lienzo. Los cambios de capas,
+  el movimiento de los reactores y los cambios del reproductor aparecen
+  inmediatamente, así que puedes seguir editando mientras está abierta.
+</Info>
+
+## Requisitos
+
+La función depende de la compatibilidad estándar con vídeo en imagen en imagen.
+Si el entorno actual no la ofrece, el botón se desactiva. Si aun así falla
+un intento de apertura, Astrofox muestra un diálogo de error.
+
+- Funciona en navegadores Chromium modernos y en la aplicación de escritorio.
+- Abrir una copia del escenario cierra primero cualquier otro vídeo en imagen en imagen.
+- Cerrar la pestaña o ventana principal detiene también la copia; no queda ninguna transmisión que debas cerrar manualmente.
+
+## Qué no es
+
+Imagen en imagen facilita la vista previa; no es un formato de salida. No
+afecta a las exportaciones, a la resolución ni a lo que ven los espectadores
+de una grabación. Usa [Save image](/docs/es/exporting) o
+[Save video](/docs/es/exporting) para producir resultados que puedas compartir.

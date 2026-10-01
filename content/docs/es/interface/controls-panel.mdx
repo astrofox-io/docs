@@ -1,0 +1,67 @@
+---
+title: Panel Controles
+description: Edita escenas, elementos visuales, efectos, transformaciones, archivos multimedia y vinculaciones de reactores.
+---
+
+El panel Controles muestra tarjetas editables de la composición. La cabecera
+de cada tarjeta identifica el tipo de elemento a la izquierda y el nombre de
+su capa a la derecha. Seleccionar cualquiera de las dos partes también
+selecciona el elemento correspondiente en Capas.
+
+<img src="/controls-panel.png" alt="Panel Controles con los ajustes de fuente, tamaño y color de la capa de texto activa" />
+
+## Capa activa y todas las capas
+
+Usa los dos botones de la cabecera de Controles para elegir cuánto del
+proyecto se muestra:
+
+- **Show active layer only** muestra solo la tarjeta de la escena, el elemento visual o el efecto seleccionado. Úsalo para centrar el espacio de trabajo.
+- **Show all layers** muestra las tarjetas de toda la composición. Seleccionar una fila en Capas desplaza su tarjeta hasta hacerla visible.
+
+Cambiar de modo no activa, desactiva ni modifica ninguna capa.
+
+## Tipos de controles
+
+Los controles varían según el elemento y pueden incluir:
+
+- Campos numéricos y deslizadores para cambios precisos o rápidos
+- Controles de intervalo para valores mínimos y máximos
+- Selectores e intervalos de color
+- Interruptores, casillas de verificación y listas de selección
+- Entradas de texto, imagen y vídeo
+- Grupos plegables como **Appearance** y **Position**
+
+La aplicación aplica los cambios inmediatamente, por lo que puedes observar
+el escenario mientras ajustas un valor. Los grupos Appearance y Position se
+mantienen cerca del final de la tarjeta para que sea fácil encontrar primero
+los ajustes propios del elemento.
+
+## Vinculaciones de reactores
+
+Los controles compatibles muestran un botón para vincular un reactor. Mientras
+está vinculado, el reactor controla la propiedad entre el mínimo y el máximo
+del control. El valor sin vinculación no se usa hasta que la eliminas.
+
+Para crear una vinculación útil:
+
+1. Elige un control cuyo mínimo y máximo ya describan el movimiento que quieras.
+2. Vincula un reactor y reproduce el audio.
+3. Si el movimiento es demasiado brusco, ajusta el suavizado o la caída del reactor.
+
+Al desvincular, se restaura el último valor sin vinculación.
+
+<img src="/reactor-binding.png" alt="Menú de vinculación junto a Opacity con las opciones Reactor 1 y New Reactor" />
+
+## Controles y manipulación directa
+
+En los elementos 2D compatibles, arrastrar la superposición de
+[transformación de capas](/docs/es/interface/layer-transform) cambia los mismos
+valores de Position y Appearance que aparecen aquí. En los elementos 3D, el
+[control de cámara](/docs/es/interface/camera-controls) actualiza los valores
+de cámara correspondientes. Usa la interacción que te resulte más cómoda;
+ambas editan los datos del proyecto.
+
+<Tip>
+  Usa **Show active layer only** en pantallas pequeñas. Usa **Show all layers**
+  cuando compares el mismo ajuste entre varios elementos visuales o efectos.
+</Tip>

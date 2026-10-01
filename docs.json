@@ -70,6 +70,16 @@
       "path": "/zh-Hans/download",
       "page": "zh-Hans/download",
       "language": "zh-Hans"
+    },
+    {
+      "path": "/es",
+      "page": "es/home",
+      "language": "es"
+    },
+    {
+      "path": "/es/download",
+      "page": "es/download",
+      "language": "es"
     }
   ],
   "appearance": {
@@ -342,6 +352,157 @@
           {
             "tab": "Download",
             "href": "/de/download"
+          }
+        ]
+      },
+      {
+        "language": "es",
+        "tabs": [
+          {
+            "tab": "Documentación",
+            "groups": [
+              {
+                "group": "Primeros pasos",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "es/index",
+                    "title": "Introducción"
+                  },
+                  {
+                    "page": "es/first-project",
+                    "title": "Crea tu primer visual"
+                  }
+                ]
+              },
+              {
+                "group": "Interfaz",
+                "root": "es/interface",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "es/interface/app-bar-and-actions",
+                    "title": "Barra de la aplicación y acciones"
+                  },
+                  {
+                    "page": "es/interface/layers-panel",
+                    "title": "Panel Capas"
+                  },
+                  {
+                    "page": "es/interface/reactors-panel",
+                    "title": "Panel Reactores"
+                  },
+                  {
+                    "page": "es/interface/stage",
+                    "title": "Escenario"
+                  },
+                  {
+                    "page": "es/interface/picture-in-picture",
+                    "title": "Imagen en imagen"
+                  },
+                  {
+                    "page": "es/interface/layer-transform",
+                    "title": "Transformación de capas"
+                  },
+                  {
+                    "page": "es/interface/camera-controls",
+                    "title": "Controles de cámara"
+                  },
+                  {
+                    "page": "es/interface/controls-panel",
+                    "title": "Panel Controles"
+                  },
+                  {
+                    "page": "es/interface/player-and-status",
+                    "title": "Reproductor y estado"
+                  },
+                  {
+                    "page": "es/interface/input-mode",
+                    "title": "Modo de entrada"
+                  }
+                ]
+              },
+              {
+                "group": "Crear",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "es/projects",
+                    "title": "Proyectos"
+                  },
+                  {
+                    "page": "es/audio",
+                    "title": "Audio y entrada en directo"
+                  },
+                  {
+                    "page": "es/scenes-and-layers",
+                    "title": "Escenas y capas"
+                  },
+                  {
+                    "page": "es/reactors",
+                    "title": "Reactores"
+                  }
+                ]
+              },
+              {
+                "group": "Exportar",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "es/exporting",
+                    "title": "Exportación"
+                  },
+                  {
+                    "page": "es/desktop-app",
+                    "title": "Aplicación de escritorio"
+                  }
+                ]
+              },
+              {
+                "group": "Plugins",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "es/plugins",
+                    "title": "Instalar y gestionar plugins"
+                  },
+                  {
+                    "page": "es/plugin-authoring",
+                    "title": "Creación de plugins"
+                  },
+                  {
+                    "page": "es/plugin-runtimes",
+                    "title": "Entornos de ejecución de plugins"
+                  },
+                  {
+                    "page": "es/plugin-reference",
+                    "title": "Referencia de plugins"
+                  }
+                ]
+              },
+              {
+                "group": "Ayuda",
+                "collapsible": false,
+                "pages": [
+                  {
+                    "page": "es/troubleshooting",
+                    "title": "Solución de problemas"
+                  },
+                  {
+                    "page": "es/upgrading-from-v1",
+                    "title": "Actualización desde 1.x"
+                  },
+                  {
+                    "page": "es/development",
+                    "title": "Desarrollo"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Descargar",
+            "href": "/es/download"
           }
         ]
       },

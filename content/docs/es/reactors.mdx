@@ -1,0 +1,83 @@
+---
+title: Reactores
+description: Asigna audio, pulsos rítmicos o movimiento generado a los controles de Astrofox.
+---
+
+Un reactor convierte una señal de origen en una salida normalizada que puede
+controlar uno o varios ajustes compatibles. Así puedes hacer que la escala
+pulse con los graves, que la rotación siga los agudos o que aparezca un efecto
+con cada golpe del ritmo.
+
+## Crea un reactor
+
+<Steps>
+  <Step title="Añade un reactor">
+    En el panel Reactores, elige **Add reactor**. Selecciona el nuevo reactor
+    para abrir sus controles detallados y medidores en directo encima del reproductor.
+  </Step>
+  <Step title="Elige un modo de salida">
+    Elige un modo de audio, ritmo o estático según el movimiento que busques.
+  </Step>
+  <Step title="Ajusta la fuente">
+    En los modos de espectro, arrastra la selección sobre la región de
+    frecuencias y niveles que quieras seguir. Ajusta Max dB, el suavizado, la
+    retención y la caída mientras se reproduce el audio.
+  </Step>
+  <Step title="Vincula un control">
+    Selecciona un elemento visual o un efecto. En un control numérico compatible,
+    elige el reactor. La salida 0 usa el mínimo del control; la salida 1 usa su máximo.
+  </Step>
+</Steps>
+
+<img src="/reactor-panel.png" alt="Panel del reactor" />
+
+<img src="/reactor-binding.png" alt="Menú de vinculación junto a Opacity con las opciones Reactor 1 y New Reactor" />
+
+## Modos de salida
+
+| Familia | Modos | Uso |
+| --- | --- | --- |
+| Espectro | Add, Subtract, Forward, Reverse, Cycle | Movimiento continuo controlado por la banda de audio seleccionada |
+| Ritmo | Beat Trigger, Beat Envelope | Golpes individuales o un pulso que decae después de cada golpe detectado |
+| Estático | Static Forward, Static Reverse, Static Cycle | Movimiento basado en el tiempo que no requiere audio |
+
+**Add** sigue la energía de la banda (baja → 0, alta → 1). **Subtract** invierte
+esa energía. **Forward**, **Reverse** y **Cycle** acumulan energía con el tiempo
+para que la salida recorra el intervalo 0–1 en lugar de seguir el nivel de cada
+fotograma. Los modos estáticos realizan el mismo recorrido a una velocidad
+**Speed** configurable, sin audio.
+
+<img src="/reactor-output-modes.png" alt="Menú Output Mode con modos de espectro, ritmo y estáticos" />
+
+## Ajusta la respuesta
+
+- **Selección del espectro** aísla frecuencias bajas, medias o altas y un intervalo de amplitud. Los graves están en el extremo de baja frecuencia; las voces y melodías suelen ocupar el centro; los platillos y el brillo, las frecuencias altas.
+- **Max dB** cambia el nivel que se considera salida máxima. Acércalo a cero para fuentes fuertes y redúcelo para fuentes suaves.
+- **Smoothing** estabiliza los movimientos bruscos a costa de una respuesta más lenta.
+- **Hold Time** (modos de espectro y Beat Trigger) mantiene un pico o pulso antes de que caiga. El valor se expresa en fotogramas de análisis, no en segundos.
+- **Decay** (modos de espectro y Beat Envelope) controla la rapidez con la que el valor vuelve tras un pico. Beat Trigger, en cambio, cae a cero después de la retención.
+- **Sensitivity** cambia la facilidad con la que se activan los modos de ritmo.
+- **Speed** controla la velocidad de los modos estáticos.
+
+## Ejemplos prácticos
+
+<CardGroup cols={2}>
+  <Card title="Pulso de graves" icon="audio-waveform">
+    Selecciona la zona baja del espectro y vincula la salida Add a la escala o a la intensidad de Bloom.
+  </Card>
+  <Card title="Destello de caja" icon="zap">
+    Usa Beat Trigger o Beat Envelope con la opacidad, el brillo o un efecto de estilo.
+  </Card>
+  <Card title="Rotación lenta" icon="rotate-cw">
+    Usa Static Forward o Static Cycle con la rotación para que el movimiento continúe durante el silencio.
+  </Card>
+  <Card title="Brillo de agudos" icon="sparkles">
+    Selecciona la zona alta del espectro y usa un intervalo pequeño en RGB Shift, Film Grain o el desplazamiento.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Un reactor puede controlar varios ajustes. Usa reactores distintos cuando
+  los elementos necesiten diferentes bandas de frecuencia, suavizado,
+  sensibilidad al ritmo o tiempos.
+</Tip>

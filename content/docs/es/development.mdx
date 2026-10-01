@@ -1,0 +1,87 @@
+---
+title: Desarrollo
+description: Ejecuta, compila y empaqueta Astrofox desde el código fuente.
+---
+
+Astrofox es una aplicación Next.js del lado del cliente con React y Three.js.
+No requiere un backend ni un servicio de autenticación para el desarrollo local.
+
+## Requisitos
+
+- Node.js compatible con la versión declarada por las dependencias del proyecto
+- pnpm
+- Git
+
+Clona e instala:
+
+```bash
+git clone https://github.com/astrofox-io/astrofox.git
+cd astrofox
+pnpm install
+```
+
+## Ejecuta la aplicación web
+
+```bash
+pnpm dev
+```
+
+Crea una compilación de producción con:
+
+```bash
+pnpm build
+```
+
+El proceso de compilación habitual se usa para el despliegue web. Los
+proyectos y archivos multimedia permanecen en el dispositivo del usuario;
+no se necesita un servicio de API local.
+
+## Ejecuta la aplicación de escritorio
+
+El comando de desarrollo de escritorio inicia el entorno de desarrollo de
+Next.js y la estructura de Electron:
+
+```bash
+pnpm dev:desktop
+```
+
+Para crear un paquete de escritorio de producción:
+
+```bash
+pnpm install-ffmpeg
+pnpm build:desktop
+```
+
+También hay comandos específicos por plataforma:
+
+```bash
+pnpm dist:win
+pnpm dist:mac
+pnpm dist:linux
+```
+
+`BUILD_TARGET=desktop` produce una exportación estática de Next.js en `out/`,
+que después se empaqueta con el proceso principal de Electron y el puente de precarga.
+
+## Desarrolla plugins
+
+Ejecuta el servidor de plugins de ejemplo:
+
+```bash
+pnpm dev:plugins
+```
+
+Busca un puerto disponible, sirve los directorios de plugins de ejemplo con
+CORS y muestra las URL de los manifiestos que puedes instalar en Astrofox.
+Consulta [Creación de plugins](/docs/es/plugin-authoring) para ver el proceso completo.
+
+## Notas de arquitectura
+
+- Las compilaciones web y de escritorio comparten una aplicación y un formato de proyecto.
+- Se prefieren las API File System Access para la lectura y escritura habituales de proyectos y archivos multimedia.
+- El puente de Electron se limita a los controles de ventana, ffmpeg, archivos temporales e integración con el sistema operativo tras exportar.
+- El vídeo web usa `MediaRecorder`; la exportación de escritorio sin conexión renderiza fotogramas y los procesa con el ejecutable ffmpeg incluido.
+- Los plugins JavaScript externos se ejecutan en workers aislados con una política Content Security Policy restrictiva.
+
+El código fuente y la actividad de contribución están en el
+[repositorio de Astrofox en GitHub](https://github.com/astrofox-io/astrofox).

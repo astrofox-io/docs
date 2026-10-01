@@ -1,0 +1,63 @@
+---
+title: Transformación de capas
+description: Mueve y cambia el tamaño de elementos 2D arrastrándolos directamente en el escenario.
+---
+
+La transformación de capas coloca un marco de manipulación alrededor del
+elemento seleccionado para que puedas organizarlo visualmente en lugar de
+escribir números. El marco lee y modifica las mismas propiedades que el
+[panel Controles](/docs/es/interface/controls-panel): posición X/Y, rotación y
+tamaño, por lo que ambas vistas permanecen sincronizadas.
+
+## Inicia una transformación
+
+1. Selecciona un elemento visual en el [panel Capas](/docs/es/interface/layers-panel).
+2. Selecciona **Layer transform** encima del lienzo.
+3. Arrastra los tiradores del escenario.
+
+<img src="/layer-transform.png" alt="Texto seleccionado en el escenario con el marco de transformación y los tiradores de tamaño" />
+
+La herramienta solo funciona con elementos que se renderizan como capas
+planas: texto, formas, imágenes, vídeos, espectros, anillos de forma de onda y
+ondas de sonido. Permanece desactivada para escenas, efectos y cualquier
+elemento que tenga una [cámara 3D](/docs/es/interface/camera-controls).
+
+Pulsa `Esc` para salir del modo. Seleccionar una escena, un efecto, una capa
+desactivada o un elemento incompatible también lo cierra. Seleccionar otro
+elemento 2D activado mantiene la herramienta activa.
+
+## Interacciones
+
+| Gesto | Resultado |
+| --- | --- |
+| Arrastrar dentro del marco | Mueve la capa (actualiza **X** e **Y**) |
+| Arrastrar un tirador de borde o esquina | Cambia el tamaño según el tipo de capa descrito a continuación |
+
+Las zonas de los tiradores se extienden ligeramente más allá del contorno,
+lo que facilita agarrarlos cerca del borde. Los cursores indican el gesto
+que realiza cada zona.
+
+## Qué cambia al redimensionar cada capa
+
+- **Text:** cualquier tirador modifica el tamaño de la fuente.
+- **Radial spectrum:** cualquier tirador escala a la vez los radios interior y exterior.
+- **Waveform ring:** cualquier tirador escala a la vez el radio, la amplitud de la onda y el grosor de la línea.
+- **Bar spectrum, wave spectrum y sound wave:** los bordes cambian una dimensión; las esquinas cambian la anchura y la altura de forma independiente. Los arrastres verticales de Bar Spectrum también escalan la altura del reflejo.
+- **Image y video:** cambian de tamaño conservando la relación de aspecto del archivo.
+- **Shape:** las formas no rectangulares conservan sus proporciones; los rectángulos cambian de tamaño libremente.
+
+La rotación forma parte del mismo conjunto de propiedades: los marcos girados
+pivotan correctamente al arrastrarlos, pero no hay un tirador de rotación.
+Ajusta la rotación con el control **Rotation** de la capa.
+
+<Info>
+  Las ediciones se registran como un único cambio al soltar el puntero. Con el
+  zoom del escenario activo, los tiradores siguen el cursor en proporción 1:1;
+  el deslizador de zoom solo afecta al tamaño con el que se ven los elementos.
+</Info>
+
+## Trabaja durante la reproducción
+
+Mientras no arrastras, el marco sigue los valores animados en cada fotograma
+renderizado. Así puedes afinar la posición con los reactores en marcha y
+soltar sin perder la posición.

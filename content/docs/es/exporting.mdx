@@ -1,0 +1,77 @@
+---
+title: Exportación
+description: Guarda una composición de Astrofox como imagen fija o vídeo codificado.
+---
+
+Astrofox exporta el lienzo con la resolución elegida en **Project settings**.
+El zoom del escenario y la disposición de los paneles del editor no afectan al resultado.
+
+## Guarda una imagen
+
+Desplaza la reproducción al fotograma que quieras y selecciona **Save image**
+en la barra de acciones. Astrofox renderiza el escenario y pregunta dónde
+guardar la imagen, usando el mejor proceso de guardado disponible en tu
+navegador o entorno de escritorio.
+
+<img src="/action-rail.png" alt="Acciones de proyecto, audio, exportación y ajustes junto al panel Capas" />
+
+## Guarda un vídeo
+
+Selecciona **Save video** en la barra de acciones. El diálogo de exportación permite:
+
+- Elegir o confirmar la fuente de audio
+- Elegir una ubicación de guardado si la plataforma lo permite
+- Ajustar el inicio y el final mediante campos, una forma de onda o tiradores de intervalo
+- Incluir u omitir el audio en el archivo final
+- Seleccionar 30 o 60 fotogramas por segundo
+- Elegir calidad Low, Medium o High
+- En escritorio, seleccionar codificación x264, x265, NVEnc o WebM
+
+<img src="/save-video.png" alt="Guardar vídeo" />
+
+<Steps>
+  <Step title="Elige el audio">
+    Selecciona un archivo de audio de al menos cinco segundos. Esta fuente
+    define la línea de tiempo disponible para exportar, aunque el proyecto
+    estuviera usando entrada en directo.
+  </Step>
+  <Step title="Ajusta el intervalo">
+    Establece una hora de inicio y otra de fin al menos cinco segundos después.
+    Usa el segmento resaltado de la forma de onda para comprobar la selección.
+  </Step>
+  <Step title="Elige la calidad y la frecuencia de fotogramas">
+    Empieza con Medium a 30 fps. Usa 60 fps para movimientos rápidos o clips
+    más fluidos en redes sociales, y High para la versión final cuando el
+    tiempo de renderizado sea menos importante.
+  </Step>
+  <Step title="Inicia la exportación">
+    Elige **Save video**. Astrofox renderiza el intervalo seleccionado.
+    El botón Stop cancela una exportación en curso.
+  </Step>
+</Steps>
+
+## Exportación en navegador y escritorio
+
+| Plataforma | Método de exportación | Salida habitual |
+| --- | --- | --- |
+| Web | Compatibilidad del navegador con `MediaRecorder` | WebM, o MP4 si el navegador lo admite |
+| Escritorio con ffmpeg | Renderizado de fotogramas sin conexión seguido de codificación con ffmpeg | MP4 con H.264/AAC de forma predeterminada; se pueden seleccionar otros codificadores |
+| Escritorio sin ffmpeg | Alternativa compatible con el navegador | Formato admitido por el navegador integrado |
+
+El renderizado sin conexión del escritorio usa tiempos fijos por fotograma,
+por lo que la animación y el análisis de audio son deterministas. Por la misma
+razón, las animaciones de plugins deben usar el tiempo de fotograma que
+proporciona Astrofox.
+
+## Elige un codificador
+
+- **x264** es la opción MP4 más segura para uso general.
+- **x265** crea vídeo HEVC y puede generar archivos más pequeños, pero su compatibilidad de reproducción es menos universal.
+- **NVEnc** usa hardware NVIDIA compatible para acelerar la codificación H.264.
+- **WebM** es útil para distribución web y procesos que prefieren el contenedor abierto WebM.
+
+<Warning>
+  Aumentar la frecuencia de fotogramas, la resolución o la calidad incrementa
+  el tiempo de renderizado y el tamaño del archivo. Prueba un segmento corto
+  antes de realizar una exportación final larga.
+</Warning>

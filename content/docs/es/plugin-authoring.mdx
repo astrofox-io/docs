@@ -1,0 +1,135 @@
+---
+title: Creación de plugins
+description: Crea y sirve un plugin externo de elemento visual o efecto para Astrofox.
+---
+
+Un plugin externo es un pequeño directorio que contiene un manifiesto
+`astrofox.plugin.json` y un shader de fragmentos o módulo JavaScript.
+Astrofox admite tres combinaciones:
+
+| Tipo | Entorno de ejecución | Función |
+| --- | --- | --- |
+| Display | Shader | Capa 2D generativa mediante un shader de fragmentos |
+| Effect | Shader | Paso de posprocesamiento sobre la escena actual |
+| Display | Worker | Capa de canvas JavaScript o Three.js en un entorno aislado |
+
+Los plugins de efectos solo admiten el entorno shader. Los efectos worker se rechazan.
+
+## Empieza con un ejemplo
+
+El repositorio de Astrofox incluye ejemplos completos en
+[`examples/plugins`](https://github.com/astrofox-io/astrofox/tree/main/examples/plugins):
+
+| Ejemplo | Qué muestra |
+| --- | --- |
+| `bass-glow` | Efecto shader con uniforms de propiedades |
+| `plasma` | Elemento shader con datos FFT |
+| `pulse-bars` | Dibujo en canvas 2D dentro de un worker aislado |
+| `audio-orb` | Three.js mediante la biblioteca y el renderizador proporcionados por el anfitrión |
+| `cubes` | Instancias de Three.js con controles de cámara gestionados por el anfitrión |
+
+Copia el ejemplo más parecido a lo que necesitas, cambia su identificador con
+espacio de nombres, su etiqueta y su implementación, y ejecútalo localmente.
+
+## Elemento shader mínimo
+
+Crea esta estructura:
+
+```text
+my-plugin/
+├── astrofox.plugin.json
+└── display.frag
+```
+
+```jsonc title="astrofox.plugin.json"
+{
+  "api": 1,
+  "name": "@your-name/my-plugin",
+  "version": "1.0.0",
+  "label": "My Plugin",
+  "description": "A generative color field.",
+  "author": "Your Name",
+  "type": "display",
+  "runtime": "shader",
+  "shader": "./display.frag",
+  "defaultProperties": {
+    "width": 1280,
+    "height": 720,
+    "speed": 1
+  },
+  "controls": {
+    "speed": {
+      "label": "Speed",
+      "type": "number",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "withRange": true,
+      "withReactor": true
+    }
+  },
+  "uniforms": {
+    "speed": { "type": "float", "from": "speed" }
+  }
+}
+```
+
+```glsl title="display.frag"
+precision highp float;
+
+varying vec2 vUv;
+uniform float time;
+uniform float speed;
+
+void main() {
+  vec3 color = 0.5 + 0.5 * cos(time * speed + vUv.xyx * 6.2831);
+  gl_FragColor = vec4(color, 1.0);
+}
+```
+
+Astrofox añade automáticamente posición, rotación, escala, opacidad y soporte
+de reactores a los elementos visuales externos. Los elementos sin cámara
+también reciben la superposición de transformación del escenario. Los
+elementos worker con cámara usan el [control de cámara](/docs/es/interface/camera-controls).
+
+## Desarrolla localmente
+
+<Steps>
+  <Step title="Instala las dependencias del código fuente de Astrofox">
+    Clona el repositorio de Astrofox y ejecuta `pnpm install` una vez.
+  </Step>
+  <Step title="Inicia el servidor de plugins">
+    Ejecuta `pnpm dev:plugins` desde el repositorio de Astrofox. Sirve todos
+    los plugins de ejemplo con CORS habilitado en un puerto local disponible
+    y muestra las URL de sus manifiestos.
+  </Step>
+  <Step title="Instala el manifiesto local">
+    En Astrofox, selecciona **Manage plugins** en la barra de acciones e instala
+    la URL `http://localhost:…/astrofox.plugin.json` que se ha mostrado.
+  </Step>
+  <Step title="Itera">
+    Edita los archivos del plugin y usa **Reload** en Manage Plugins. Los plugins
+    de localhost se marcan como instalaciones de desarrollo.
+  </Step>
+</Steps>
+
+<img src="/manage-plugins.png" alt="Diálogo Manage Plugins con el campo de URL del manifiesto y el botón Add" />
+
+## Publica
+
+Aloja el manifiesto y todos los archivos referenciados en el mismo origen
+accesible por HTTPS. Las referencias relativas se resuelven desde la URL del
+manifiesto. El servidor debe permitir que Astrofox obtenga los archivos mediante CORS.
+
+Incrementa `version` en el manifiesto cuando publiques cambios. Las versiones
+instaladas se guardan en caché y su integridad queda fijada, por lo que los
+usuarios eligen cuándo actualizar.
+
+<Tip>
+  Mantén estables las URL de los plugins y usa versionado semántico en el
+  manifiesto. Los proyectos conservan la URL de origen y la versión del plugin,
+  lo que facilita identificar dependencias que falten más adelante.
+</Tip>
+
+Continúa con [Entornos de ejecución de plugins](/docs/es/plugin-runtimes) o usa
+la [referencia del manifiesto](/docs/es/plugin-reference).

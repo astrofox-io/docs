@@ -1,0 +1,104 @@
+---
+title: Solución de problemas
+description: Resuelve problemas habituales de audio, archivos multimedia, plugins, visualización y exportación en Astrofox.
+---
+
+## El visual no reacciona al audio
+
+1. Confirma que hay un archivo de audio o una entrada en directo conectada y activa.
+2. Pulsa Play para un archivo o inicia la entrada en directo seleccionada.
+3. Prueba un elemento de espectro integrado para confirmar que Astrofox recibe audio.
+4. Abre el reactor y comprueba que su medidor de salida se mueve.
+5. Amplía la selección del espectro o reduce **Max dB** si la señal es demasiado débil.
+6. Confirma que el control de destino está vinculado al reactor correcto y que su intervalo de valores no es constante.
+
+Si el movimiento se retrasa, reduce el suavizado del reactor. Si es demasiado
+inestable, auméntalo. En los modos de espectro, un valor de caída más alto
+también hace que la salida descienda más lentamente.
+
+<img src="/reactor-binding.png" alt="Menú de vinculación junto a Opacity con las opciones Reactor 1 y New Reactor" />
+
+## No aparece un micrófono o dispositivo MIDI
+
+- Concede el permiso de micrófono o MIDI cuando lo solicite el navegador.
+- Confirma que el dispositivo está conectado y disponible para otras aplicaciones.
+- Actualiza la lista de entradas disponibles después de conectar un dispositivo nuevo.
+- Cierra otra aplicación si tiene control exclusivo del dispositivo.
+- En macOS de escritorio, comprueba los permisos de Astrofox en Ajustes del Sistema.
+
+La disponibilidad del audio del escritorio depende de la fuente de pantalla
+compartida seleccionada y del sistema operativo. Algunos navegadores ofrecen
+audio de pestañas, pero no de todo el sistema.
+
+<img src="/input-sources.png" alt="Menú de fuentes de entrada con las opciones Microphone, Desktop Audio y MIDI" />
+
+## Un proyecto se abre con archivos multimedia que faltan
+
+Los archivos locales de imagen y vídeo no siempre se pueden volver a abrir
+automáticamente, especialmente después de trasladar un proyecto a otro equipo.
+Usa **Relink Media** para seleccionar la imagen o el vídeo correspondiente a
+cada capa pendiente.
+
+El audio no se almacena en el archivo del proyecto. Vuelve a cargar la pista
+con **Load audio** después de abrirlo.
+
+Mantén los archivos multimedia junto al proyecto cuando archives o traslades tu trabajo.
+
+## Una capa de plugin no se renderiza
+
+1. Selecciona **Manage plugins** en la barra de acciones y confirma que el plugin necesario está instalado.
+2. Si es un plugin de desarrollo, recárgalo después de cambiar archivos.
+3. Comprueba que su manifiesto y los archivos referenciados son accesibles y se sirven con CORS habilitado.
+4. Usa HTTPS para plugins publicados; HTTP solo se acepta en localhost.
+5. Busca errores de compilación de shaders o del worker en la consola de desarrollo del navegador.
+6. Asegúrate de que la animación usa `frame.time` en lugar de temporizadores del reloj del sistema.
+
+Un worker que tarda más de unos 3 segundos en renderizar un fotograma de
+vista previa, o 5 segundos durante la exportación, se detiene y se marca como
+no respondiente para que el resto de Astrofox pueda continuar.
+
+<img src="/manage-plugins.png" alt="Diálogo Manage Plugins con el campo de URL del manifiesto y el botón Add" />
+
+## Save video no se inicia
+
+**Save video** siempre abre el diálogo de exportación. El botón de confirmación
+permanece desactivado hasta que la exportación tenga:
+
+- Un archivo de audio de al menos cinco segundos
+- Un inicio anterior al final
+- Un intervalo seleccionado de al menos cinco segundos
+- Una ubicación de guardado cuando la plataforma permita elegirla de antemano
+
+La entrada en directo por sí sola no define una línea de tiempo de exportación
+sin conexión. Elige un archivo de audio en el diálogo Save Video.
+
+<img src="/save-video.png" alt="Guardar vídeo" />
+
+## El formato de exportación no es el esperado
+
+La exportación web usa los formatos compatibles con el `MediaRecorder` del
+navegador actual. Usa la aplicación de escritorio con ffmpeg incluido cuando
+necesites un codificador MP4 o WebM concreto. Si la aplicación de escritorio
+no encuentra ffmpeg, recurre al método compatible con el navegador.
+
+## La aplicación de escritorio no captura audio
+
+La entrada de micrófono necesita permiso de micrófono. El audio del escritorio
+también puede requerir permiso de grabación de pantalla y una fuente de
+captura que incluya realmente una pista de audio. Reinicia Astrofox después
+de cambiar los permisos del sistema operativo.
+
+## Un proyecto antiguo ha perdido elementos
+
+Astrofox migra automáticamente los elementos compatibles de proyectos 1.x.
+Los elementos no compatibles o que no se pueden convertir se eliminan y se
+notifican al abrir el proyecto. Conserva una copia del archivo `.afx` original
+y consulta [Actualización desde 1.x](/docs/es/upgrading-from-v1) para conocer las equivalencias.
+
+## Informa de un error
+
+Busca o abre una incidencia en el
+[gestor de incidencias de Astrofox](https://github.com/astrofox-io/astrofox/issues).
+Incluye la versión de Astrofox, la plataforma web o de escritorio, el sistema
+operativo y el navegador, los pasos para reproducir el problema y un proyecto
+mínimo cuando sea seguro compartirlo.

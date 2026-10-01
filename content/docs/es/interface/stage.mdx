@@ -1,0 +1,86 @@
+---
+title: Escenario
+description: Previsualiza la composición y manipula directamente los elementos visuales compatibles.
+---
+
+El escenario es la vista previa en directo del lienzo del proyecto. Muestra
+el resultado combinado de las escenas, los elementos visuales y los efectos
+activados, las vinculaciones de reactores y el estado actual del audio o de
+la entrada en directo.
+
+## Herramientas del escenario
+
+Los botones sobre el lienzo solo habilitan herramientas cuando el entorno y
+la selección actual las admiten.
+
+<img src="/stage-tools.png" alt="Barra de herramientas del escenario con los botones de imagen en imagen, transformación de capas y control de cámara" />
+
+De izquierda a derecha: **Picture in picture**, **Layer transform** y **Camera control**.
+
+### Imagen en imagen
+
+Abre el escenario en una ventana flotante de imagen en imagen cuando el
+navegador o el entorno de escritorio lo permita. Es útil para ajustar audio en
+otra ventana o mantener el visual visible durante una actuación.
+
+<img src="/picture-in-picture-button.png" alt="Barra de herramientas del escenario con imagen en imagen activada a la izquierda" />
+
+Si el botón está desactivado, imagen en imagen no está disponible en el entorno actual.
+
+Consulta [Imagen en imagen](/docs/es/interface/picture-in-picture) para conocer
+su comportamiento, limitaciones y compatibilidad con navegadores.
+
+### Transformación de capas
+
+Selecciona un elemento visual compatible en Capas y activa la herramienta de
+transformación. La superposición permite moverlo y cambiar su tamaño
+directamente en el lienzo. Estos cambios actualizan los mismos valores de
+posición y tamaño que aparecen en Controles.
+
+<img src="/layer-transform.png" alt="Texto seleccionado en el escenario con el marco de transformación y los tiradores de tamaño" />
+
+La herramienta se desactiva cuando el elemento seleccionado no se puede
+transformar en el escenario, como una escena, un efecto, una capa desactivada
+o un elemento con cámara 3D.
+
+Consulta [Transformación de capas](/docs/es/interface/layer-transform) para ver
+la guía completa de gestos y cómo responde cada tipo de capa al cambio de tamaño.
+
+### Control de cámara
+
+Selecciona un elemento con cámara 3D y activa el control de cámara. Arrastra
+sobre el escenario para orbitar y usa la rueda del ratón para cambiar la
+distancia. Los valores de la cámara permanecen sincronizados con los controles
+del elemento.
+
+<img src="/stage-camera.png" alt="Cubo Geometry en el escenario con la guía de ejes de la cámara visible" />
+
+Consulta [Controles de cámara](/docs/es/interface/camera-controls) para conocer
+los gestos, los límites y las propiedades de cámara que admiten reactores.
+
+## Carga audio arrastrándolo
+
+Puedes arrastrar un archivo de audio sobre el escenario en lugar de usar
+**Load audio** en la barra de acciones. El indicador de soltar muestra que
+Astrofox ha detectado el archivo; después, la aplicación lo carga en el
+reproductor para reproducirlo y analizarlo.
+
+## Ajusta el zoom de la vista del editor
+
+El centro de la barra de estado muestra el tamaño del lienzo, los botones de
+zoom, un deslizador y el porcentaje actual.
+
+<img src="/stage-zoom.png" alt="Dimensiones del lienzo, botones de zoom, deslizador y porcentaje para ajustar a la pantalla" />
+
+- Selecciona las dimensiones del lienzo para volver al 100 % de zoom.
+- Usa **−** y **+** o el deslizador para ajustar el tamaño de la vista con precisión.
+- Selecciona el porcentaje para ajustar el escenario a aproximadamente el 80 % del espacio de trabajo disponible (Fit to screen).
+
+El zoom del escenario solo afecta al tamaño con el que se ve el lienzo en el
+editor. No cambia la resolución del proyecto, la escala de las capas ni las
+dimensiones de exportación.
+
+<Tip>
+  Oculta uno o varios paneles laterales desde la barra de la aplicación antes
+  de usar **Fit to screen** para que el lienzo disponga de más espacio visible.
+</Tip>

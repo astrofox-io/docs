@@ -1,0 +1,65 @@
+---
+title: Panel Capas
+description: Añade, selecciona, renombra, organiza, oculta y elimina escenas, elementos visuales y efectos.
+---
+
+El panel Capas define la estructura de la composición. Cada escena contiene
+una sección **Displays** para el contenido que dibuja píxeles y otra
+**Effects** para procesar la escena completa.
+
+<img src="/layers-panel.png" alt="Panel Capas con Text 1 seleccionado dentro de Scene 1" />
+
+## Añade contenido
+
+Usa el **+** junto a **Layers** para añadir una escena. Dentro de ella, usa el
+**+** junto a **Displays** o **Effects** para abrir el panel de selección correspondiente.
+
+Este panel agrupa los elementos disponibles por tipo. Al elegir uno, se añade
+a esa escena, se selecciona su nueva capa y se muestran sus ajustes en el
+panel Controles. Los plugins instalados aparecen en el mismo proceso de
+adición que los elementos visuales y efectos integrados.
+
+<img src="/add-display.png" alt="Añadir un elemento visual" />
+
+## Selecciona y edita una fila
+
+Selecciona la fila de una escena, elemento visual o efecto para activarla.
+El panel Controles enfoca entonces la tarjeta correspondiente. Un elemento 2D
+seleccionado puede habilitar la [transformación de capas](/docs/es/interface/layer-transform);
+uno 3D puede habilitar el [control de cámara](/docs/es/interface/camera-controls).
+
+Cada fila admite estas acciones habituales:
+
+- **Cambiar el nombre:** haz doble clic en el nombre, introduce una etiqueta útil y confírmala.
+- **Mostrar u ocultar:** selecciona el icono del ojo. Una fila desactivada permanece en el proyecto, pero no contribuye al resultado.
+- **Eliminar:** pasa el puntero sobre la fila y selecciona la papelera. Eliminar borra el elemento, no solo lo oculta.
+
+## Reordena las capas
+
+Selecciona una fila y usa los botones de subir o bajar de la parte superior
+para moverla una posición con precisión. Un botón desactivado indica que el
+elemento seleccionado ha llegado a un límite válido.
+
+También puedes arrastrar las filas:
+
+- Las escenas se pueden reordenar entre sí.
+- Los elementos visuales se pueden reordenar entre sí y mover a otra escena.
+- Los efectos se pueden reordenar entre sí y mover a otra escena.
+- Soltar un elemento visual o un efecto sobre una escena lo mueve a ella.
+
+Los elementos visuales y los efectos permanecen en sus respectivas secciones
+porque cumplen funciones distintas en el proceso de renderizado.
+
+## Ajusta el tamaño de Capas y Reactores
+
+Arrastra el divisor horizontal entre Capas y Reactores para dar más espacio
+vertical a una de las listas. Es útil cuando un proyecto tiene muchas capas
+o muchos reactores. El divisor solo cambia la disposición de la interfaz.
+
+<Tip>
+  Nombra las capas por su función, como «Título», «Barras de graves» o
+  «Resplandor final», para facilitar la lectura de composiciones grandes.
+</Tip>
+
+Consulta [Escenas y capas](/docs/es/scenes-and-layers) para conocer los tipos
+de elementos visuales, los efectos y la estructura de la composición.

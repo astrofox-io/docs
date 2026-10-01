@@ -1,0 +1,63 @@
+---
+title: Panel Reactores
+description: Crea y gestiona las señales que hacen reaccionar los controles de Astrofox.
+---
+
+El panel Reactores enumera las señales disponibles para controlar ajustes
+compatibles. Ocupa la mitad inferior del panel izquierdo y puedes cambiar su
+tamaño arrastrando el divisor que lo separa de Capas.
+
+## Añade y selecciona un reactor
+
+Selecciona el **+** junto a **Reactors** para crear un reactor. El nuevo elemento
+aparece con un medidor de salida en directo y se selecciona automáticamente.
+
+Al seleccionar un reactor se abre su editor detallado encima del reproductor.
+Según el modo de salida, el editor puede mostrar:
+
+- Controles de modo de salida, Max dB, suavizado, tiempo de retención, caída, sensibilidad o velocidad
+- Un espectro con una región de selección que puedes arrastrar
+- Un medidor vertical de la salida normalizada del reactor
+
+El editor solo aparece mientras hay un reactor seleccionado. Usa su botón de
+cierre para ocultarlo sin eliminar ni desactivar el reactor.
+
+<img src="/reactor-panel.png" alt="Panel del reactor" />
+
+## Gestiona la lista
+
+Las filas de reactores se comportan de forma similar a las de capas:
+
+- Haz doble clic en un nombre para cambiarlo.
+- Selecciona la fila con el icono de rayo para abrir el editor del reactor.
+- Selecciona el ojo para activar o desactivar su salida.
+- Pasa el puntero sobre la fila y selecciona la papelera para eliminarlo.
+
+El medidor fino bajo cada fila permite comparar la actividad de los reactores
+sin abrir todos los editores.
+
+## Usa un reactor
+
+Crear un reactor no cambia por sí solo la composición. Para usar su salida:
+
+<Steps>
+  <Step title="Ajusta la señal">
+    Reproduce audio o activa la entrada en directo y ajusta el reactor hasta
+    que su medidor de salida siga el sonido o el ritmo temporal que quieras.
+  </Step>
+  <Step title="Selecciona un elemento visual">
+    Selecciona un elemento visual o un efecto en Capas y busca un control
+    compatible con reactores en el panel Controles.
+  </Step>
+  <Step title="Vincula el control">
+    Elige el reactor. La salida se distribuye entre el mínimo y el máximo del control.
+  </Step>
+</Steps>
+
+Un reactor puede controlar varios ajustes. Desactivarlo pausa todas sus
+vinculaciones y conserva su configuración en el proyecto.
+
+Consulta [Reactores](/docs/es/reactors) para conocer los modos de salida, los
+ajustes de señal y ejemplos prácticos de vinculación.
+
+<img src="/reactor-binding.png" alt="Menú de vinculación junto a Opacity con las opciones Reactor 1 y New Reactor" />

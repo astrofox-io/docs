@@ -1,0 +1,76 @@
+---
+title: Controles de cámara
+description: Orbita y ajusta el zoom de la cámara virtual de elementos 3D directamente en el escenario.
+---
+
+Los elementos renderizados en 3D tienen una cámara virtual. Con el control de
+cámara activado, el escenario se convierte en su visor: orbita alrededor de
+la escena, ajusta la distancia y encuadra la toma tal como quieras exportarla.
+
+<img src="/stage-camera.png" alt="Cubo Geometry en el escenario con la guía de ejes de la cámara visible" />
+
+## Qué elementos tienen cámara
+
+Tres elementos integrados ofrecen cámaras y aparecen en la categoría **3D**
+del menú Add display:
+
+- Geometry
+- Tunnel
+- Mesh grid
+
+Los plugins instalados también pueden declarar una cámara; una vez
+registrados, aparecen junto a los elementos integrados.
+
+## Usa los controles de cámara
+
+1. Selecciona un elemento 3D en el panel Capas.
+2. Selecciona **Camera control** encima del lienzo.
+3. Interactúa con el escenario:
+
+| Gesto | Acción |
+| --- | --- |
+| Arrastrar a izquierda o derecha | Gira alrededor de la escena (**Azimuth**) |
+| Arrastrar hacia arriba o abajo | Inclina hacia los límites superior o inferior (**Polar**) |
+| Rueda del ratón | Acerca o aleja (**Distance**) |
+
+El cursor cambia a una mano de agarre sobre el lienzo mientras el modo está
+activo. Los elementos 3D integrados también muestran una pequeña guía de ejes;
+los plugins con cámara orbitan sin esa guía.
+
+`Esc` siempre cierra el modo de cámara. Seleccionar una escena, un efecto, una
+capa desactivada o un elemento sin cámara también lo cierra. Seleccionar otro
+elemento activado con cámara mantiene la herramienta activa. Activar la
+[transformación de capas](/docs/es/interface/layer-transform) desactiva el modo
+de cámara: las dos herramientas de manipulación directa nunca funcionan a la vez.
+
+## Valores de cámara en Controles
+
+Cada ajuste se guarda en las propiedades del elemento, que el
+[panel Controles](/docs/es/interface/controls-panel) muestra en el grupo **Camera**:
+
+<img src="/camera-controls.png" alt="Controles de Camera desplegados con los campos Azimuth, Polar y Distance" />
+
+| Control | Intervalo | Valor predeterminado |
+| --- | --- | --- |
+| Azimuth | De −π a π radianes | π/4 |
+| Polar | Ligeramente menor que ±π/2 radianes | π/6 |
+| Distance | 0 – 5000 | Auto |
+
+El panel Controles muestra estos ángulos en radianes, no en grados. Polar se
+detiene justo antes de la vertical superior e inferior para que la vista nunca
+se invierta al atravesar los polos. Una distancia de cero significa encuadre
+automático: la cámara ajusta toda la altura del escenario según su campo de
+visión. Introduce un valor o arrastra hasta obtener el encuadre que quieras
+para tomar el control manual.
+
+Como son propiedades numéricas normales, puedes vincularlas a
+[reactores](/docs/es/interface/reactors-panel): recorre lentamente el azimut
+con una banda de graves, acerca la cámara en los picos de volumen o usa notas
+MIDI para saltar entre ángulos.
+
+## Ajustes relacionados
+
+La misma tarjeta de Controles agrupa el resto de ajustes del aspecto 3D: un
+sistema de tres luces con sombras en **Lighting** y desenfoque por profundidad
+en **Depth of Field**. Ambos empiezan desactivados, pero se combinan de forma
+natural con el encuadre de la cámara cuando los activas.

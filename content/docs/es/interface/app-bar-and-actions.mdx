@@ -1,0 +1,72 @@
+---
+title: Barra de la aplicación y acciones
+description: Gestiona proyectos, exportaciones, ajustes y la disposición del espacio de trabajo de Astrofox.
+---
+
+La barra de la aplicación identifica el proyecto actual y controla la
+disposición del espacio de trabajo. La barra vertical de acciones del extremo
+izquierdo contiene los comandos para gestionar archivos de proyecto, audio,
+exportaciones, plugins y ajustes.
+
+## Barra de la aplicación
+
+El nombre del proyecto aparece junto al icono de Astrofox. Selecciona el
+nombre o el botón **Project settings** (el icono de ajustes) de la barra de
+acciones para cambiar el título, las dimensiones del lienzo y el fondo.
+**ASTROFOX** permanece centrado en la barra para identificar fácilmente la
+aplicación incluso cuando el título del proyecto es largo.
+
+<img src="/app-bar.png" alt="Barra de la aplicación con el menú Edit y el nombre del proyecto actual" />
+
+Los tres botones de la derecha muestran u ocultan las áreas principales:
+
+- **Left panel** controla la barra de acciones y los paneles Capas y Reactores.
+- **Bottom panel** controla el editor del reactor, la forma de onda y el reproductor.
+- **Right panel** controla el panel Controles.
+
+Los botones indican si su panel está visible. Ocultar un panel deja más
+espacio para el escenario y no cambia el contenido del proyecto ni las
+dimensiones de exportación.
+
+En Windows y Linux, la aplicación de escritorio sitúa los controles para
+minimizar, maximizar o restaurar, y cerrar al final de la barra. En macOS, los
+controles de ventana del sistema permanecen a la izquierda. Estos controles
+no aparecen en la versión del navegador.
+
+<img src="/panel-toggles.png" alt="Botones para mostrar u ocultar los paneles izquierdo, inferior y derecho" />
+
+## Barra de acciones
+
+La barra agrupa acciones relacionadas y separa los grupos con divisores.
+Pasa el puntero sobre un icono para ver su nombre.
+
+<img src="/action-rail.png" alt="Acciones de proyecto, audio, exportación y ajustes junto al panel Capas" />
+
+| Acción | Función |
+| --- | --- |
+| New project | Inicia una composición predeterminada (Image, Bar Spectrum y Text); antes, Astrofox ofrece guardar el trabajo pendiente |
+| Open project | Abre proyectos `.afx` de Astrofox, comprimidos con gzip o no, y archivos `.json` guardados por versiones anteriores de la serie 2.x |
+| Save project | Descarga o guarda un archivo de proyecto `.afx` editable |
+| Load audio | Selecciona el archivo de audio para la reproducción, el análisis y la exportación de vídeo |
+| Save image | Exporta el fotograma actual del escenario como imagen fija |
+| Save video | Abre los ajustes de exportación de vídeo |
+| Project settings | Cambia el nombre del proyecto, el formato y tamaño del lienzo y el fondo |
+
+Dos botones permanecen al final de la barra:
+
+- **Manage plugins** instala, activa, desactiva o elimina plugins.
+- **Settings** contiene las preferencias generales de la aplicación, en lugar de los ajustes guardados con un proyecto concreto.
+
+## Acciones del proyecto y ajustes de la aplicación
+
+Los ajustes del proyecto viajan con él porque describen el visual que estás
+creando. **Settings** afecta a la instalación de Astrofox o al navegador y no
+forma parte de la composición.
+
+<img src="/project-settings.png" alt="Ajustes del proyecto" />
+
+<Tip>
+  El icono bajo el puntero siempre muestra una etiqueta de ayuda. Consúltala
+  antes de usar una acción desconocida, especialmente si el proyecto tiene
+  cambios sin guardar.
+</Tip>
